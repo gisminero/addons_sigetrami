@@ -1,0 +1,102 @@
+# -*- coding: utf-8 -*-
+from odoo import models, fields, api
+import datetime
+from odoo import exceptions
+
+class exp_canon_obligaciones(models.Model):
+    _name = 'exp_canon_obligaciones'
+    _description = "Canon Obligaciones a Cumplir"
+
+    name = fields.Char('Concepto', required=True, readonly=True)
+    fecha_vencimiento = fields.Date('Vencimiento', readonly=True)
+    fecha_vencimiento_gracia = fields.Date('Plazo Gracia', readonly=True)
+    fecha_pago = fields.Date('Fecha de Pago', readonly=True)
+    monto_debe = fields.Float('Monto Debe', readonly=True)
+    monto_haber = fields.Float('Monto Haber', readonly=True)
+    monto_saldo = fields.Float('Monto de Saldo', readonly=True)
+    estado = fields.Selection([
+        ('emitido', 'Emitido'),
+        ('pagado', 'Pagado'),
+        ('vencido', 'Vencido'),], required=False,
+        help="Estado de la Obligación", string="Estado", readonly=True)
+    exp_id = fields.Many2one('expediente.expediente', 'Canon', required=1, ondelete='cascade')
+
+    def crear_obligacion(self, exp, semestre):
+        hoy = datetime.date.today()
+        anio = hoy.year
+        if semestre == 1:
+            mes_vto = exp.config_asociada.mes_primer_vencimiento_anual
+            mes_vto_gracia = exp.config_asociada.mes_primer_plazo_gracia
+            anio_gracia = anio
+        else:
+            mes_vto = exp.config_asociada.mes_segundo_vencimiento_anual
+            mes_vto_gracia = exp.config_asociada.mes_segundo_plazo_gracia
+            anio_gracia = anio + 1
+        concepto = 'Canon ' + str(anio) + ' - Pago ' + str(semestre)
+        print (("LA CONFIGURACION ASOCIADA A ESTE EXPEDIENTE ES: " + str(exp.config_asociada.name) + " Y EL SEMESTRE ES: " + str(semestre)))
+        print(("EL MES DE SEGUNDO VENCIMIENTO ANUAL ES: " + str(exp.config_asociada.mes_segundo_vencimiento_anual)))
+        self.obtener_ultimo_dia_mes(anio, 2)
+        fecha_venc = str(anio) +'-'+ str(mes_vto) + '-' + str(self.obtener_ultimo_dia_mes(anio, mes_vto))
+        fecha_venc_gracia = str(anio_gracia) +'-'+ str(mes_vto_gracia) + '-' + str(self.obtener_ultimo_dia_mes(anio_gracia, mes_vto_gracia))
+        self.create({'name': concepto, 'exp_id': exp.id, 'fecha_vencimiento': fecha_venc, 'fecha_vencimiento_gracia': fecha_venc_gracia
+                     , 'estado': 'emitido'})
+        return True
+
+    def realiza_pago(self):
+        return True
+
+    def obtener_ultimo_dia_mes(self, anio, mes):
+        anio = anio + 1 if (mes == 12) else anio
+        mes = 1 if (mes == 12) else mes + 1
+        ultima_fecha_mes = datetime.date(anio, mes, 1) - datetime.timedelta(days=1)
+        print (("LA ULTIMA FECHA DE MES ES IGUAL A : " + str(ultima_fecha_mes) + " ultimo dia: " + str(ultima_fecha_mes.day)))
+        return ultima_fecha_mes.day
+
+    def informa_pago(self):
+        print (("MAS INFORMACION DEL DOCUMENTO"))
+        active_id = self.env.context.get('id_activo')
+        print (("ENVIANDO .... " + str(active_id)))
+        expte_obj = self.browse([active_id])
+        if True:
+            return {
+            'name': "Informar Pago",
+            'view_mode': 'form',
+            'res_id': self.id, #SOLO PARA FORM
+            'res_model': 'exp_canon_obligaciones',
+            'type': 'ir.actions.act_window',
+            # 'domain': [('seguimiento_id.expediente_id', '=', active_id)],
+            #'context': {'recibido': True, 'ubicacion_actual': depart_id},
+            'views': [[self.env.ref('exp_canon.form_popup_informa_pago').id, "form"]],
+            'target': 'new',
+            'tag': 'reload',
+            }
+        return True
+
+    def informar_pago(self):
+        print (("GUARDANDO ... con WRITE HEREDADO"))
+        if self.monto_haber == False or self.fecha_pago == False:
+            raise exceptions.ValidationError('Faltan datos para continuar con la operación.')
+        self.write({'monto_haber': self.monto_haber, 'fecha_pago': self.fecha_pago, 'estado': 'pagado'})
+        return True
+
+class expediente(models.Model):
+
+    _name = 'expediente.expediente'
+    _inherit = 'expediente.expediente'
+    _description = "Asociando las obligaciones de pago de canon minero."
+
+    def default_config_canon(self):
+        default_canon = self.env['exp_canon_config'].search([('config_defecto', '=', True), ('active', '=', True)])
+        return default_canon.id
+
+    canon_obligaciones_id = fields.One2many('exp_canon_obligaciones', 'exp_id', string='Obligaciones', required=False)
+    cant_vencimientos_no_cumplidos = fields.Integer('Vencimientos No Cumplidos', help='', default=0)
+    config_asociada = fields.Many2one('exp_canon_config', 'Configuracion Canon Asociada', readonly=False, default=default_config_canon, required=True)
+
+    def informa_pago(self):
+        print (("BORRAR"))
+        return True
+
+    def canon_cambiar_config_default(self):
+        return True
+

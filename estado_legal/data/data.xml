@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data  noupdate="0">
+<record id="estado_0" model="estado_legal.estado_legal"><field name="name">Solicitado</field><field name="description">Solicitado</field><field name="active">True</field></record>
+<record id="estado_1" model="estado_legal.estado_legal"><field name="name">Inscripto</field><field name="description">Inscripto</field><field name="active">True</field></record>
+<record id="estado_2" model="estado_legal.estado_legal"><field name="name">Concedido</field><field name="description">Concedido</field><field name="active">True</field></record>
+<record id="estado_3" model="estado_legal.estado_legal"><field name="name">Vencido</field><field name="description">Vencido</field><field name="active">True</field></record>
+<record id="estado_4" model="estado_legal.estado_legal"><field name="name">Con Aprobación de Mensura</field><field name="description">Con Aprobación de Mensura</field><field name="active">True</field></record>
+<record id="estado_5" model="estado_legal.estado_legal"><field name="name">Vacante</field><field name="description">Vacante</field><field name="active">True</field></record>
+    </data>
+</odoo>

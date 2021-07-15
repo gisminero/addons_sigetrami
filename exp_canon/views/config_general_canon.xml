@@ -1,0 +1,67 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="exp_canon.exp_canon_config_list">
+      <field name="name">Configuracion GENERAL</field>
+      <field name="model">exp_canon_config</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="exp_canon.exp_canon_config_form">
+      <field name="name">Configuracion GENERAL</field>
+      <field name="model">exp_canon_config</field>
+      <field name="arch" type="xml">
+      <form string="Configuracion General" >
+        <header>
+        </header>
+        <group>
+                <separator string="Configuración de valor General" colspan="4"/>
+            <!--<spam>En esta pantalla se configura la combinación de trámite y estado, en la cual el sistema debe permitir cambio de trámite en un expediente.<spam/> -->
+                 <button name="activar" string="Validar" class="oe_highlight" type="object"
+                         confirm="Si confirma la validacion, no podra modificar el valor."/>
+        </group>
+
+          <group>
+                <field name="name"/>
+          <field name="valida_desde"/>
+          <field name="valida_hasta"/>
+          </group>
+            <group>
+          <field name="valor_pertenencia_factor"/>
+          <field name="valor_pertenencia"/>
+        <p>  El valor de la pertenencia se calcula como el valor general por el valor de factor cargado para este perfil.</p>
+         </group>
+         <group>
+          <field name="mes_primer_vencimiento_anual"/>
+          <field name="mes_segundo_vencimiento_anual"/>
+          <field name="mes_primer_plazo_gracia"/>
+          <field name="mes_segundo_plazo_gracia"/>
+         </group>
+          <group>
+                <field name="categoria_mineral_asociada"/>
+                <field name="active"/>
+                <field name="config_defecto"/>
+          </group>
+
+      </form>
+      </field>
+    </record>
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="exp_canon.exp_canon_config_action_window">
+      <field name="name">Configuracion de Perfiles</field>
+      <field name="res_model">exp_canon_config</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+     <menuitem name="Canon Minero" id="exp_canon.exp_canon_config" parent="gepromi.config" sequence="20"/>
+
+
+     <menuitem name="Perfiles de Canon" id="exp_canon.exp_canon_config_perfiles"
+               parent="exp_canon.exp_canon_config"
+              action="exp_canon.exp_canon_config_action_window"/>
+  </data>
+</odoo>

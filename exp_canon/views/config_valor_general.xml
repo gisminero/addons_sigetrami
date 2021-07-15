@@ -1,0 +1,47 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="exp_canon.exp_canon_config_global_list">
+      <field name="name">Configuracion GENERAL</field>
+      <field name="model">exp_canon_config_global</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="canon_valor_global"/>
+          <field name="create_uid" string="Usuario que Creó"/>
+          <field name="create_date" string="Fecha de Creación"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="exp_canon.exp_canon_config_global_form">
+      <field name="name">Configuracion GENERAL</field>
+      <field name="model">exp_canon_config_global</field>
+      <field name="arch" type="xml">
+      <form string="Configuracion General" edit="1">
+        <header>
+        </header>
+        <group>
+        <separator string="Configuración de valor General" colspan="4"/>
+        <!--<spam>En esta pantalla se configura la combinación de trámite y estado, en la cual el sistema debe permitir cambio de trámite en un expediente.<spam/> -->
+                 <button name="activar" string="Validar" class="oe_highlight" type="object"
+                    confirm="Si confirma la validacion, no podra modificar el valor."
+                      />
+        </group>
+        <group>
+                <field name="canon_valor_global" />
+                <field name="canon_valor_global_control"/>
+        </group>
+      </form>
+      </field>
+    </record>
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="exp_canon.canon_config_action_window">
+      <field name="name">Set General de Valor</field>
+      <field name="res_model">exp_canon_config_global</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+     <menuitem name="Seteo General de Valor Canon" id="exp_canon.canon_valor_global_control" parent="exp_canon.exp_canon_config"
+              action="exp_canon.canon_config_action_window"/>
+  </data>
+</odoo>

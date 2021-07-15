@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data  noupdate="1">
+<field name="name">Ambato</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Ancasti</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Andalgalá</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Antofagasta de la Sierra</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Belén</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Capayán</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">El Alto</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Fray Mamerto Esquiú</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">La Paz</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Paclín</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Pomán</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Santa María</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Santa Rosa</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Tinogasta</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Valle Viejo</field><field name="state_id">Catamarca</field><field name="active">True</field>
+<field name="name">Cochinoca</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Doctor Manuel Belgrano</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">El Carmen</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Humahuaca</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Ledesma</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Palpalá</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Rinconada</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">San Antonio</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">San Pedro</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Santa Bárbara</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Santa Catalina</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Susques</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Tilcara</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Tumbaya</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Valle Grande</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Yavi</field><field name="state_id">Jujuy</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">General Alvear</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Godoy Cruz</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Guaymallén</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Junín</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">La Paz</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Las Heras</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Lavalle</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Luján de Cuyo</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Maipú</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Malargüe</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Rivadavia</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">San Carlos</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">San Martín</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">San Rafael</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Santa Rosa</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Tunuyán</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Tupungato</field><field name="state_id">Mendoza</field><field name="active">True</field>
+<field name="name">Aluminé</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Añelo</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Catán Lil</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Chos Malal</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Collón Curá</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Confluencia</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Huiliches</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Lácar</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Loncopué</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Los Lagos</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Minas</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Ñorquín</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Pehuenches</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Picunches</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Picún Leufú</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Zapala</field><field name="state_id">Neuquén</field><field name="active">True</field>
+<field name="name">Arauco</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Castro Barros</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Chamical</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Chilecito</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Coronel Felipe Varela</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Famatina</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">General Ángel V. Peñaloza</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">General Belgrano</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">General Juan Facundo Quiroga</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">General Lamadrid</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">General Ocampo</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">General San Martín</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Independencia</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Rosario Vera Peñaloza</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Sanagasta</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">San Blas de los Sauces</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Vinchina</field><field name="state_id">La Rioja</field><field name="active">True</field>
+<field name="name">Biedma</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Cushamen</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Escalante</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Florentino Ameghino</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Futaleufú</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Gaiman</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Gastre</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Languiñeo</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Mártires</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Paso de Indios</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Rawson</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Río Senguer</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Sarmiento</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Tehuelches</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Telsen</field><field name="state_id">Chubut</field><field name="active">True</field>
+<field name="name">Adolfo Alsina</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Avellaneda</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Bariloche</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Conesa</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">El Cuy</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">General Roca</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Ñorquincó</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Nueve de Julio (9 de Julio)</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Pichi Mahuida</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Pilcaniyeu</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">San Antonio</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Valcheta</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Veinticinco de Mayo (25 de Mayo)</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Anta</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Cachi</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Cafayate</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Cerrillos</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Chicoana</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">General Güemes</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">General José de San Martín</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Guachipas</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Iruya</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">La Caldera</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">La Candelaria</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">La Poma</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">La Viña</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Los Andes</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Metán</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Molinos</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Orán</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Rivadavia</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Rosario de la Frontera</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Rosario de Lerma</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">San Carlos</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Santa Victoria</field><field name="state_id">Salta</field><field name="active">True</field>
+<field name="name">Aguirre</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Alberdi</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Atamisqui</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Avellaneda</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Banda</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Belgrano</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Choya</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Copo</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Figueroa</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">General Taboada</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Guasayán</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Jiménez</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Juan F. Ibarra</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Loreto</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Mitre</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Moreno</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Ojo de Agua</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Pellegrini</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Quebrachos</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Río Hondo</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Rivadavia</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Robles</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Salavina</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">San Martín</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Sarmiento</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Silípica</field><field name="state_id">Santiago Del Estero</field><field name="active">True</field>
+<field name="name">Calamuchita</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Colón</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Cruz del Eje</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">General Roca</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">General San Martín</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Ischilín</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Juárez Celman</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Marcos Juárez</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Minas</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Pocho</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Presidente Roque Sáenz Peña</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Punilla</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Río Cuarto</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Río Primero</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Río Seco</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Río Segundo</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">San Alberto</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">San Javier</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">San Justo</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Santa María</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Sobremonte</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Tercero Arriba</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Totoral</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Tulumba</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Unión</field><field name="state_id">Córdoba</field><field name="active">True</field>
+<field name="name">Adolfo Alsina</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Adolfo Gonzales Chaves</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Alberti</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Almirante Brown</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Arrecifes</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Avellaneda</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Ayacucho</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Azul</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Bahía Blanca</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Balcarce</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Baradero</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Benito Juárez</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Berazategui</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Berisso</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Bolívar</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Bragado</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Brandsen</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Campana</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Cañuelas</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Capitán Sarmiento Carlos</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Carlos Casares</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Carlos Tejedor</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Carmen de Areco</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Castelli</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Chacabuco</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Chascomús</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Chivilcoy</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Colón</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Coronel de Marina Leonardo Rosales</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Coronel Dorrego</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Coronel Pringles</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Coronel Suárez</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Daireaux</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Dolores</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Ensenada</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Escobar</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Esteban Echeverría</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Exaltación de la Cruz</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Ezeiza</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Florencio Varela</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Florentino Ameghino</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Alvarado</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Alvear</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Arenales</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Belgrano</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Guido</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Juan Madariaga</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General La Madrid</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Las Heras</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Lavalle</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Paz</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Pinto</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Pueyrredón</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Rodríguez</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General San Martín</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Viamonte</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">General Villegas</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Guaminí</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Hipólito Yrigoyen</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Hurlingham</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Ituzaingó</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">José C. Paz</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Junín</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">La Costa</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">La Matanza</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Lanús</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">La Plata</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Laprida</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Las Flores</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Leandro N. Alem</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Lincoln</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Lobería</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Lobos</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Lomas de Zamora</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Luján</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Magdalena</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Maipú</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Malvinas Argentinas</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Mar Chiquita</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Marcos Paz</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Mercedes</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Merlo</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Monte</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Monte Hermoso</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Moreno</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Morón</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Navarro</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Necochea</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Nueve de Julio (9 de Julio)</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Olavarría</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Patagones</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Pehuajó</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Pellegrini</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Pergamino</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Pila</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Pilar</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Pinamar</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Presidente Perón</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Puan</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Punta Indio</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Quilmes</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Ramallo</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Rauch</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Rivadavia</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Rojas</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Roque Pérez</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Saavedra</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Saladillo</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Salliqueló</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Salto</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">San Andrés de Giles</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">San Antonio de Areco</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">San Cayetano</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">San Fernando</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">San Isidro</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">San Miguel</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">San Nicolás</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">San Pedro</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">San Vicente</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Suipacha</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Tandil</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Tapalqué</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Tigre</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Tordillo</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Tornquist</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Trenque Lauquen</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Tres Arroyos</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Tres de Febrero</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Tres Lomas</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Veinticinco de Mayo (25 de Mayo)</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Vicente López</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Villa Gesell</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Villarino</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Zárate</field><field name="state_id">Buenos Aires</field><field name="active">True</field>
+<field name="name">Almirante Brown</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Bermejo</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Chacabuco</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Comandante Fernández</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Doce de Octubre (12 de Octubre)</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Dos de Abril (2 de Abril)</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Fray Justo Santa María de Oro</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">General Belgrano</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">General Donovan</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">General Güemes</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Independencia</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Libertad</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Libertador General San Martín</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Maipú</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Mayor Luis Jorge Fontana</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Nueve de Julio (9 de Julio)</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">O'Higgins</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Presidencia de la Plaza</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Primero de Mayo (1º de Mayo)</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Quitilipi</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">San Fernando</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">San Lorenzo</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Sargento Cabral</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Tapenagá</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Veinticinco de Mayo (25 de Mayo)</field><field name="state_id">Chaco</field><field name="active">True</field>
+<field name="name">Bella Vista</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Berón de Astrada</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Concepción</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Curuzú Cuatiá</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Empedrado</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Esquina</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">General Alvear</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">General Paz</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Goya</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Itatí</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Ituzaingó</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Lavalle</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Mburucuyá</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Mercedes</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Monte Caseros</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Paso de los Libres</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Saladas</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">San Cosme</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">San Luis del Palmar</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">San Martín</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">San Miguel</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">San Roque</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Santo Tomé</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Sauce</field><field name="state_id">Corrientes</field><field name="active">True</field>
+<field name="name">Colón</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Concordia</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Diamante</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Federación</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Federal</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Feliciano</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Gualeguay</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Gualeguaychú</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Islas del Ibicuy</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">La Paz</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Nogoyá</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Paraná</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">San Salvador</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Tala</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Uruguay</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Victoria</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Villaguay</field><field name="state_id">Entre Ríos</field><field name="active">True</field>
+<field name="name">Bermejo</field><field name="state_id">Formosa</field><field name="active">True</field>
+<field name="name">Formosa</field><field name="state_id">Formosa</field><field name="active">True</field>
+<field name="name">Laishi</field><field name="state_id">Formosa</field><field name="active">True</field>
+<field name="name">Matacos</field><field name="state_id">Formosa</field><field name="active">True</field>
+<field name="name">Patiño</field><field name="state_id">Formosa</field><field name="active">True</field>
+<field name="name">Pilagás</field><field name="state_id">Formosa</field><field name="active">True</field>
+<field name="name">Pilcomayo</field><field name="state_id">Formosa</field><field name="active">True</field>
+<field name="name">Pirané</field><field name="state_id">Formosa</field><field name="active">True</field>
+<field name="name">Ramón Lista</field><field name="state_id">Formosa</field><field name="active">True</field>
+<field name="name">Atreucó</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Caleu Caleu</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Catriló</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Chalileo</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Chapaleufú</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Chical Co</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Conhelo</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Curacó</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Guatraché</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Hucal</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Lihuel Calel</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Limay Mahuida</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Loventué</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Maracó</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Puelén</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Quemú Quemú</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Rancul</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Realicó</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Toay</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Trenel</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Utracán</field><field name="state_id">La Pampa</field><field name="active">True</field>
+<field name="name">Apóstoles</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Cainguás</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Candelaria</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Concepción</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Eldorado</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">General Manuel Belgrano</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Guaraní</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Iguazú</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Leandro N. Alem</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Libertador General San Martín</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Montecarlo</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Oberá</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">San Ignacio</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">San Javier</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">San Pedro</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Veinticinco de Mayo (25 de Mayo)</field><field name="state_id">Misiones</field><field name="active">True</field>
+<field name="name">Adolfo Alsina</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Avellaneda</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Bariloche</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Conesa</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">El Cuy</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">General Roca</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Ñorquincó</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Nueve de Julio (9 de Julio)</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Pichi Mahuida</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Pilcaniyeu</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">San Antonio</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Valcheta</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Veinticinco de Mayo (25 de Mayo)</field><field name="state_id">Río Negro</field><field name="active">True</field>
+<field name="name">Albardón</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Angaco</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Calingasta</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Caucete</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Chimbas</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Iglesia</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Jáchal</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Nueve de Julio (9 de Julio)</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Pocito</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Rawson</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Rivadavia</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">San Martín</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Santa Lucía</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Sarmiento</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Ullum</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Valle Fértil</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Veinticinco de Mayo (25 de Mayo)</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Zonda</field><field name="state_id">San Juan</field><field name="active">True</field>
+<field name="name">Ayacucho</field><field name="state_id">San Luis</field><field name="active">True</field>
+<field name="name">Belgrano</field><field name="state_id">San Luis</field><field name="active">True</field>
+<field name="name">Chacabuco</field><field name="state_id">San Luis</field><field name="active">True</field>
+<field name="name">Coronel Pringles</field><field name="state_id">San Luis</field><field name="active">True</field>
+<field name="name">General Pedernera</field><field name="state_id">San Luis</field><field name="active">True</field>
+<field name="name">Gobernador Dupuy</field><field name="state_id">San Luis</field><field name="active">True</field>
+<field name="name">Junín</field><field name="state_id">San Luis</field><field name="active">True</field>
+<field name="name">La Capital (Juan Martín de Pueyrredón)</field><field name="state_id">San Luis</field><field name="active">True</field>
+<field name="name">Libertador General San Martín</field><field name="state_id">San Luis</field><field name="active">True</field>
+<field name="name">Corpen Aike</field><field name="state_id">Santa Cruz</field><field name="active">True</field>
+<field name="name">Deseado</field><field name="state_id">Santa Cruz</field><field name="active">True</field>
+<field name="name">Güer Aike</field><field name="state_id">Santa Cruz</field><field name="active">True</field>
+<field name="name">Lago Argentino</field><field name="state_id">Santa Cruz</field><field name="active">True</field>
+<field name="name">Lago Buenos Aires</field><field name="state_id">Santa Cruz</field><field name="active">True</field>
+<field name="name">Magallanes</field><field name="state_id">Santa Cruz</field><field name="active">True</field>
+<field name="name">Río Chico</field><field name="state_id">Santa Cruz</field><field name="active">True</field>
+<field name="name">Belgrano</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">Caseros</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">Castellanos</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">Constitución</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">Garay</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">General López</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">General Obligado</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">Iriondo</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">La Capital</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">Las Colonias</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">Nueve de Julio (9 de Julio)</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">Rosario</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">San Cristóbal</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">San Javier</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">San Jerónimo</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">San Justo</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">San Lorenzo</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">San Martín</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">Vera</field><field name="state_id">Santa Fe</field><field name="active">True</field>
+<field name="name">Antártida Argentina</field><field name="state_id">Tierra del Fuego</field><field name="active">True</field>
+<field name="name">Islas del Atlántico Sur</field><field name="state_id">Tierra del Fuego</field><field name="active">True</field>
+<field name="name">Río Grande</field><field name="state_id">Tierra del Fuego</field><field name="active">True</field>
+<field name="name">Ushuaia</field><field name="state_id">Tierra del Fuego</field><field name="active">True</field>
+<field name="name">Burruyacú</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Capital</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Chicligasta</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Cruz Alta</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Famaillá</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Graneros</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Juan Bautista Alberdi</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">La Cocha</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Leales</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Lules</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Monteros</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Río Chico</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Simoca</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Tafí del Valle</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Tafí Viejo</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Trancas</field><field name="state_id">Tucumán</field><field name="active">True</field>
+<field name="name">Yerba Buena</field><field name="state_id">Tucumán</field><field name="active">True</field>
+</data>
+</odoo>

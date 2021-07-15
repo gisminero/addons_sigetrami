@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data  noupdate="0">
+<field name="name">Solicitud de Exploración (Cateo)</field><field name="active">True</field><field name="susplazo">2</field><field name="categoria_mineral">no_corresponde</field>
+<field name="name">Manifestación de Primera Categoría</field><field name="active">True</field><field name="susplazo">2</field><field name="categoria_mineral">primera</field>
+<field name="name">Manifestación de Segunda Categoría</field><field name="active">True</field><field name="susplazo">2</field><field name="categoria_mineral">segunda</field>
+<field name="name">Caducidad de Mina</field><field name="active">True</field><field name="susplazo">2</field><field name="categoria_mineral">todas</field>
+</data>
+</odoo>

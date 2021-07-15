@@ -1,0 +1,31 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="exp_canon.form_popup_informa_pago">
+      <field name="name">Informar Pago</field>
+      <field name="model">exp_canon_obligaciones</field>
+      <field name="arch" type="xml">
+      <form string="Información de Pagos Adeudados">
+             <separator string="Información de Pagos Adeudados"/>.
+                <group >
+                    <field name="name" />
+                    <field name="fecha_vencimiento" />
+                    <field name="fecha_vencimiento_gracia" />
+
+                    <field name="monto_debe" />
+                    <field name="monto_saldo" invisible="1"/>
+                    <field name="estado"/>
+               </group>
+            <separator string="Ingrese Monto y Fecha de Pago"/>.
+                <group >
+                    <field name="monto_haber" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
+                    <field name="fecha_pago" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
+               </group>
+               <footer>
+                   <button name="informar_pago" string="Informar Pago" type="object" confirm="¿Está seguro que desea informar el pago?" class="oe_highlight"/>
+                   <button string="Cerrar" class="btn-default" special="cancel"/>
+               </footer>
+      </form>
+      </field>
+    </record>
+  </data>
+</odoo>

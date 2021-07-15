@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_exp_canon_crea,exp_canon_crea,model_exp_canon_obligaciones,expediente.access_group_expte_creacion,1,1,1,1
+access_exp_canon_escr,exp_canon_escr,model_exp_canon_obligaciones,expediente.access_group_expte_escritura,1,1,0,0
+access_exp_canon_lect,exp_canon_lect,model_exp_canon_obligaciones,expediente.access_group_expte_lectura,1,0,0,0
+access_exp_canon_config_top,exp_canon_config_top,model_exp_canon_config_global,expediente.access_group_expte_creacion,1,1,1,1
+access_exp_canon_config,exp_canon_config,model_exp_canon_config,expediente.access_group_expte_creacion,1,1,1,1
+

@@ -1,0 +1,6 @@
+# Ignora todos los siguientes archivos
+*.ini
+*.conf
+*.pyc
+*.pdf
+*.docx
