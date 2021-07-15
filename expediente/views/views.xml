@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="expediente.list">
+      <field name="name">Lista de Expedientes</field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+          <field name="procedimiento_id"/>
+          <field name="folios"/>
+          <field name="ubicacion_actual"/>
+          <field name="user_creador_id"/>
+        </tree>
+      </field>
+    </record>
+
+<!--   <record id="expediente.list_movimientos" model="ir.ui.view" >-->
+<!--    <field name="name">lista_expedintes.tree</field>-->
+<!--    <field name="model">expediente.expediente</field>-->
+<!--    <field name="arch" type="xml">-->
+<!--        <tree string="Table Reservation">-->
+<!--            <field name="reservation_id"/>-->
+<!--            <field name="folio_id"/>-->
+<!--            <field name="room_no"/>-->
+<!--            <field name="start_date"/>-->
+<!--            <field name="end_date"/>-->
+<!--            <field name="cname"/>-->
+<!--            <field name="partner_address_id"/>-->
+<!--            <field name="tableno"/>-->
+<!--            <field name="state"/>-->
+<!--        </tree>-->
+<!--    </field>-->
+<!--</record>     -->
+
+
+    <record model="ir.ui.view" id="expediente.list_movimientos">
+      <field name="name">Lista de Expedientes</field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+        <tree >
+<!--            colors="red: state=='archive'"-->
+            <field name="id" invisible="1" />
+            <field name="name"/>
+            <field name="procedimiento_id"/>
+            <field name="folios"/>
+            <field name="ubicacion_actual"/>
+            <field name="user_creador_id"/>
+            <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="expediente.mi_oficina_list">
+      <field name="name">Mi Oficina</field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+        <tree>
+        <field name="id"/>
+          <field name="name"/>
+          <field name="procedimiento_id"/>
+          <field name="folios"/>
+          <field name="ubicacion_actual"/>
+      <!--     <field name="user_creador_id"/>  -->
+            <field name="state" invisible="1" />
+            <button name="enviar" type="object" string="Enviar" context="{'id_activo': id, 'id_activo_nuevo': id, 'vista_padre': 'view'}"/>
+        </tree>
+      </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="expediente.list_recibir">
+      <field name="name">Bandeja de Entrada</field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+        <tree>
+        <field name="id"/>
+          <field name="name"/>
+          <field name="procedimiento_id"/>
+          <field name="folios"/>
+          <field name="ubicacion_actual"/>
+            <field name="recibido" />
+ <button name="recibir" type="object" string="Recibir" context="{'id_activo': id, 'vista_padre': 'view'}"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="expediente.form">
+      <field name="name">Expediente Form</field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+      <form string="Sales Receipt">
+        <header>
+            <button name="activar" string="Validar" class="oe_highlight" type="object"
+                    confirm="Si confirma la validacion, no podra modificar el documento."
+                    context="{'id_activo': id}" states="draft" />
+            <button name="popup_mas" type="object" states="active"
+                        string="Mas..." context="{'id_activo': id}" class="btn-default" />
+            <field name="state" widget="statusbar" statusbar_visible="draft,active,archive"/>
+        </header>
+
+          <sheet name="hoja_0">
+<!--          <group name="group_main">-->
+               <group col="2">
+<!--                   <div class="oe_title">-->
+                        <h1>
+<!--                            <label string="Numero de Exp."/>-->
+                            <field name="name"  attrs="{'readonly':[('state','!=', 'draft')]}" />
+<!--                            &lt;!&ndash;   class="oe_inline" attrs="{'readonly':[('id','>', 0)]}"-->
+<!--                          <field name="id" invisible="1" /> &ndash;&gt;-->
+                        </h1>
+<!--                    </div>-->
+
+<!--                    <button name="enviar" type="object" states="active" string="Enviar a Otra Oficina" class="oe_highlight"-->
+<!--                    confirm="Antes de enviar ajuste el numero de folios del documento."-->
+<!--                    groups="expediente.access_group_expte_escritura, expediente.access_group_expte_creacion"-->
+<!--                    context="{'id_activo': id}"/>-->
+
+               </group>
+              <group col="2">
+                   <field name="procedimiento_id"  attrs="{'readonly':[('state','!=', 'draft')]}"
+                   domain="[('iniciado', '=', '1')]" />
+                   <field name="aux_categoria_mineral" attrs="{'readonly':[('state','!=', 'draft')]}" invisible="1"/>
+                   <field  name="nombre_pedimento" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+<!--            CAMPOS CONSERVADOS POR COMPATIBILIDAD CON LOS DATOS DE LA PROVINCIA DE NEUQUEN &#45;&#45; 30/05/2021-->
+                  <field invisible="1" name="solicitante" attrs="{'readonly':[('state','!=', 'draft')]}" on_change="solic_nombre(solicitante, name, provincia)"/>
+                  <field invisible="1" name="solicitante_cuit" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+             </group>
+              <newline/>
+
+        <notebook>
+        <sheet name="principal" string="Principal">
+        <group>
+              <group col="2">
+                   <field name="solicitantes" nolabel="1" colspan="2" attrs="{'readonly':[('state','!=', 'draft')]}">
+                       <tree string="Solicitantes" editable="bottom">
+                           <field name="tipo_doc"/>
+                           <field name="solicitante_cuit"/>
+                           <field name="solicitante"/>
+
+                       </tree>
+		           </field>
+              </group>
+              <group col="2">
+                    <field name="folios" attrs="{'readonly':[('state','!=', 'draft'),('state','!=', 'active')]}"/>
+             </group>
+              <newline/>
+              <group col="2">
+                 <field name="mineral" nolabel="1" colspan="1" context="{'default_categoria_mineral_exp': aux_categoria_mineral}">
+			            <tree string="Minerales" editable="bottom">
+                            <field name="mineral_id" domain="[('categoria', '=', categoria_mineral_exp)]"  />
+                            <field name="categoria_mineral_exp"  string="Categoria"/>
+                            <field name="lugar_donde" string="Lugar"  attrs="{'readonly':[('mineral_id','!=', 8),('mineral_id','!=', 67)]}" />
+                            <field name="otro_mineral" readonly="0" string="Otro" attrs="{'readonly':[('mineral_id','!=', 93)]}" />
+                            <field name="forma_presentacion" readonly="0" string="Forma"/>
+			            </tree>
+		        </field>
+            </group>
+            <group col="2">
+                    <field name="ubicacion_actual"/>
+            </group>
+            <newline/>
+            <group col="2">
+                    <field name="departamento" nolabel="1" colspan="1">
+			            <tree string="Departamentos" editable="bottom">
+                            <field name="departamento_id" domain="[('state_id', '=', state_id_exp)]"/>
+                            <field name="state_id_exp"/>
+			            </tree>
+		            </field>
+            </group>
+            <group col="2">
+                  <field name="estado_legal_actual"/>
+            </group>
+        <newline/>
+        <group col="2">
+            <field name="cant_pertenencias" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+         </group>
+
+
+        <group col="2">
+            <field name="observaciones" attrs="{'readonly':[('state','!=', 'draft'),('state','!=', 'active')]}"/>
+         </group>
+              <newline/>
+        <group col="2">
+
+        </group>
+        <newline/>
+<!--        Campos ocultos y de funcionamiento-->
+        <group col="2">
+            <field name="recibido" invisible="1"/>
+            <field name="user_creador_id" string="Creador por"/>
+            <field name="momento_inicio" string="Creado el"/>
+            <!--  <field name="recibido2"  invisible="0"/> -->
+         </group>
+        <newline/>
+        <group col="2">
+            <field name="ultimo_pase_id" invisible="1"/>
+            <field name="oficina_destino" invisible="1"/>
+            <field name="id" invisible="0"/>
+            <field name="active"/>
+        </group>
+<!--          Fin campos ocultos y de funcionamiento-->
+        </group>
+<!--            Fin del agrupamiento principal-->
+        </sheet>
+
+
+<!--            Inicio de hojas/pestañas utilizadas con otros fines, se encuentran ocultas -->
+<!--            a espera de que el modulo que las gestionará cambie su estado a visible.-->
+        <sheet name="hoja_1" string="Canon Minero" invisible="1">
+        </sheet>
+        <sheet name="hoja_2" string="Inversion" invisible="1">
+        </sheet>
+        <sheet name="hoja_3" string="" invisible="1">
+        </sheet>
+        <sheet name="hoja_4" string="" invisible="1">
+        </sheet>
+
+        </notebook>
+
+
+
+
+
+
+        </sheet>
+      </form>
+      </field>
+    </record>
+<!--   FORMULARIO ENVIAR  -->
+    <record model="ir.ui.view" id="expediente.form_enviar">
+      <field name="name">Envio de Expediente</field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+      <form string="Envio">
+          <sheet>
+        <header>
+            <separator string="Enviando Expediente"/>.
+            <field name="state" widget="statusbar" statusbar_visible="draft,active,archive" invisible="1" />
+        </header>
+               <group >
+<!--                   <div class="oe_title">-->
+                        <h1>
+<!--                            <label string="Numero de Exp."/>-->
+                            <field name="name" class="oe_inline" attrs="{'readonly':[('id','>', 0)]}"/>
+                            <field name="id" invisible="1" />
+                        </h1>
+<!--                    </div>-->
+                 </group>
+        <group>
+          <field name="procedimiento_id"  attrs="{'readonly':[('state','!=', 'draft')]}" />
+           <field name="solicitante" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+            <field name="solicitante_cuit" attrs="{'readonly':[('state','!=', 'draft')]}" />
+            <field name="nombre_pedimento" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+            <field name="ubicacion_actual" attrs="{'readonly':[('state','!=', 'draft')]}" />
+            <field name="oficina_destino" />
+            <field name="folios" attrs="{'readonly':[('state','!=', 'draft'),('state','!=', 'active')]}"/>
+            <field name="observ_pase" />
+            <field name="user_creador_id" string="Creador por"/>
+            <field name="momento_inicio" string="Creado el"/>
+            <field name="recibido" string="Recibido" invisible="1" />
+         </group>
+
+
+               <footer>
+                   <button string="Cancelar" class="btn-default" name="mi_oficina_view" type="object" states="active"  />
+                   <button name="enviar_conf" type="object" states="active" string="Confirmar Envio" class="oe_highlight"
+                    confirm="Antes de enviar ajuste el numero de folios del documento."
+                    groups="expediente.access_group_expte_escritura, expediente.access_group_expte_creacion"
+                    context="{'id_activo': id, 'fojas_new' : folios, 'oficina_destino_new' : oficina_destino, 'observaciones_new' : observ_pase}"/>
+               </footer>
+          </sheet>
+      </form>
+      </field>
+    </record>
+<!-- fin FORMULARIO ENVIAR -->
+
+
+<!--   FORMULARIO ENVIADO ******  -->
+    <record model="ir.ui.view" id="expediente.form_enviado">
+      <field name="name">Expediente Enviado</field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+      <form string="Envio" >
+<!--        <script>-->
+<!--        $(document).ready(function(){-->
+<!--        $(".modal-header").hide();-->
+<!--        });-->
+<!--        </script>-->
+        <!--<header>-->
+            <separator string="El expediente se encuentra en estado ENVIADO"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,active,archive" invisible="1" />
+        <!--</header>-->
+               <group >
+<!--                   <div class="oe_title">-->
+<!--                        <h1>-->
+<!--                            <label string="Numero de Exp."/>-->
+                        <field name="name" attrs="{'readonly':[('state','!=', 'draft')]}" />
+                        <field name="id" invisible="1"/>
+<!--                        </h1>-->
+<!--                    </div>-->
+                    <!--
+                    <button name="enviar_retorno" type="object" states="active" string="Retornar Expediente" class="oe_highlight"
+                    confirm="Desea Retornar el documento a Oficina de Origen?"
+                    groups="expediente.access_group_expte_escritura, expediente.access_group_expte_creacion"
+                    context="{'id_activo': id, 'fojas_new' : folios, 'oficina_destino_new' : oficina_destino, 'observaciones_new' : observaciones}"/>
+                     -->
+                 </group>
+        <group>
+                <field name="procedimiento_id"  attrs="{'readonly':[('state','!=', 'draft')]}" />
+                <field name="solicitante" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                <field name="nombre_pedimento" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                <field name="folios" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                <field name="oficina_destino"  attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                <field name="observ_pase" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+
+
+          <field name="user_creador_id" string="Creador por"/>
+          <field name="momento_inicio" string="Creado el"/>
+            <field name="recibido" string="Recibido" invisible="1" />
+         </group>
+<!--               <footer>-->
+
+
+<!--                </footer>-->
+          <footer>
+              <button string="Cerrar" class="btn-default" name="mi_oficina_view" type="object" states="active"  />
+          </footer>
+  </form>
+  </field>
+    </record>
+<!-- fin FORMULARIO ENVIADO *****-->
+
+
+
+
+<!--   FORMULARIO RECIBIR  -->
+
+    <record model="ir.ui.view" id="expediente.form_recibir">
+      <field name="name">Recepcion de Expediente</field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+      <form string="Recepcion">
+<!--        <header>-->
+        <field name="state" widget="statusbar" statusbar_visible="draft,active,archive"/>
+<!--        </header>-->
+               <group >
+<!--                   <div class="oe_title">-->
+<!--                        <h1>-->
+<!--                            <label string="Numero de Exp."/>-->
+                            <field name="name" attrs="{'readonly':[('id','!=', False)]}"/>
+<!--                   class="oe_inline" -->
+                          <field name="id" invisible="1" />
+<!--                        </h1>-->
+
+<!--                    </div>-->
+                 </group>
+        <group>
+                <field name="procedimiento_id"  attrs="{'readonly':[('state','!=', 'draft')]}" />
+                <field name="solicitante" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                <field name="nombre_pedimento" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                <field name="folios" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                <field name="ubicacion_actual" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                <field name="oficina_destino" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                <field name="recibido" string="Recibido" invisible="1"/>
+                <field name="observ_pase" attrs="{'readonly':[('state','!=', 'draft')]}" />
+                <field name="user_creador_id" string="Creador por"/>
+                <field name="momento_inicio" string="Creado el"/>
+         </group>
+               <footer>
+<!--                    <button string="Cancelar" class="btn-default" special="cancel"/>-->
+                   <button string="Cancelar" class="btn-default" name="recibir_view" type="object" states="active"  />
+                   <button name="recibir_conf" type="object" states="active" string="Confirmar Recepcion" class="oe_highlight"
+                    groups="expediente.access_group_expte_escritura, expediente.access_group_expte_creacion"
+                    context="{'id_activo': id, 'vista_padre': 'view'}"/>
+                </footer>
+      </form>
+      </field>
+    </record>
+
+      <!--NUEVO LLAMADO DE ACTIONS VIEWS BORRADOR-->
+
+<record model="ir.actions.server" id="expediente.mi_oficina">
+    <field name="name">Mi Oficina</field>
+   <!--  <field name="condition">True</field> -->
+    <field name="model_id" ref="model_expediente_expediente"/>
+    <field name="state">code</field>
+    <field name="code">action = env.get('expediente.expediente').mi_oficina_view()</field>
+</record>
+
+<record model="ir.actions.server" id="expediente.server_borrador">
+    <field name="name">Expedientes en Estado Borrador</field>
+   <!--  <field name="condition">True</field> -->
+    <field name="model_id" ref="model_expediente_expediente"/>
+    <field name="state">code</field>
+    <field name="code">action = env.get('expediente.expediente').get_exped_mi_draft()</field>
+</record>
+
+<record model="ir.actions.server" id="expediente.server_recibir">
+    <field name="name">Recibir</field>
+    <field name="model_id" ref="model_expediente_expediente"/>
+    <field name="state">code</field>
+    <field name="code">action = env.get('expediente.expediente').get_exped_mi_recibir()</field>
+</record>
+
+<record model="ir.actions.server" id="expediente.server_lista">
+    <field name="name">Todos los Documentos</field>
+       <!--  <field name="condition">True</field> -->
+    <field name="model_id" ref="model_expediente_expediente"/>
+    <field name="state">code</field>
+    <field name="code">action =  env.get('expediente.expediente').get_exped_busqueda()</field>
+</record>
+
+
+    <menuitem name="En Oficina" id="expediente.menu_3_list" parent="gepromi.inicio"
+             action="expediente.mi_oficina" sequence="1"/>
+
+    <menuitem name="Recibir" id="expediente.menu_4_list" parent="gepromi.inicio"
+             action="expediente.server_recibir" sequence="2"/>
+
+    <menuitem name="Busqueda" id="expediente.menu_9_list" parent="gepromi.inicio"
+             action="expediente.server_lista" sequence="3"/>
+
+    <menuitem name="Borradores" id="expediente.menu_1_list" parent="gepromi.inicio"
+             action="expediente.server_borrador" groups="expediente.access_group_expte_creacion" sequence="4" />
+  </data>
+</odoo>
