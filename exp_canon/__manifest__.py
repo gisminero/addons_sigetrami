@@ -20,7 +20,7 @@
     'depends': ['base', 'expediente', 'sh_message'],
     # always loaded
     'data': [
-        # 'security/cambio_security.xml',
+        'security/canon_security.xml',
         'security/ir.model.access.csv',
         'views/views_canon_over.xml',
         'views/config_general_canon.xml',
