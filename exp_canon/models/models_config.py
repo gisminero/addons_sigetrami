@@ -91,6 +91,12 @@ class exp_canon_config(models.Model):
     mes_primer_plazo_gracia = fields.Integer('Mes vencimiento primer plazo gracia', help='', default=8)
     mes_segundo_plazo_gracia = fields.Integer('Mes vencimiento segundo plazo gracia', help='', default=2)
     config_defecto = fields.Boolean('Configuración por Defecto',  help='Solo puede haber una configuracion por defecto')
+    _sql_constraints = [
+       ('unique_default_config', 'EXCLUDE (config_defecto WITH =)  WHERE (config_defecto)',
+        'Ya existe una configuración por defecto. Sólo puede existir una.')
+    ]
+
+
     active = fields.Boolean('Activo', default=True, readonly=True)
     categoria_mineral_asociada = fields.Selection([
         ('primera', 'Primera'),
