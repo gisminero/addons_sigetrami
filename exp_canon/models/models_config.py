@@ -47,13 +47,29 @@ class exp_canon_venc_emitidos(models.Model):
         self.create({'name': nombre, 'anio': anio, 'semestre': semestre})
         return True
 
+    def acciones_planificadas(self):
+        self.dispara_vencimientos()
+        self.busca_obligaciones_vencidas()
+        return True
+
     def dispara_vencimientos(self):
         hoy = datetime.date.today()
-        print (("EL DIA DE HOY ES: " + str(hoy) + " EL AÑO ES: " + str(hoy.year) + "  Y EL MES ES: " + str(hoy.month)))
+        #print (("EL DIA DE HOY ES: " + str(hoy) + " EL AÑO ES: " + str(hoy.year) + "  Y EL MES ES: " + str(hoy.month)))
         if hoy.month == 7 or hoy.month == 9:
             if not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
-            # if self.obtener_vencimiento_emitido(hoy.year, hoy.month):
+            #La siguiente condiciòn se utiliza para desarrollo
+            #if self.obtener_vencimiento_emitido(hoy.year, hoy.month) or not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
                 self.crea_vencimientos()
+        return True
+
+    def busca_obligaciones_vencidas(self):
+        hoy = datetime.date.today()
+        hoy_str = str(hoy)
+        obj_obligaciones_vencidas = self.env['exp_canon_obligaciones'].search([('fecha_vencimiento_gracia', '<', hoy_str), 
+                                                                        ('monto_haber', '=', 0), ('notificacion_enviada', '=', False)])
+        for linea in obj_obligaciones_vencidas:
+            #print((" *** " + linea.name))
+            linea.notificacion_obligacion_vencida()
         return True
 
 class exp_canon_config_bancos(models.Model):
