@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "GeProMi Documentacion Digital",
+    'name': "SIGETRAMI Documentacion Digital",
 
     'summary': """
         La Documentacion Digital será soporte para el
@@ -21,7 +21,7 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Uncategorized',
-    'version': '0.1',
+    'version': '0.2',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'gepromi', 'expediente', 'hr', 'tarea_flujo_exp', 'web'],

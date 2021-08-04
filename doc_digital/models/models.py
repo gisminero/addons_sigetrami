@@ -9,13 +9,27 @@ import time
 import os
 import urllib
 import base64
+import pybase64
+# from endesive-master import examples
+# from endesivemaster.examples.pdfsigncmssigetrami import hash
+# import subprocess
+import sys
+import datetime
+from cryptography.hazmat import backends
+from cryptography.hazmat.primitives.serialization import pkcs12
+from endesive.pdf import cms
+
+from dateutil.relativedelta import *
+from dateutil.easter import *
+from dateutil.rrule import *
+from dateutil.parser import *
 
 class doc_digital_archivo(models.Model):
         _name = 'doc_digital.archivo'
         _order = "id asc"
 
         def default_archivo_name(self):
-                nombre = "Adjunto.pdf"
+                nombre = ""
                 return nombre
 
         def user_emple(self, user_id):
@@ -46,6 +60,7 @@ class doc_digital_archivo(models.Model):
                                  string='Estado', required=True, default="draft",
                                  help="Determina el estado del expediente")
         empleado_envia = fields.Many2one('hr.employee', 'Enviado por', readonly=True, default=_default_archivo_emple)
+        firmas_encontradas = fields.Text('Firmas Digitales Encontradas', required=False, readonly=False)
 
         def reload_view(self):
                 action = {
@@ -75,15 +90,20 @@ class doc_digital_archivo(models.Model):
                         'target': 'current',  # 'target': 'new',
                 }
 
-        @api.constrains('name')
+        # @api.constrains('name')
+        @api.onchange('name')
         def onchange_nombre(self):
                 nombre = self.name
-                nombre_array = nombre.split('.')
-                if len(nombre_array) > 2:
-                        raise ValidationError(('El nombre de archivo solo puede tener un punto.'))
-                if nombre_array[1] != 'pdf':
-                        raise ValidationError(('Solo se admiten archivos .pdf.'))
-                return True
+                if nombre:
+                        return {'value': {'name': nombre+".pdf"}}
+                else:
+                        return False
+                # nombre_array = nombre.split('.')
+                # if len(nombre_array) > 2:
+                #         raise ValidationError(('El nombre de archivo solo puede tener un punto.'))
+                # if nombre_array[1] != 'pdf':
+                #         raise ValidationError(('Solo se admiten archivos .pdf.'))
+                # return True
 
         def valida_archivo(self, full_path2):
                 try:
@@ -175,18 +195,130 @@ class doc_digital(models.Model):
                                 return empl_obj.id
                         else:
                                 return False
+        def nombre_usuario(self):
+                user_id = self.env.user.id
+                obj_empl = self.env['hr.employee'].search([('user_id', '=', user_id)])
+                nombre = obj_empl[0].name
+                return nombre
+
+        def firmar_pdf_endevise(self, full_path, cant_pag):
+                # print (("LLAMANDO A A ENDESIVE CON : " + path_all))
+                # date = datetime.datetime.utcnow() - datetime.timedelta(hours=12)
+                # date = date.strftime("D:%Y%m%d%H%M%S+00'00'")
+                #####FECHA PARA EL OBJETO#####
+                date = datetime.datetime.now() - datetime.timedelta(hours=3)
+                date = date.strftime("D:%Y%m%d%H%M%S")#+00'00'
+                date2 = datetime.datetime.now() - datetime.timedelta(hours=3)
+                date1 = date2.isoformat()
+                #####FECHA PARA EL OBJETO#######
+                #####FECHA PARA MOSTRAR#####
+                # date1 = datetime.utcnow() - timedelta(hours=12)
+                # date1 = date.strftime("D:%Y%m%d%H%M%S+00'00'")
+                # print (("UTCNOW: " + str(date1) + " DELTA: " + str(timedelta(hours=12)) + " RESULTADO: " + str(date1)))
+                ####FECHA PARA MOSTRAR####
+                dct = {
+                        "aligned": 0,
+                        "sigflags": 3,
+                        "sigflagsft": 132,#Valor original 132
+                        "sigpage": cant_pag - 1,
+                        "sigbutton": True,
+                        "sigfield": "Firma Digital",
+                        "sigandcertify": True,
+                        # "signaturebox": (470, 840, 570, 540),
+                        "signaturebox": (0, 0, 100, 100),
+                        "signature": "SIGETRAMI PNUD ARG17/012 " + str(date1[0:20]) + " "+ self.nombre_usuario(),
+                        #        "signature_img": "signature_test.png",
+                        "contact": "gismineronacional@gmail.com",
+                        "location": "Argentina",
+                        "signingdate": date,
+                        "reason": "Todos los documentos validado en SIGETRAMI son firmados digitalmente.",
+                        "password": "123456",
+                }
+                # with open("/opt/odoo11/addonsgis/doc_digital/models/endesive-master/examples/demo2_user1.p12", "rb") as fp:
+                folder = os.path.dirname(os.path.abspath(__file__))
+                print(("EL PATH ACTUAL ES ...." + str(folder)))
+                with open(folder + "/endesive-master/examples/mycert1.pfx", "rb") as fp:
+                        p12 = pkcs12.load_key_and_certificates(
+                                fp.read(), b"123456", backends.default_backend()
+                        )
+                # fname = "/opt/odoo11/addonsgis/doc_digital/models/docs/ANEXO.pdf"
+                fname = full_path
+                # if len(sys.argv) > 1:
+                #         fname = sys.argv[1]
+                datau = open(fname, "rb").read()
+                datas = cms.sign(datau, dct, p12[0], p12[1], p12[2], "sha256")
+                fname = fname.replace(".pdf", "-signed-SiGeTraMi.pdf")
+                with open(fname, "wb") as fp:
+                        fp.write(datau)
+                        fp.write(datas)
+                fp.close
+                fp = None
+                return fname
+
+        def _paginas(self, full_path):
+                print(("contando paginas: " + full_path))
+                try:
+                        f = open(full_path, "rb")
+                        doc = PyPDF2.PdfFileReader(f, strict=False)
+                        number_of_pages = doc.getNumPages()
+                        print (("EL NUMERO DE PAGINAS ES: " + str(number_of_pages)))
+                except PyPDF2.utils.PdfReadError:
+                        print("invalid PDF file.....................")
+                        return False
+                else:
+                        pass
+                f.close
+                f = None
+                return number_of_pages
+
+        def _descargar(self, archivo):
+                print (("EL NOMBRE DEL ARCHIVO ES: " + archivo.name))
+                foldertemp = os.path.dirname(os.path.abspath(__file__)) + "/docs"
+                full_path = foldertemp + '/para_firmar.pdf'
+                f = open(full_path, 'wb+')
+                f.write(base64.b64decode(archivo.archivo))
+                f.close
+                f = None
+                return full_path
+
+        def _cargar(self, archivo_obj, full_path):
+                # print (("EL NOMBRE DEL ARCHIVO ES: " + archivo.name))
+                # foldertemp = os.path.dirname(os.path.abspath(__file__)) + "/docs"
+                # full_path = foldertemp + '/ANEXO-signed-SiGeTraMi2020.pdf'
+                f = open(full_path, 'rb')
+                firmado = base64.b64encode(f.read())
+                f.close
+                archivo_obj.write({'archivo': firmado})
+                f = None
+                return True
+
+        def _eliminar(self, full_paths):
+                for path in full_paths:
+                        if os.path.isdir(path):
+                                print("Imposible borrar {0}!. Es una carpeta.".format(path))
+                        elif os.path.isfile(path):
+                                try:
+                                        os.remove(path)
+                                except OSError as e: print("Error: %s - %s." % (e.filename, e.strerror))
+                        else:
+                                print("Error. No se ha encontrado {0}.".format(path))
+                return True
 
         def activar_archivos(self):
-                print (("ACTIVANDO LOS ARCHIVOS ADJUNTOS EN EL EXPEDIENTE"))
                 active_id = self.env.context.get('id_activo')
+                print(("ACTIVANDO LOS ARCHIVOS ADJUNTOS EN EL EXPEDIENTE-: ID :" + str(active_id)))
                 doc_digital_obj = self.browse([active_id])
                 user_id = self.env.user.id
                 emple_id = self.user_emple(user_id)
                 print (("QUE TRAE DESDE EL :" + str(emple_id)))
                 for archivo in doc_digital_obj.archivos_id:
                         if archivo.state == 'draft' and archivo.empleado_envia.id == emple_id:
-                                archivo.write({'state':  'active'})
-                        print(("NOMBRE DE ARCHIVO: " + str(archivo.name)))
+                                full_path = self._descargar(archivo)
+                                cant_pag = self._paginas(full_path)
+                                full_path_signed = self.firmar_pdf_endevise(full_path, cant_pag)
+                                self._cargar(archivo, full_path_signed)
+                                self._eliminar([full_path, full_path_signed])
+                                archivo.write({'state': 'active'})
                 return True
 
         def prepara_union(self):
