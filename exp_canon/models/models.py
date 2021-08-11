@@ -6,21 +6,19 @@ from odoo import exceptions
 class exp_canon_obligaciones(models.Model):
     _name = 'exp_canon_obligaciones'
     _description = "Canon Obligaciones a Cumplir"
-    _inherit = ['mail.thread']
 
     name = fields.Char('Concepto', required=True, readonly=True)
     fecha_vencimiento = fields.Date('Vencimiento', readonly=True)
     fecha_vencimiento_gracia = fields.Date('Plazo Gracia', readonly=True)
     fecha_pago = fields.Date('Fecha de Pago', readonly=True)
     monto_debe = fields.Float('Monto Debe', readonly=True)
-    monto_haber = fields.Float('Monto Haber', readonly=True, default=0)
+    monto_haber = fields.Float('Monto Haber', readonly=True)
     monto_saldo = fields.Float('Monto de Saldo', readonly=True)
     estado = fields.Selection([
         ('emitido', 'Emitido'),
         ('pagado', 'Pagado'),
         ('vencido', 'Vencido'),], required=False,
         help="Estado de la Obligación", string="Estado", readonly=True)
-    notificacion_enviada = fields.Boolean('Notificación Enviada', default=False, readonly=True)
     exp_id = fields.Many2one('expediente.expediente', 'Canon', required=1, ondelete='cascade')
 
     def crear_obligacion(self, exp, semestre):
@@ -75,16 +73,10 @@ class exp_canon_obligaciones(models.Model):
         return True
 
     def informar_pago(self):
+        print (("GUARDANDO ... con WRITE HEREDADO"))
         if self.monto_haber == False or self.fecha_pago == False:
             raise exceptions.ValidationError('Faltan datos para continuar con la operación.')
         self.write({'monto_haber': self.monto_haber, 'fecha_pago': self.fecha_pago, 'estado': 'pagado'})
-        return True
-
-    def notificacion_pago(self):
-        return True
-
-    def notificacion_obligacion_vencida(self):
-        print (("DISPARANDO LA NOTIFICACION ..... "))
         return True
 
 class expediente(models.Model):

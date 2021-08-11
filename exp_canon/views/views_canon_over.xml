@@ -28,7 +28,6 @@
                  <group>
                  <field name="canon_obligaciones_id" nolabel="1" colspan="2" readonly="1">
 			            <tree string="Canon Minero" > <!-- editable="bottom"-->
-                            <field name="id" />
                             <field name="name" />
                             <field name="fecha_vencimiento" />
                             <field name="fecha_vencimiento_gracia" />
@@ -38,9 +37,7 @@
                             <field name="estado"/>
                             <button name="informa_pago" type="object" string="Informar Pago" style="background-color: #00cc00;"
                             attrs="{'invisible':[('estado','!=', 'emitido')]}" />
-                            <field name="notificacion_enviada"/>
 			            </tree>
-
 		        </field>
                 </group>
              </xpath>

@@ -20,7 +20,6 @@
                     <field name="monto_haber" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
                     <field name="fecha_pago" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
                </group>
-
                <footer>
                    <button name="informar_pago" string="Informar Pago" type="object" confirm="¿Está seguro que desea informar el pago?" class="oe_highlight"/>
                    <button string="Cerrar" class="btn-default" special="cancel"/>

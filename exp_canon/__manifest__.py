@@ -25,9 +25,10 @@
         'views/views_canon_over.xml',
         'views/config_general_canon.xml',
         'views/config_valor_general.xml',
-        'views/popup_informa_pago.xml',
         'data/config_default.xml',
+        'views/popup_informa_pago.xml',
         'data/cronos_vencimientos.xml',
+        'views/popup_config_canon_por_defecto.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
