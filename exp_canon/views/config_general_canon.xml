@@ -48,12 +48,10 @@
                 <field name="categoria_mineral"/>
                 <field name="active"/>
                 <field name="config_defecto"/>
-<<<<<<< HEAD
-                <!-- <button name="alerta_prueba" string="Seleccionar como configuración por defecto" class="oe_highlight" type="object"/> -->
-=======
+
                 <button name="establecer_config_defecto" type="object" string="Config. Defecto" class="oe_highlight"
               confirm="¿Establecer configuracion actual como 'configuración por defecto'?" />
->>>>>>> main
+
           </group>
 
       </form>
