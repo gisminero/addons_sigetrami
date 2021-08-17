@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 from odoo.exceptions import Warning
-from unidecode import unidecode
+# from unidecode import unidecode
 import csv, os
 
 import base64

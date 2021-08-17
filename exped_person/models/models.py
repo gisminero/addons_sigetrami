@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
-from unidecode import unidecode
+# from unidecode import unidecode
 
 class exped_person(models.Model):
         _name = 'exped_person'
