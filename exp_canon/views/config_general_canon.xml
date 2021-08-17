@@ -7,6 +7,8 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
+          <field name="categoria_mineral"/>
+          <field name="config_defecto"/>
         </tree>
       </field>
     </record>
@@ -45,6 +47,8 @@
                 <field name="categoria_mineral_asociada"/>
                 <field name="active"/>
                 <field name="config_defecto"/>
+                <button name="establecer_config_defecto" type="object" string="Config. Defecto" class="oe_highlight"
+              confirm="¿Establecer configuracion actual como 'configuración por defecto'?" />
           </group>
 
       </form>

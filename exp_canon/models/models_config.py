@@ -108,7 +108,7 @@ class exp_canon_config(models.Model):
     mes_segundo_plazo_gracia = fields.Integer('Mes vencimiento segundo plazo gracia', help='', default=2)
     config_defecto = fields.Boolean('Configuración por Defecto',  help='Solo puede haber una configuracion por defecto')
     active = fields.Boolean('Activo', default=True, readonly=True)
-    categoria_mineral_asociada = fields.Selection([
+    categoria_mineral = fields.Selection([
         ('primera', 'Primera'),
         ('segunda', 'Segunda'),
         ('tercera', 'Tercera'),
@@ -120,4 +120,11 @@ class exp_canon_config(models.Model):
         return True
 
     def realiza_pago(self):
+        return True
+    
+    def establecer_config_defecto(self):
+        conf_objs_list = self.search([('config_defecto', '=', True)])
+        for obj in conf_objs_list:
+            obj.write({'config_defecto': False})
+        self.write({'config_defecto': True})
         return True
