@@ -6,7 +6,7 @@ import datetime
 import time
 from datetime import datetime as dt, timedelta, date
 import dateutil.parser
-from unidecode import unidecode
+# from unidecode import unidecode
 
 
 
@@ -78,7 +78,7 @@ class notifica(models.Model):
         expediente = self.expediente_id
         plazo = self.plazo_id
         if expediente and plazo:
-            name_new = unidecode(expediente.name) + ' - ' + unidecode(plazo.name)
+            name_new = expediente.name + ' - ' + plazo.name
             self.name = name_new
         else:
             self.name = str('Seleccione expediente y plazo.')
@@ -171,11 +171,11 @@ class notifica(models.Model):
             if not expte_obj.info:
                 info_temp = " - "
             else:
-                info_temp = unidecode(expte_obj.info)
+                info_temp = expte_obj.info 
             if not expte_obj.expediente_id.nombre_pedimento:
                 pedimento_temp = " - "
             else:
-                pedimento_temp = unidecode(expte_obj.expediente_id.nombre_pedimento)
+                pedimento_temp = expte_obj.expediente_id.nombre_pedimento 
             info = "Pedimento: " + pedimento_temp + " - Fecha de Notificacion: " + str(expte_obj.fecha_notificacion) + " - Otra Informacion: " + info_temp
             d = str(dateutil.parser.parse(dia_vencimiento).date())
             dia_venc_list = d.split("-")

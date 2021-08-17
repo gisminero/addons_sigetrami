@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
-from unidecode import unidecode
+# from unidecode import unidecode
 
 class pase(models.Model):
     _name = 'pase.pase'

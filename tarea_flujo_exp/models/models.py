@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
-from unidecode import unidecode
+# from unidecode import unidecode
 import datetime
 
 import time
@@ -744,7 +744,7 @@ class expediente(models.Model):
                     if not expte_obj.oficina_destino.name:
                         of_enviado = "-"
                     else:
-                        of_enviado = unidecode(expte_obj.oficina_destino.name)
+                        of_enviado = expte_obj.oficina_destino.name
                     return {
                             'name': "EL DOCUMENTO SE ENCUENTRA ENVIADO A: " + str(of_enviado),
                             'view_mode': 'form',
@@ -852,7 +852,7 @@ class expediente(models.Model):
                         if tarea_inicial_id:
                                 print(("INGRESANDO POR TAREA INICIAL "))
                                 self.write({'en_flujo': valor_en_flujo, 'tarea_actual': tarea_inicial_id,
-                                        'estado_legal_actual': unidecode(tarea_obj_inicial.estado_legal.name),
+                                        'estado_legal_actual': tarea_obj_inicial.estado_legal.name,
                                         'estado_legal_actual_id': tarea_obj_inicial.estado_legal.id})
                                 # seguimiento_obj.ingresa_tarea_actual(expte_obj_2, tarea_obj_inicial)
                                 seguimiento_obj.ingresa_tarea_actual(expte_obj_2, tarea_obj_inicial, tarea_obj_inicial, False)
@@ -907,8 +907,8 @@ class expediente(models.Model):
                 lineas = seguimiento_obj_lineas.seguimiento_lineas[0]
                 depart_id_ultima_tarea = lineas.tarea.departament_id.id
                 if lineas.tarea.name != False:
-                        print (("SACANDO COSAS: " + unidecode(lineas.tarea.name)))
-                        print(("Oficina de la tarea: " + unidecode(lineas.tarea.departament_id.name)))
+                        print (("SACANDO COSAS: " + lineas.tarea.name))
+                        print(("Oficina de la tarea: " + lineas.tarea.departament_id.name))
                 if self.ubicacion_actual.id == depart_id_ultima_tarea:
                         #Si la ubicacion actual coincide con la oficina en la cual se ejecuta la tarea.
                         self.write({'en_flujo': True, 'tarea_actual': lineas.tarea.id, 'ubicacion_actual': lineas.tarea.departament_id.id})
