@@ -44,7 +44,7 @@
           <field name="mes_segundo_plazo_gracia"/>
          </group>
           <group>
-                <field name="categoria_mineral_asociada"/>
+                <field name="categoria_mineral"/>
                 <field name="active"/>
                 <field name="config_defecto"/>
                 <button name="establecer_config_defecto" type="object" string="Config. Defecto" class="oe_highlight"
