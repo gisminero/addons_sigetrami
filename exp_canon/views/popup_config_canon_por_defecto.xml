@@ -1,0 +1,31 @@
+<!--<odoo -->
+<!--
+  <data>
+    <record model="ir.ui.view" id="exp_canon.form_popup_config_canon_por_defecto">
+      <field name="name">Informar Pago</field>
+      <field name="model">exp_canon_config</field>
+      <field name="arch" type="xml">
+      <form string="Actualizar canon por defecto">
+             <separator string="Confirmar actualizar canon por defecto"/>
+
+                  <button name="cambiar_default_canon" string="Actualizar" class="oe_highlight" type="object"/>
+                  <button name="mantener_default_canon" string="Cancelar" class="oe_highlight" type="object"/>
+      </form>
+      </field>
+    </record>
+  </data>
+</odoo> -->
+
+<odoo>
+
+  <data>
+    <record model="ir.ui.view" id="exp_canon.form_popup_config_canon_por_defecto">
+      <field name="name">Informar Pago</field>
+      <field name="model">exp_canon_config</field>
+      <field name="arch" type="xml">
+      <form string="Actualizar canon por defecto">
+      </form>
+      </field>
+    </record>
+  </data>
+</odoo>

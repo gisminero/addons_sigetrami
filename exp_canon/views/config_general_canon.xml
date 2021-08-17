@@ -28,13 +28,14 @@
         </group>
 
           <group>
-                <field name="name"/>
-          <field name="valida_desde"/>
-          <field name="valida_hasta"/>
+              <field name="name"/>
+              <field name="valida_desde"/>
+              <field name="valida_hasta"/>
           </group>
-            <group>
-          <field name="valor_pertenencia_factor"/>
-          <field name="valor_pertenencia"/>
+
+          <group>
+            <field name="valor_pertenencia_factor"/>
+            <field name="valor_pertenencia"/>
         <p>  El valor de la pertenencia se calcula como el valor general por el valor de factor cargado para este perfil.</p>
          </group>
          <group>
@@ -47,8 +48,12 @@
                 <field name="categoria_mineral"/>
                 <field name="active"/>
                 <field name="config_defecto"/>
+<<<<<<< HEAD
+                <!-- <button name="alerta_prueba" string="Seleccionar como configuración por defecto" class="oe_highlight" type="object"/> -->
+=======
                 <button name="establecer_config_defecto" type="object" string="Config. Defecto" class="oe_highlight"
               confirm="¿Establecer configuracion actual como 'configuración por defecto'?" />
+>>>>>>> main
           </group>
 
       </form>

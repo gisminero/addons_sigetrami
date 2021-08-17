@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.module.category" id="exp_canon.autorizaciones" >
+      <field name="name">SIGETRAMI.Pago de Canon</field>
+      <field name="description">Controla si el usuario tiene permisos para realizar pago de canon.</field>
+      <field name="sequence">30</field>
+    </record>
+
+   <record id="exp_canon.exp_canon_lectura" model="res.groups">
+     <field name="name">Lectura de Pagos</field>
+     <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+     <field name="users" eval="[(4, ref('base.user_root'))]"/>
+     <field name="category_id" ref="exp_canon.autorizaciones"/>
+    </record>
+
+    <record id="exp_canon.exp_canon_escritura" model="res.groups">
+      <field name="name">Informar Pagos</field>
+      <field name="implied_ids" eval="[(4, ref('exp_canon.exp_canon_lectura'))]"/>
+      <field name="category_id" ref="exp_canon.autorizaciones"/>
+    </record>
+
+<!--    <record id="exp_canon_creacion" model="res.groups">-->
+<!--      <field name="name">Lectura/Escritura/Creación</field>-->
+<!--      <field name="implied_ids" eval="[(4, ref('exp_canon.exp_canon_escritura'))]"/>-->
+<!--      <field name="category_id" ref="exp_canon.autorizaciones"/>-->
+<!--    </record>-->
+
+<!--    <record id="exp_canon_borrar" model="res.groups">-->
+<!--      <field name="name">Lectura/Escritura/Creación/Borrar</field>-->
+<!--      <field name="implied_ids" eval="[(4, ref('exp_canon.exp_canon_creacion'))]"/>-->
+<!--      <field name="category_id" ref="exp_canon.autorizaciones"/>-->
+<!--    </record>-->
+
+    <record id="exp_canon.exp_canon_configuracion" model="res.groups">
+      <field name="name">Configuración de Pagos</field>
+      <field name="implied_ids" eval="[(4, ref('exp_canon.exp_canon_escritura'))]"/>
+      <field name="category_id" ref="exp_canon.autorizaciones"/>
+    </record>
+
+</odoo>
+

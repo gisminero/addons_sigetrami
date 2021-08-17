@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from unidecode import unidecode
+#from unidecode import unidecode
 
 class tarea(models.Model):
     _name = 'tarea.tarea'
@@ -40,11 +40,11 @@ class tarea(models.Model):
             if not record.codigo:
                 codigo = "-"
             else:
-                codigo = unidecode(record.codigo)
+                codigo = record.codigo #unidecode(record.codigo)
             if not record.name:
                 nombre = "-"
             else:
-                nombre = unidecode(record.name)
+                nombre = record.name #unidecode(record.name)
             # if not record.tipo:
             #     tipo = "-"
             # else:
