@@ -1,0 +1,19 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="exp_canon.popup_select_config">
+      <field name="name">Cambiar configuración de Canon</field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+      <form string="Seleccionar configuración de canon para expediente">
+             <separator string="Seleccionar configuración de canon para expediente"/>
+                <group >
+                    <field name="config_asociada"/>
+               </group>
+               <footer>
+                   <button name="confirmar" string="Confirmar" type="object" class="oe_highlight"/>
+               </footer>
+      </form>
+      </field>
+    </record>
+  </data>
+</odoo>

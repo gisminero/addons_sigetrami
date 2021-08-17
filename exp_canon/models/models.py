@@ -96,7 +96,24 @@ class expediente(models.Model):
     def informa_pago(self):
         print (("BORRAR"))
         return True
+    
+    def confirmar(self):
+        print (("Confirmar"))
+        return True
 
     def canon_cambiar_config_default(self):
+        if True:
+            return {
+                'name': "Cambiar configuración de Canon",
+                'view_mode': 'form',
+                'res_id': self.id,  # SOLO PARA FORM
+                'res_model': 'expediente.expediente',
+                'type': 'ir.actions.act_window',
+                # 'domain': [('seguimiento_id.expediente_id', '=', active_id)],
+                # 'context': {'recibido': True, 'ubicacion_actual': depart_id},
+                'views': [[self.env.ref('exp_canon.popup_select_config').id, "form"]],
+                'target': 'new',
+                #'tag': 'reload',
+            }
         return True
 

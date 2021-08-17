@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
-import datetime
+import datetime, re
+from odoo.exceptions import ValidationError
 
 class exp_canon_venc_emitidos(models.Model):
     _name = 'exp_canon_venc_emitidos'
@@ -50,9 +51,9 @@ class exp_canon_venc_emitidos(models.Model):
     def dispara_vencimientos(self):
         hoy = datetime.date.today()
         print (("EL DIA DE HOY ES: " + str(hoy) + " EL AÑO ES: " + str(hoy.year) + "  Y EL MES ES: " + str(hoy.month)))
-        if hoy.month == 7 or hoy.month == 9:
-            if not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
-            # if self.obtener_vencimiento_emitido(hoy.year, hoy.month):
+        if hoy.month == 8 or hoy.month == 9:
+             if not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
+             # if self.obtener_vencimiento_emitido(hoy.year, hoy.month):
                 self.crea_vencimientos()
         return True
 
@@ -81,8 +82,13 @@ class exp_canon_config(models.Model):
     _name = 'exp_canon_config'
     _description = "Configuracion de Obligaciones"
 
+#    @api.onchange('config_defecto')
+
+       
+
+
     name = fields.Char('Nombre de la Configuracion', required=True, readonly=False)
-    valida_desde = fields.Date('Valida Desde', readonly=True, required=True)
+    valida_desde = fields.Date('Valida Desde', required=True)
     valida_hasta = fields.Date('Valida Hasta', readonly=True)
     valor_pertenencia_factor = fields.Float('Factor Valor de Pertenencia', help='')
     valor_pertenencia = fields.Float('Valor de Pertenencia', help='Se calcula como el factor por un valor de ajuste genral. Inserto en Config generales del programa')
@@ -90,7 +96,11 @@ class exp_canon_config(models.Model):
     mes_segundo_vencimiento_anual = fields.Integer('Mes segundo vencimiento', help='', default=12)
     mes_primer_plazo_gracia = fields.Integer('Mes vencimiento primer plazo gracia', help='', default=8)
     mes_segundo_plazo_gracia = fields.Integer('Mes vencimiento segundo plazo gracia', help='', default=2)
-    config_defecto = fields.Boolean('Configuración por Defecto',  help='Solo puede haber una configuracion por defecto')
+
+    config_defecto  = fields.Boolean('Configuración por Defecto', help='Solo puede haber una configuracion por defecto')
+    #before_config = fields.Float('Anterior Por defecto', default=0.0)
+    #print(before_config )
+
     active = fields.Boolean('Activo', default=True, readonly=True)
     categoria_mineral_asociada = fields.Selection([
         ('primera', 'Primera'),
@@ -100,8 +110,56 @@ class exp_canon_config(models.Model):
         ('no_corresponde', 'No corresponde'),], required=False,
         help="Categoria del mineral asociada por defecto", string="Categoria Mineral Asociada")
 
+    _sql_constraints = [
+        ('unique_default_config', 'EXCLUDE (config_defecto WITH =)  WHERE (config_defecto)',
+         'No se puede continuar debido a que ya existe una configuración por defecto')
+    ]
+
     def activar(self):
         return True
 
     def realiza_pago(self):
         return True
+
+    def cambiar_default_canon(self):
+        print("Estoy aqui: cambiar_default_canon")
+        default_canon = self.env['exp_canon_config'].search([('config_defecto', '=', True), ('active', '=', True)])
+        default_canon.config_defecto = False
+        self.config_defecto = True
+
+    def mantener_default_canon(self):
+        print("Estoy aqui: cancelar")
+        return True
+
+    def confirma_cambio(self):
+        print("Estoy aqui: confirma_cambio")
+        return {
+            'name': "Cambiar configuración por defecto",
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_id': self.id,  # SOLO PARA FORM
+            'target': 'new',
+            #'tag': 'reload',
+            'res_model': 'exp_canon_config',
+            'views': [[self.env.ref('exp_canon.form_popup_config_canon_por_defecto').id, "form"]],
+            'views_id': 'exp_canon_config.form_popup_config_canon_por_defecto',
+            'contex': contex
+        }
+
+    @api.onchange('config_defecto')
+    def alerta_prueba(self):
+        if self.config_defecto:
+            print("VERDADERO")
+            default_canon = self.env['exp_canon_config'].search([('config_defecto', '=', True), ('active', '=', True)])
+            print(self._origin.id)
+            print(default_canon.id)
+            if default_canon.config_defecto == True and default_canon.id!=self._origin.id:
+                return self.confirma_cambio()
+            else:
+                self.config_defecto = True
+                print("No había otro verdadero")
+        else:
+            print("FALSO")
+            self.config_defecto = False
+
