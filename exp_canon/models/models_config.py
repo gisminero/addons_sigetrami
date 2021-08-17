@@ -55,18 +55,13 @@ class exp_canon_venc_emitidos(models.Model):
 
     def dispara_vencimientos(self):
         hoy = datetime.date.today()
-<<<<<<< HEAD
-        print (("EL DIA DE HOY ES: " + str(hoy) + " EL AÑO ES: " + str(hoy.year) + "  Y EL MES ES: " + str(hoy.month)))
-        if hoy.month == 8 or hoy.month == 9:
-             if not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
-             # if self.obtener_vencimiento_emitido(hoy.year, hoy.month):
-=======
+
         #print (("EL DIA DE HOY ES: " + str(hoy) + " EL AÑO ES: " + str(hoy.year) + "  Y EL MES ES: " + str(hoy.month)))
         if hoy.month == 7 or hoy.month == 9:
             if not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
             #La siguiente condiciòn se utiliza para desarrollo
             #if self.obtener_vencimiento_emitido(hoy.year, hoy.month) or not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
->>>>>>> main
+
                 self.crea_vencimientos()
         return True
 
