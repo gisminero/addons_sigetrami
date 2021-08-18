@@ -118,6 +118,7 @@ class exp_canon_config(models.Model):
     config_defecto  = fields.Boolean('Configuración por Defecto', help='Solo puede haber una configuracion por defecto')
     #before_config = fields.Float('Anterior Por defecto', default=0.0)
     #print(before_config )
+    validado = fields.Boolean('Configuración validada', help='Una vez validada no se puede volver a configurar',default=False)
 
     active = fields.Boolean('Activo', default=True, readonly=True)
     categoria_mineral = fields.Selection([
@@ -134,6 +135,7 @@ class exp_canon_config(models.Model):
     ]
 
     def activar(self):
+        self.validado = True
         return True
 
     def realiza_pago(self):
