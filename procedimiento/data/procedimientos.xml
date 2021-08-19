@@ -1,9 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" ?>
 <odoo>
-<data  noupdate="0">
-<field name="name">Solicitud de Exploración (Cateo)</field><field name="active">True</field><field name="susplazo">2</field><field name="categoria_mineral">no_corresponde</field>
-<field name="name">Manifestación de Primera Categoría</field><field name="active">True</field><field name="susplazo">2</field><field name="categoria_mineral">primera</field>
-<field name="name">Manifestación de Segunda Categoría</field><field name="active">True</field><field name="susplazo">2</field><field name="categoria_mineral">segunda</field>
-<field name="name">Caducidad de Mina</field><field name="active">True</field><field name="susplazo">2</field><field name="categoria_mineral">todas</field>
-</data>
+    <data noupdate="1">
+        <record id="procedimiento_1" model="procedimiento.procedimiento">
+            <field name="name">Solicitud de Exploracion (Cateo)</field>
+            <field name="description">Descripcion</field>
+            <field name="active">True</field>
+            <field name="iniciado">1</field>
+            <field name="susplazo">2</field>
+            <field name="categoria_mineral">no_corresponde</field>        
+        </record>
+        <record id="procedimiento_2" model="procedimiento.procedimiento">
+            <field name="name">Manifestación de Primera Categoría</field>
+            <field name="description">Descripcion</field>
+            <field name="active">True</field>
+            <field name="iniciado">1</field>
+            <field name="susplazo">2</field>
+            <field name="categoria_mineral">primera</field>        
+        </record>
+        <record id="procedimiento_3" model="procedimiento.procedimiento">
+            <field name="name">Manifestación de Segunda Categoría</field>
+            <field name="description">Descripcion</field>
+            <field name="active">True</field>
+            <field name="iniciado">1</field>
+            <field name="susplazo">2</field>
+            <field name="categoria_mineral">segunda</field>        
+        </record>
+        <record id="procedimiento_4" model="procedimiento.procedimiento">
+            <field name="name">Caducidad de Mina</field>
+            <field name="description">Descripcion</field>
+            <field name="active">True</field>
+            <field name="iniciado">1</field>
+            <field name="susplazo">2</field>
+            <field name="categoria_mineral">todas</field>        
+        </record>
+    </data>
 </odoo>
