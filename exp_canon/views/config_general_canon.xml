@@ -23,35 +23,39 @@
         <group>
                 <separator string="Configuración de valor General" colspan="4"/>
             <!--<spam>En esta pantalla se configura la combinación de trámite y estado, en la cual el sistema debe permitir cambio de trámite en un expediente.<spam/> -->
-                 <button name="activar" string="Validar" class="oe_highlight" type="object"
-                         confirm="Si confirma la validacion, no podra modificar el valor."/>
+
         </group>
 
           <group>
-              <field name="name"/>
-              <field name="valida_desde"/>
-              <field name="valida_hasta"/>
+              <field name="name" attrs="{'readonly':[('validado','=', True)]}"/>
+              <field name="valida_desde" attrs="{'readonly':[('validado','=', True)]}"/>
+              <field name="valida_hasta" attrs="{'readonly':[('validado','=', True)]}"/>
           </group>
 
           <group>
-            <field name="valor_pertenencia_factor"/>
-            <field name="valor_pertenencia"/>
+            <field name="valor_pertenencia_factor" attrs="{'readonly':[('validado','=', True)]}"/>
+            <field name="valor_pertenencia" attrs="{'readonly':[('validado','=', True)]}"/>
         <p>  El valor de la pertenencia se calcula como el valor general por el valor de factor cargado para este perfil.</p>
          </group>
          <group>
-          <field name="mes_primer_vencimiento_anual"/>
-          <field name="mes_segundo_vencimiento_anual"/>
-          <field name="mes_primer_plazo_gracia"/>
-          <field name="mes_segundo_plazo_gracia"/>
+          <field name="mes_primer_vencimiento_anual" attrs="{'readonly':[('validado','=', True)]}"/>
+          <field name="mes_segundo_vencimiento_anual" attrs="{'readonly':[('validado','=', True)]}"/>
+          <field name="mes_primer_plazo_gracia" attrs="{'readonly':[('validado','=', True)]}"/>
+          <field name="mes_segundo_plazo_gracia" attrs="{'readonly':[('validado','=', True)]}"/>
          </group>
           <group>
-                <field name="categoria_mineral"/>
-                <field name="active"/>
-                <field name="config_defecto"/>
-
-                <button name="establecer_config_defecto" type="object" string="Config. Defecto" class="oe_highlight"
+                <field name="categoria_mineral" attrs="{'readonly':[('validado','=', True)]}"/>
+                <field name="active" attrs="{'readonly':[('validado','=', True)]}"/>
+           </group>    
+           <group> 
+                <field name="config_defecto" readonly="True" />  
+                <button attrs="{'invisible':[('validado','=', True)]}" name="establecer_config_defecto" type="object" string="Config. Defecto" class="oe_highlight"
               confirm="¿Establecer configuracion actual como 'configuración por defecto'?" />
-
+           </group>
+           <group>     
+                <field name="validado" readonly="True"/>
+                <button attrs="{'invisible':[('validado','=', True)]}"   name="validar" string="Validar" class="oe_highlight" type="object"
+                    confirm="Si confirma la validacion, no podra modificar el valor."/>
           </group>
 
       </form>

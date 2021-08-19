@@ -23,12 +23,9 @@
         <group>
         <separator string="Configuración de valor General" colspan="4"/>
         <!--<spam>En esta pantalla se configura la combinación de trámite y estado, en la cual el sistema debe permitir cambio de trámite en un expediente.<spam/> -->
-                 <button name="activar" string="Validar" class="oe_highlight" type="object"
-                    confirm="Si confirma la validacion, no podra modificar el valor."
-                      />
         </group>
         <group>
-                <field name="canon_valor_global" />
+                <field name="canon_valor_global"/>
                 <field name="canon_valor_global_control"/>
         </group>
       </form>

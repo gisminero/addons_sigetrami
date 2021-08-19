@@ -4,3 +4,4 @@ access_exp_canon_escribir,exp_canon.exp_cannon_escribe,model_exp_canon_obligacio
 access_exp_canon_leer,exp_canon.exp_cannon_lee,model_exp_canon_obligaciones,exp_canon.exp_canon_lectura,1,0,0,0
 access_exp_canon_config,exp_canon.exp_cannon_config,model_exp_canon_config,exp_canon.exp_canon_configuracion,1,1,1,1
 
+access_exp_canon_modifica,exp_canon.exp_cannon_config,model_exp_canon_config,exp_canon.exp_canon_modificacion,1,0,0,0

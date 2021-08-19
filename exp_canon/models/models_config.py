@@ -100,11 +100,6 @@ class exp_canon_config(models.Model):
     _name = 'exp_canon_config'
     _description = "Configuracion de Obligaciones"
 
-#    @api.onchange('config_defecto')
-
-       
-
-
     name = fields.Char('Nombre de la Configuracion', required=True, readonly=False)
     valida_desde = fields.Date('Valida Desde', required=True)
     valida_hasta = fields.Date('Valida Hasta', readonly=True)
@@ -116,8 +111,8 @@ class exp_canon_config(models.Model):
     mes_segundo_plazo_gracia = fields.Integer('Mes vencimiento segundo plazo gracia', help='', default=2)
 
     config_defecto  = fields.Boolean('Configuración por Defecto', help='Solo puede haber una configuracion por defecto')
-    #before_config = fields.Float('Anterior Por defecto', default=0.0)
-    #print(before_config )
+
+    validado = fields.Boolean('Configuración validada', help='Una vez validada no se puede volver a configurar', readonly=False, default=False)
 
     active = fields.Boolean('Activo', default=True, readonly=True)
     categoria_mineral = fields.Selection([
@@ -134,6 +129,12 @@ class exp_canon_config(models.Model):
     ]
 
     def activar(self):
+        return True
+
+    def validar(self):
+        print("estoy en validar")
+        self.write({'validado': True})
+        print(self.validado)
         return True
 
     def realiza_pago(self):
