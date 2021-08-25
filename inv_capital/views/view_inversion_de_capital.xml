@@ -1,0 +1,34 @@
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="inversion_capital.activar_pestania">
+			<field name="name">Registro de Inversion de Capital</field>
+			<field name="model">expediente.expediente</field>
+			<field name="inherit_id" ref="expediente.form"/>
+				<xpath expr="/form/sheet/notebook/sheet[@name='hoja_1']" position="attributes">
+					<attribute name="invisible">0</attribute>
+				</xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="inversion_capital.contenido">
+      		<field name="name">Registro de Inversion de Capital</field>
+      		<field name="model">expediente.expediente</field>
+      		<field name="inherit_id" ref="expediente.form"/>
+      		<field name="arch" type="xml">
+             	<xpath expr="/form/sheet/notebook/sheet[@name='hoja_1']"  position="inside">
+                 	<group>
+						<field name="canon_obligaciones_id" nolabel="1" colspan="2">
+								<tree string="Declaración Jurada" >
+									<field name="id" readonly="1"/>
+									<field name="name"/>
+									<field name="year" />
+									<field name="presentation_date" />
+									<field name="file" file_name="file_name"/>
+									<field name="validated"/>
+								</tree>
+						</field>
+                	</group>
+             	</xpath>
+        	</field>
+     	</record>
+	</data>
+</odoo>
