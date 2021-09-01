@@ -1,9 +1,9 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
 import datetime
-from odoo import exceptions
 
-class  declaracion_jurada(models.Model):
-	_name = 'declaracion_jurada'
+
+class  exp_inv_capital(models.Model):
+	_name = 'exp_inv_capital'
 	_description = 'Declaracion jurada de inversion de capital'
 
 	name = fields.Char('Titulo', required=True, readonly=False)
@@ -26,4 +26,4 @@ class expediente(models.Model):
 	_inherit = 'expediente.expediente'
 	_description = 'Asociando declaraciones de inversion de capital'
 
-	declaracion_jurada_id = fields.One2many('declaracion_jurada', 'exp_id', string='Inversiones', required=False)
+	declaracion_jurada_id = fields.One2many('exp_inv_capital', 'exp_id', string='Inversiones', required=False)

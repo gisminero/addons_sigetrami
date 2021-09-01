@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.model.category" id="exp_inv_capital.autorizaciones">
+		<field name="name">SIGETRAMI.Inversion de capital</field>
+		<field name="description">Gestion de accesos de acuerdo a usuarios para el modulo inversion de capital</field>
+		<field name="sequence">31</field>
+	</record>
+</odoo>

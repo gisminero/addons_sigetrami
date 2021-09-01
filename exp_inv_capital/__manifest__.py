@@ -1,9 +1,9 @@
 { 
     'name': 'SIGETRAMI - Inversión de capital', 
     'summary': """
-        Registro de pinversión de capital.""",
+        Registro de inversión de capital.""",
     'description': """
-       Registro de pinversión de capital.
+       Registro de inversión de capital.
     """,
 
     'author': "Secretaria de Mineria",
