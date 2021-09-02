@@ -5,6 +5,7 @@
 			<field name="name">Inversion</field>
 			<field name="model">expediente.expediente</field>
 			<field name="inherit_id" ref="expediente.form"/>
+			<field name="arch" type="xml">
 				<xpath expr="/form/sheet/notebook/sheet[@name='hoja_2']" position="attributes">
 					<attribute name="invisible">0</attribute>
 				</xpath>
@@ -19,7 +20,7 @@
       		<field name="arch" type="xml">
              	<xpath expr="/form/sheet/notebook/sheet[@name='hoja_2']"  position="inside">
                  	<group>
-						<field name="canon_obligaciones_id" nolabel="1" colspan="2">
+						<field name="declaracion_jurada_id" nolabel="1" colspan="2">
 								<tree string="Declaración Jurada" >
 									<field name="id" readonly="1"/>
 									<field name="name"/>

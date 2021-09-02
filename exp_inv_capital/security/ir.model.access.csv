@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_exp_inv_capital,exp_inv_capital,model_exp_inv_capital,base.group_user,1,1,1,1
+access_exp_inv_capital_escribir,exp_inv_capital.exp_inv_capital_escribe,model_exp_inv_capital,exp_inv_capital.exp_inv_capital_escritura,1,1,1,1

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<record model="ir.model.category" id="exp_inv_capital.autorizaciones">
+	<record model="ir.module.category" id="exp_inv_capital.autorizaciones">
 		<field name="name">SIGETRAMI.Inversion de capital</field>
 		<field name="description">Gestion de accesos de acuerdo a usuarios para el modulo inversion de capital</field>
-		<field name="sequence">31</field>
+		<field name="sequence">40</field>
 	</record>
+
+	<record id="exp_inv_capital.exp_inv_capital_escritura" model="res.groups">
+     <field name="name">Lectura/Escritura de Pagos</field>
+     <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+     <field name="users" eval="[(4, ref('base.user_root'))]"/>
+     <field name="category_id" ref="exp_inv_capital.autorizaciones"/>
+    </record>
 </odoo>
