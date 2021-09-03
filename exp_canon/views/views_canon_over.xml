@@ -7,7 +7,9 @@
       <field name="inherit_id" ref="expediente.form"/>
       <field name="arch" type="xml">
              <xpath expr="/form/sheet/notebook/sheet[@name='hoja_1']"  position="attributes">
-                    <attribute name="invisible">0</attribute>
+                    <attribute name="attrs">{'invisible': [('perm','=',False)]}</attribute>
+                    <field name="perm" />
+                    <!-- <attribute name="invisible">0</attribute> -->
              </xpath>
         </field>
      </record>
@@ -18,6 +20,7 @@
       <field name="inherit_id" ref="expediente.form"/>
       <field name="arch" type="xml">
              <xpath expr="/form/sheet/notebook/sheet[@name='hoja_1']"  position="inside" groups="exp_canon.exp_canon_lectura">
+
                  <group col="4">
                      <field name="config_asociada"  readonly="1" />
                      <button name="canon_cambiar_config_default" type="object" string="Cambiar Config. de Canon"  />
@@ -26,7 +29,7 @@
 
 <!--                 </group>-->
                  <group>
-                 <field name="perm" />
+                 <!-- <field name="perm" /> -->
                  <field name="canon_obligaciones_id" nolabel="1" colspan="2" readonly="1">
 			            <tree string="Canon Minero" > <!-- editable="bottom"-->
                             <field name="id" />
