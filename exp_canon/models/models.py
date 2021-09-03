@@ -98,7 +98,6 @@ class expediente(models.Model):
         return default_canon.id
 
     def check_perm(self):
-        cuid = self.env.uid
         user = self.env['res.users'].browse(self.env.uid)
         group_hr_manager = user.has_group('exp_canon.exp_canon_lectura')
         if group_hr_manager == True:
