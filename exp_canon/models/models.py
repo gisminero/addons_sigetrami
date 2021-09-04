@@ -97,18 +97,9 @@ class expediente(models.Model):
         default_canon = self.env['exp_canon_config'].search([('config_defecto', '=', True), ('active', '=', True)])
         return default_canon.id
 
-    def check_perm(self):
-        user = self.env['res.users'].browse(self.env.uid)
-        group_hr_manager = user.has_group('exp_canon.exp_canon_lectura')
-        if group_hr_manager == True:
-            self.perm = True
-        else:
-            self.perm = False
-
     canon_obligaciones_id = fields.One2many('exp_canon_obligaciones', 'exp_id', string='Obligaciones', required=False)
     cant_vencimientos_no_cumplidos = fields.Integer('Vencimientos No Cumplidos', help='', default=0)
     config_asociada = fields.Many2one('exp_canon_config', 'Configuracion Canon Asociada', readonly=False, default=default_config_canon, required=True)
-    perm = fields.Boolean(string="Permission", store=False, compute="check_perm", default=False)
 
     def informa_pago(self):
         print (("BORRAR"))
