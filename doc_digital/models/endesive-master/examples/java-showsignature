@@ -1,0 +1,16 @@
+#!/bin/bash
+thisdir=`dirname $0`
+jars="$thisdir"
+addjar(){
+jars="$jars:$1"
+}
+for fname in $thisdir/java/*.jar; do
+    addjar $fname
+done
+password=$1
+fname=$2
+if [ -z "$fname" ]; then
+    password=""
+    fname=$1
+fi
+java -cp $jars: PDFShowSignature "$password" $fname

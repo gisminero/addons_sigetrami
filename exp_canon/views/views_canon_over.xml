@@ -6,8 +6,11 @@
       <field name="model">expediente.expediente</field>
       <field name="inherit_id" ref="expediente.form"/>
       <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/sheet[@name='hoja_1']"  position="attributes">
+                   <attribute name="invisible">0</attribute> 
+             </xpath>
              <xpath expr="/form/sheet/notebook/sheet[@name='hoja_1']"  position="attributes">
-                    <attribute name="invisible">0</attribute>
+                   <attribute name="groups">exp_canon.exp_canon_lectura</attribute> 
              </xpath>
         </field>
      </record>
@@ -17,17 +20,15 @@
       <field name="model">expediente.expediente</field>
       <field name="inherit_id" ref="expediente.form"/>
       <field name="arch" type="xml">
-             <xpath expr="/form/sheet/notebook/sheet[@name='hoja_1']"  position="inside">
+             <xpath expr="/form/sheet/notebook/sheet[@name='hoja_1']"  position="inside" groups="exp_canon.exp_canon_lectura">
                  <group col="4">
                      <field name="config_asociada"  readonly="1" />
                      <button name="canon_cambiar_config_default" type="object" string="Cambiar Config. de Canon"  />
                  </group>
-<!--                 <group>-->
-
-<!--                 </group>-->
+                 
                  <group>
                  <field name="canon_obligaciones_id" nolabel="1" colspan="2" readonly="1">
-			            <tree string="Canon Minero" > <!-- editable="bottom"-->
+			            <tree string="Canon Minero" > 
                             <field name="id" />
                             <field name="name" />
                             <field name="fecha_vencimiento" />
@@ -40,9 +41,9 @@
                             attrs="{'invisible':[('estado','!=', 'emitido')]}" />
                             <field name="notificacion_enviada"/>
 			            </tree>
-
 		        </field>
                 </group>
+          
              </xpath>
         </field>
      </record>
