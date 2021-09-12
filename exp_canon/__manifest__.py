@@ -28,6 +28,7 @@
         'data/config_default.xml',
         'views/popup_informa_pago.xml',
         'data/cronos_vencimientos.xml',
+        'data/dispara_obligaciones_vencidas.xml',
         'views/popup_select_config.xml',
         'views/popup_config_canon_por_defecto.xml'
     ],

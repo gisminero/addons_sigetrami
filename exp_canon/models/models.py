@@ -85,6 +85,14 @@ class exp_canon_obligaciones(models.Model):
 
     def notificacion_obligacion_vencida(self):
         print (("DISPARANDO LA NOTIFICACION ..... "))
+        self.env['mail.message'].create({'message_type':"notification",
+                "subtype": self.env.ref("mail.mt_comment").id, # subject type
+                'body': "Message body",
+                'subject': "Message subject",
+                'needaction_partner_ids': [(4, self.user_id.partner_id.id)],   # partner to whom you send notification
+                'model': self._name,
+                'res_id': self.id,
+                })
         return True
 
 class expediente(models.Model):
@@ -99,7 +107,7 @@ class expediente(models.Model):
 
     canon_obligaciones_id = fields.One2many('exp_canon_obligaciones', 'exp_id', string='Obligaciones', required=False)
     cant_vencimientos_no_cumplidos = fields.Integer('Vencimientos No Cumplidos', help='', default=0)
-    config_asociada = fields.Many2one('exp_canon_config', 'Configuracion Canon Asociada', readonly=False, default=default_config_canon, required=True)
+    config_asociada = fields.Many2one('exp_canon_config', 'Configuracion Canon Asociada', readonly=False, default=default_config_canon, required=False)
 
     def informa_pago(self):
         print (("BORRAR"))

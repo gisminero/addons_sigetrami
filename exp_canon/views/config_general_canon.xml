@@ -22,6 +22,8 @@
         </header>
         <group>
                 <separator string="Configuración de valor General" colspan="4"/>
+                <separator string="Debe validar la configuración actual para utilizarla." 
+                colspan="4" attrs="{'invisible':[('validado','=', True)]}" />
             <!--<spam>En esta pantalla se configura la combinación de trámite y estado, en la cual el sistema debe permitir cambio de trámite en un expediente.<spam/> -->
 
         </group>
@@ -54,6 +56,7 @@
            </group>
            <group>     
                 <field name="validado" readonly="True"/>
+                
                 <button attrs="{'invisible':[('validado','=', True)]}"   name="validar" string="Validar" class="oe_highlight" type="object"
                     confirm="Si confirma la validacion, no podra modificar el valor."/>
           </group>
