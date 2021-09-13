@@ -18,7 +18,7 @@
 						<field name="file" file_name="file_name" attrs="{'readonly':[('validated','=',True)]}"/>
 					</group>
 					<group>
-						<button name="validar" string="Validar" type="object" confirm="Una vez validado el registro no se podrá editar" class="oe_highlight" attrs="{'invisible':[('validated','=',True)]}"/>
+						<button name="validar" string="Validar" type="object" confirm="Una vez validado el registro no se podrá editar" class="oe_highlight" attrs="{'invisible':['|',('validated','=',True),('exp_id','=',False)]}"/>
 					</group>
 				</form>
 			</field>
