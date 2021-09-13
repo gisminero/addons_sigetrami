@@ -6,10 +6,8 @@
       <field name="model">expediente.expediente</field>
       <field name="inherit_id" ref="expediente.form"/>
       <field name="arch" type="xml">
-        <xpath expr="//field[@name='folios']" position="after">
-
+        <xpath expr="/form/sheet/notebook/sheet/group/group/field[@name='folios']" position="after">
             <button name="administrar_digitales" type="object" string="Administrar Digitales" context="{'id_activo': id}"/>
-       
         </xpath>
       </field>
     </record>

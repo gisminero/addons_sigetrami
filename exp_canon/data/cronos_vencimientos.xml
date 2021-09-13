@@ -9,7 +9,7 @@
             <field name="numbercall">-1</field>
             <field name="model_id" ref="model_exp_canon_venc_emitidos"  />
             <field name="state">code</field>
-           <field name="code">model.acciones_planificadas()</field>
+           <field name="code">model.dispara_vencimientos()</field>
            <field eval="False" name="doall"/>
         </record>
 </openerp>

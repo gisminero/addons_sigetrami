@@ -6,10 +6,16 @@
       <field name="sequence">30</field>
     </record>
 
-   <record id="exp_canon.exp_canon_lectura" model="res.groups">
-     <field name="name">Lectura de Pagos</field>
+   <record id="exp_canon.exp_canon_sin_acceso" model="res.groups">
+     <field name="name">Sin Acceso a Pagos</field>
      <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
      <field name="users" eval="[(4, ref('base.user_root'))]"/>
+     <field name="category_id" ref="exp_canon.autorizaciones"/>
+    </record>
+
+    <record id="exp_canon.exp_canon_lectura" model="res.groups">
+     <field name="name">Lectura de Pagos</field>
+     <field name="implied_ids" eval="[(4, ref('exp_canon.exp_canon_sin_acceso'))]"/>
      <field name="category_id" ref="exp_canon.autorizaciones"/>
     </record>
 
@@ -36,6 +42,12 @@
       <field name="implied_ids" eval="[(4, ref('exp_canon.exp_canon_modificacion'))]"/>
       <field name="category_id" ref="exp_canon.autorizaciones"/>
     </record>
+
+<data noupdate="1">
+    <record id="base.default_user" model="res.users">
+        <field name="groups_id" eval="[(4,ref('exp_canon.exp_canon_sin_acceso'))]"/>
+    </record>
+</data>
 
 </odoo>
 

@@ -1,7 +1,14 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_exp_canon_sin_acceso,exp_canon.exp_cannon_sin_acceso,model_exp_canon_obligaciones,expediente.access_group_expte_lectura,1,0,0,0
+access_exp_canon_sin_config,exp_canon_sin_config,model_exp_canon_config,exp_canon.exp_canon_sin_acceso,1,0,0,0
 
 access_exp_canon_escribir,exp_canon.exp_cannon_escribe,model_exp_canon_obligaciones,exp_canon.exp_canon_escritura,1,1,0,0
 access_exp_canon_leer,exp_canon.exp_cannon_lee,model_exp_canon_obligaciones,exp_canon.exp_canon_lectura,1,0,0,0
-access_exp_canon_config,exp_canon.exp_cannon_config,model_exp_canon_config,exp_canon.exp_canon_configuracion,1,1,1,1
+access_exp_canon_leer,exp_canon.exp_cannon_lee,model_exp_canon_obligaciones,exp_canon.exp_canon_lectura,1,0,0,0
+access_exp_canon_leer_config,exp_canon_lee_config,model_exp_canon_config,exp_canon.exp_canon_lectura,1,0,0,0
 
 access_exp_canon_modifica,exp_canon.exp_cannon_config,model_exp_canon_config,exp_canon.exp_canon_modificacion,1,0,0,0
+
+access_exp_canon_admin_config,exp_canon_admin_config,model_exp_canon_config,exp_canon.exp_canon_configuracion,1,1,1,1
+
+
