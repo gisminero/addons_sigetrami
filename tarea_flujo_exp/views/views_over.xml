@@ -131,7 +131,7 @@
 
 
     <!-- Over Views -->
-    <record model="ir.ui.view" id="tarea_flujo_exp.expediente_form5">
+    <record model="ir.ui.view" id="tarea_flujo_exp.expediente_form">
       <field name="name">tarea_flujo_exp.actualizacion</field>
       <field name="model">expediente.expediente</field>
       <field name="inherit_id" ref="expediente.form"/>

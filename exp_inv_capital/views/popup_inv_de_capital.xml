@@ -1,0 +1,27 @@
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="exp_inv_capital.form_popup_inv_capital">
+			<field name="name">Inversión de capital</field>
+			<field name="model">exp_inv_capital</field>
+			<field name="arch" type="xml">
+				<form string="Inversiones de capital realizadas">
+					<separator string="Detalle de inversión"/>
+					<group>
+						<field name="validated" invisible="1"/>
+						<field name="exp_id" invisible="1"/>
+						<field name="name" attrs="{'readonly':[('validated','=',True)]}"/>
+						<field name="year" attrs="{'readonly':[('validated','=',True)]}"/>
+						<field name="presentation_date" attrs="{'readonly':[('validated','=',True)]}"/>
+					</group>
+					<separator string="Documentación adjunta"/>
+					<group>
+						<field name="file" file_name="file_name" attrs="{'readonly':[('validated','=',True)]}"/>
+					</group>
+					<group>
+						<button name="validar" string="Validar" type="object" confirm="Una vez validado el registro no se podrá editar" class="oe_highlight" attrs="{'invisible':[('validated','=',True)]}"/>
+					</group>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>
