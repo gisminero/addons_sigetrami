@@ -26,15 +26,15 @@ class exp_canon_venc_emitidos(models.Model):
             return False
 
     def crea_vencimientos_exp(self):
-        print(("CREANDO VENCIMIENTOS ..."))
         hoy = datetime.date.today()
         mes = hoy.month
         anio = hoy.year
         semestre = self.obtener_semestre(mes)
         nombre = "Primer Semestre " + str(anio) if (mes > 0 and mes < 7) else "Segundo Semestre" + str(anio)
         # self.create({'name': nombre, 'anio': anio, 'semestre': semestre})
-        exp_objs = self.env['expediente.expediente'].search([('state', '=', 'active')])
+        exp_objs = self.env['expediente.expediente'].search([('state', '=', 'active'),('config_asociada', '!=', False)])
         for exp in exp_objs:
+            #print(("CREANDO OBLIGACION DEL EXPTE: " + exp.name))
             self.env['exp_canon_obligaciones'].crear_obligacion(exp, semestre)
         return True
 
@@ -61,7 +61,6 @@ class exp_canon_venc_emitidos(models.Model):
             if not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
             #La siguiente condiciòn se utiliza para desarrollo
             #if self.obtener_vencimiento_emitido(hoy.year, hoy.month) or not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
-
                 self.crea_vencimientos()
         return True
 

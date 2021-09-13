@@ -35,9 +35,6 @@ class exp_canon_obligaciones(models.Model):
             mes_vto_gracia = exp.config_asociada.mes_segundo_plazo_gracia
             anio_gracia = anio + 1
         concepto = 'Canon ' + str(anio) + ' - Pago ' + str(semestre)
-        print (("LA CONFIGURACION ASOCIADA A ESTE EXPEDIENTE ES: " + str(exp.config_asociada.name) + " Y EL SEMESTRE ES: " + str(semestre)))
-        print(("EL MES DE SEGUNDO VENCIMIENTO ANUAL ES: " + str(exp.config_asociada.mes_segundo_vencimiento_anual)))
-        self.obtener_ultimo_dia_mes(anio, 2)
         fecha_venc = str(anio) +'-'+ str(mes_vto) + '-' + str(self.obtener_ultimo_dia_mes(anio, mes_vto))
         fecha_venc_gracia = str(anio_gracia) +'-'+ str(mes_vto_gracia) + '-' + str(self.obtener_ultimo_dia_mes(anio_gracia, mes_vto_gracia))
         self.create({'name': concepto, 'exp_id': exp.id, 'fecha_vencimiento': fecha_venc, 'fecha_vencimiento_gracia': fecha_venc_gracia
@@ -51,7 +48,7 @@ class exp_canon_obligaciones(models.Model):
         anio = anio + 1 if (mes == 12) else anio
         mes = 1 if (mes == 12) else mes + 1
         ultima_fecha_mes = datetime.date(anio, mes, 1) - datetime.timedelta(days=1)
-        print (("LA ULTIMA FECHA DE MES ES IGUAL A : " + str(ultima_fecha_mes) + " ultimo dia: " + str(ultima_fecha_mes.day)))
+        #print (("LA ULTIMA FECHA DE MES ES IGUAL A : " + str(ultima_fecha_mes) + " ultimo dia: " + str(ultima_fecha_mes.day)))
         return ultima_fecha_mes.day
 
     def informa_pago(self):
