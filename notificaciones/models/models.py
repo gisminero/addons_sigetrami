@@ -187,17 +187,20 @@ class notifica(models.Model):
                 alerta_obj = self.env['alerta']
                 for g in grupos:
                     for u in g.user_notificar_id:
-                        print (("Generando Alertas para Empleado: " + u.name + " ID Users: "+ str(u.user_id.id) + " Usuario: "+ str(u.user_id.login)+ "Usuario Activo: " + str(u.active)))
+                        print (("Generando Alertas para Empleado: " + u.name + " ID Users: "+ str(u.user_id.partner_id.id) + " Usuario: "+ str(u.user_id.login)+ "Usuario Activo: " + str(u.active)))
+                        #########################
+                        ########CREANDO ALERTAS PARA USUARIOS CON LA INTERFACE VIEJA
                         alerta_obj.create({'notificacion_id': expte_obj.id,
-                        'user_alerta_id': u.user_id.id, 'info': info})
+                            'user_alerta_id': u.user_id.id, 'info': info})
+                        ###############FIN CREANDO
                         #############################################
                         #Incluir en el chat de notificacion a usuarios pertenecienter
                         # al grupo de usuarios de alerta, asociados a la notificacion.
-                        lista_subscripcion.append(u.user_id.id)
+                        lista_subscripcion.append(u.user_id.partner_id.id)
                         print (("SUSCRIBIENDO GENTE EN EL CHAT DE LA NOTIFICACION. Id de Usuario: " + str(u.id)))
                 ############################################
-                if user_creador_id not in lista_subscripcion:
-                    lista_subscripcion.append(user_creador_id)
+                #if user_creador_id not in lista_subscripcion:
+                #    lista_subscripcion.append(user_creador_id)
                 print(("LA LISTA DE SUBSCRIPCION CREADA ES:" + str(lista_subscripcion)))
                 expte_obj.message_subscribe(partner_ids=lista_subscripcion)
                 print(("Cambiando Estado a VENCIDO el EXPEDIENTE: " + str(expte_obj.expediente_id.name)))
@@ -207,8 +210,9 @@ class notifica(models.Model):
                 expte_obj.write({'alertas_enviados': True, 'state': 'vencido'})
                 ############################################
                 #ENVIANDO MENSAJE DE VENCIDO AL GRUPO
-                # print(("ENVIENDO MENSAJE AL CHAT DEL DOCUMENTO"))
-                expte_obj.message_post(body=info, subject=None, message_type='notification')
+                print(("ENVIENDO MENSAJE AL CHAT DEL DOCUMENTO"))
+                #expte_obj.message_post(body=info, subject=None, message_type='notification')
+                expte_obj.message_post(body=info, subject="Plazo Vencido", message_type='notification', parent_id=False, attachments=None)
                 ##############################################
         return True
 

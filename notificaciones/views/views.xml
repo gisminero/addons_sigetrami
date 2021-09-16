@@ -224,7 +224,7 @@
     </record>
 
 <!-- POP UP ALERTA DE USUARIO AL INGRESAR AL SISTEMA 2021 ODOO 11 -->
-<!--
+
     <record model="ir.ui.view" id="notificaciones.pop_alerta_form">
       <field name="name">Prueba 2021 - Alerta de Notificacion</field>
       <field name="model">alerta</field>
@@ -248,7 +248,7 @@
       <field name="res_model">alerta</field>
       <field name="view_mode">tree,form</field>
     </record>
-    -->
+
 <!-- FIN FORM POP UP -->
 
 <record model="ir.actions.server" id="notificaciones.alerta_mis_alertas">
@@ -289,8 +289,7 @@ else:
     <menuitem name="Mis Alertas" id="notificaciones.alerta_server_list" parent="gepromi.notifica"
              action="notificaciones.alerta_mis_alertas"/>
 
-      <!--  <menuitem name="Mis Alertas 21" id="notificaciones.alerta_action_pop_up" parent="gepromi.notifica"
+      <menuitem name="Mis Alertas 21" id="notificaciones.alerta_action_pop_up" parent="gepromi.notifica"
              action="notificaciones.alerta_action_window"/>
-            -->
-  </data>
+    </data>
 </odoo>
