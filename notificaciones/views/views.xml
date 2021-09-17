@@ -254,6 +254,7 @@
 <record model="ir.actions.server" id="notificaciones.alerta_mis_alertas">
     <field name="name">Alertas para mi</field>
     <field name="model_id" ref="model_alerta"/>
+    <field name="state">code</field>
     <field name="code">
 res = env['alerta'].select_target()
 if res == 'new':
@@ -283,13 +284,15 @@ else:
 <!-- EL SIGUIENTE MENU ES SOLO PARA JUJUY  -->
   <menuitem name="Notificaciones" id="gepromi.notifica" parent="gepromi.menu_root"/>
 
-    <menuitem name="Mis Eventos" id="notificaciones.menu_list" parent="gepromi.notifica"
+  <menuitem name="Mis Eventos" id="notificaciones.menu_list" parent="gepromi.notifica"
         action="notificaciones.notifica_action_window" groups="notificaciones.group_config_notif_lect"/>
 
-    <menuitem name="Mis Alertas" id="notificaciones.alerta_server_list" parent="gepromi.notifica"
+  <menuitem name="Mis Alertas" id="notificaciones.alerta_server_list" parent="gepromi.notifica"
              action="notificaciones.alerta_mis_alertas"/>
 
+      <!--
       <menuitem name="Mis Alertas 21" id="notificaciones.alerta_action_pop_up" parent="gepromi.notifica"
              action="notificaciones.alerta_action_window"/>
+      -->
     </data>
 </odoo>
