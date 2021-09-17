@@ -224,7 +224,7 @@
     </record>
 
 <!-- POP UP ALERTA DE USUARIO AL INGRESAR AL SISTEMA 2021 ODOO 11 -->
-<!--
+
     <record model="ir.ui.view" id="notificaciones.pop_alerta_form">
       <field name="name">Prueba 2021 - Alerta de Notificacion</field>
       <field name="model">alerta</field>
@@ -248,12 +248,13 @@
       <field name="res_model">alerta</field>
       <field name="view_mode">tree,form</field>
     </record>
-    -->
+
 <!-- FIN FORM POP UP -->
 
 <record model="ir.actions.server" id="notificaciones.alerta_mis_alertas">
     <field name="name">Alertas para mi</field>
     <field name="model_id" ref="model_alerta"/>
+    <field name="state">code</field>
     <field name="code">
 res = env['alerta'].select_target()
 if res == 'new':
@@ -283,14 +284,15 @@ else:
 <!-- EL SIGUIENTE MENU ES SOLO PARA JUJUY  -->
   <menuitem name="Notificaciones" id="gepromi.notifica" parent="gepromi.menu_root"/>
 
-    <menuitem name="Mis Eventos" id="notificaciones.menu_list" parent="gepromi.notifica"
+  <menuitem name="Mis Eventos" id="notificaciones.menu_list" parent="gepromi.notifica"
         action="notificaciones.notifica_action_window" groups="notificaciones.group_config_notif_lect"/>
 
-    <menuitem name="Mis Alertas" id="notificaciones.alerta_server_list" parent="gepromi.notifica"
+  <menuitem name="Mis Alertas" id="notificaciones.alerta_server_list" parent="gepromi.notifica"
              action="notificaciones.alerta_mis_alertas"/>
 
-      <!--  <menuitem name="Mis Alertas 21" id="notificaciones.alerta_action_pop_up" parent="gepromi.notifica"
+      <!--
+      <menuitem name="Mis Alertas 21" id="notificaciones.alerta_action_pop_up" parent="gepromi.notifica"
              action="notificaciones.alerta_action_window"/>
-            -->
-  </data>
+      -->
+    </data>
 </odoo>
