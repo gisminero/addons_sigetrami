@@ -30,7 +30,8 @@
         'data/cronos_vencimientos.xml',
         'data/dispara_obligaciones_vencidas.xml',
         'views/popup_select_config.xml',
-        'views/popup_config_canon_por_defecto.xml'
+        'views/popup_config_canon_por_defecto.xml',
+        'views/auditoria_obligaciones.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

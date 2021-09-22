@@ -43,6 +43,15 @@
       <field name="category_id" ref="exp_canon.autorizaciones"/>
     </record>
 
+
+    <record id="exp_canon.exp_canon_obligaciones" model="res.groups">
+      <field name="name">Auditoria de Obligaciones</field>
+      <field name="implied_ids" eval="[(4, ref('exp_canon.exp_canon_configuracion'))]"/>
+      <field name="category_id" ref="exp_canon.autorizaciones"/>
+    </record>
+
+
+
 <data noupdate="1">
     <record id="base.default_user" model="res.users">
         <field name="groups_id" eval="[(4,ref('exp_canon.exp_canon_sin_acceso'))]"/>

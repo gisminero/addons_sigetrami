@@ -1,0 +1,74 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="exp_canon.exp_canon_obligaciones_list">
+      <field name="name">Obligaciones de Pago de Canon</field>
+      <field name="model">exp_canon_obligaciones</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="monto_debe"/>
+          <field name="estado"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="exp_canon.exp_canon_obligaciones_form">
+      <field name="name">Obligaciones de Pago de Canon</field>
+      <field name="model">exp_canon_obligaciones</field>
+      <field name="arch" type="xml">
+      <form string="Configuracion General" >
+        <header>
+        </header>
+        <group>
+                <separator string="Obligación de Pago de Canon" colspan="4"/>
+
+        </group>
+
+          <group>
+              <field name="name" readonly="0"/>
+              <field name="fecha_vencimiento"  readonly="0"/>
+              <field name="fecha_vencimiento_gracia" readonly="0"/>
+
+          </group>
+
+           <group> 
+
+              <field name="fecha_pago" readonly="0" />
+              <field name="monto_debe" readonly="0"/>
+              <field name="monto_debe" readonly="0"/>
+              <field name="monto_haber" readonly="0"/>
+              <field name="monto_saldo" readonly="0"/>
+              <field name="estado" readonly="0"/>
+              <field name="notificacion_enviada" readonly="0"/>
+              <field name="exp_id" readonly="0"/>
+            
+           </group>
+    
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+
+
+               <footer>
+
+               </footer>
+
+      </form>
+      </field>
+    </record>
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="exp_canon.exp_canon_auditoria_obligaciones">
+      <field name="name">Obligacion de Pago de Canon</field>
+      <field name="res_model">exp_canon_obligaciones</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Canon Obligaciones" id="exp_canon.exp_canon_audit" parent="gepromi.config" sequence="21"/> 
+
+    <menuitem name="Auditoria de Obligaciones" id="exp_canon.exp_canon_auditoria_obligaciones"
+               parent="exp_canon.exp_canon_audit"
+              action="exp_canon.exp_canon_auditoria_obligaciones"/>
+  </data>
+</odoo>

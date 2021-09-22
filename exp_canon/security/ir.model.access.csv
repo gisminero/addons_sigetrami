@@ -11,4 +11,4 @@ access_exp_canon_modifica,exp_canon.exp_cannon_config,model_exp_canon_config,exp
 
 access_exp_canon_admin_config,exp_canon_admin_config,model_exp_canon_config,exp_canon.exp_canon_configuracion,1,1,1,1
 
-
+access_exp_canon_audit_obliga,exp_canon_audit_obliga,model_exp_canon_obligaciones,exp_canon.exp_canon_obligaciones,1,1,1,1
