@@ -15,7 +15,7 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Uncategorized',
-    'version': '0.1',
+    'version': '0.2',
     # any module necessary for this one to work correctly
     'depends': ['base', 'expediente', 'mail'],
     # always loaded
@@ -31,7 +31,7 @@
         'data/dispara_obligaciones_vencidas.xml',
         'views/popup_select_config.xml',
         'views/popup_config_canon_por_defecto.xml',
-        'views/auditoria_obligaciones.xml',
+        #'views/auditoria_obligaciones.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
