@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
-from unidecode import unidecode
+#from unidecode import unidecode
 #from PyPDF2 import PdfFileWriter, PdfFileReader, utils.PdfReadError
 import PyPDF2
 #pip install pypdf2
