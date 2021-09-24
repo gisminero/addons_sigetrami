@@ -8,11 +8,10 @@ class exp_canon_obligaciones(models.Model):
     _description = "Canon Obligaciones a Cumplir"
     #_inherit = ['mail.thread']
     _inherit = ['mail.activity.mixin', 'mail.thread']
-    #
 
-    name = fields.Char('Concepto', required=True, readonly=True)
+    name = fields.Char('Concepto', required=True, readonly=False)
     fecha_vencimiento = fields.Date('Vencimiento', readonly=True)
-    fecha_vencimiento_gracia = fields.Date('Plazo Gracia', readonly=True)
+    fecha_vencimiento_gracia = fields.Date('Plazo Gracia', readonly=False)
     fecha_pago = fields.Date('Fecha de Pago', readonly=True)
     monto_debe = fields.Float('Monto Debe', readonly=True)
     monto_haber = fields.Float('Monto Haber', readonly=True, default=0)
@@ -25,7 +24,7 @@ class exp_canon_obligaciones(models.Model):
     notificacion_enviada = fields.Boolean('Notificación Enviada', default=False, readonly=True)
     exp_id = fields.Many2one('expediente.expediente', 'Canon', required=1, ondelete='cascade')
     partner_id = fields.Many2one('res.partner', 'Responsible')
-    #guest_ids = fields.Many2many('res.partner', 'Participants')
+    guest_ids = fields.Many2many('res.partner', 'Participants')
 
     def crear_obligacion(self, exp, semestre):
         hoy = datetime.date.today()
@@ -86,6 +85,10 @@ class exp_canon_obligaciones(models.Model):
 
     def notificacion_obligacion_vencida(self):
         print (("DISPARANDO LA NOTIFICACION ..... "))
+        info = "ESTE ES UN MENSAJE DE PRUEBA...2"
+        #self.message_post(body=info, subject="Plazo Vencido", message_type='notification', parent_id=False, attachments=None)
+        self.message_post(body=info, subject=None, message_type='notification', parent_id=False, attachments=None)
+        """
         self.env['mail.message'].create({'message_type':"notification",
                 "subtype": self.env.ref("mail.mt_comment").id, # subject type
                 'body': "Message body",
@@ -94,6 +97,7 @@ class exp_canon_obligaciones(models.Model):
                 'model': self._name,
                 'res_id': self.id,
                 })
+        """
         return True
 
 class expediente(models.Model):
@@ -109,10 +113,6 @@ class expediente(models.Model):
     canon_obligaciones_id = fields.One2many('exp_canon_obligaciones', 'exp_id', string='Obligaciones', required=False)
     cant_vencimientos_no_cumplidos = fields.Integer('Vencimientos No Cumplidos', help='', default=0)
     config_asociada = fields.Many2one('exp_canon_config', 'Configuracion Canon Asociada', readonly=False, default=default_config_canon, required=False)
-
-    def informa_pago(self):
-        print (("BORRAR"))
-        return True
     
     def confirmar(self):
         print (("Confirmar"))
