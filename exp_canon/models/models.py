@@ -85,9 +85,21 @@ class exp_canon_obligaciones(models.Model):
 
     def notificacion_obligacion_vencida(self):
         print (("DISPARANDO LA NOTIFICACION ..... "))
-        info = "ESTE ES UN MENSAJE DE PRUEBA...2"
+        info = "ESTE ES UN MENSAJE DE PRUEBA...7 enviado a Super Admin y Catastro Minero  <a href='http://localhost:8069/web#model=expediente.expediente&view_type=list&cids=&menu_id=198'>800-27a-08-2021-EXP</a> "
+        kwargs = {'partner_ids': (49, 3),}
         #self.message_post(body=info, subject="Plazo Vencido", message_type='notification', parent_id=False, attachments=None)
-        self.message_post(body=info, subject=None, message_type='notification', parent_id=False, attachments=None)
+        self.message_post(body=info, subject=None, message_type='comment', parent_id=False, 
+            attachments=None, **kwargs)
+        """
+        post_vars = {'subject': "Message subject",
+             'body': "Message body Prueba 4",
+             'partner_ids': [(49, 3)],} # Where "4" adds the ID to the list 
+                                       # of followers and "3" is the partner ID 
+        self.message_post(
+                message_type="comment",
+                parent_id=False,
+                **post_vars)
+        """
         """
         self.env['mail.message'].create({'message_type':"notification",
                 "subtype": self.env.ref("mail.mt_comment").id, # subject type
