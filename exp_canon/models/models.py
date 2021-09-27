@@ -22,7 +22,7 @@ class exp_canon_obligaciones(models.Model):
         ('vencido', 'Vencido'),], required=False,
         help="Estado de la Obligación", string="Estado", readonly=True)
     notificacion_enviada = fields.Boolean('Notificación Enviada', default=False, readonly=True)
-    exp_id = fields.Many2one('expediente.expediente', 'Canon', required=1, ondelete='cascade')
+    exp_id = fields.Many2one('expediente.expediente', 'Expediente', required=1, ondelete='cascade')
     partner_id = fields.Many2one('res.partner', 'Responsible')
     guest_ids = fields.Many2many('res.partner', 'Participants')
 
@@ -85,7 +85,8 @@ class exp_canon_obligaciones(models.Model):
 
     def notificacion_obligacion_vencida(self):
         print (("DISPARANDO LA NOTIFICACION ..... "))
-        info = "ESTE ES UN MENSAJE DE PRUEBA...7 enviado a Super Admin y Catastro Minero  <a href='http://localhost:8069/web#model=expediente.expediente&view_type=list&cids=&menu_id=198'>800-27a-08-2021-EXP</a> "
+        #info = "ESTE ES UN MENSAJE DE PRUEBA...7 enviado a Super Admin y Catastro Minero  <a href='http://localhost:8069/web#model=expediente.expediente&view_type=list&cids=&menu_id=198'>800-27a-08-2021-EXP</a> "
+        info = "ESTE ES UN MENSAJE DE PRUEBA...7 enviado a Super Admin y Catastro Minero  <a href='http://localhost:8069/web#id=3&action=277&model=exp_canon_obligaciones&view_type=form&cids=&menu_id=200'>800-27a-08-2021-EXP</a> "
         kwargs = {'partner_ids': (49, 3),}
         #self.message_post(body=info, subject="Plazo Vencido", message_type='notification', parent_id=False, attachments=None)
         self.message_post(body=info, subject=None, message_type='comment', parent_id=False, 
