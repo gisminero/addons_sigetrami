@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data  noupdate="0">
-        <record id="exp_canon_config_global_0" model="exp_canon_config_global"><field name="canon_valor_global">1</field><field name="canon_valor_global_control">1</field></record>
+        <record id="exp_canon_config_global_0" model="exp_canon_config_global"><field name="canon_valor_global">1</field>
+        <field name="canon_valor_global_control">1</field></record>
     </data>
     <data  noupdate="0">
         <record id="exp_canon_config_0" model="exp_canon_config"><field name="name">Configuracion por Defecto</field>
