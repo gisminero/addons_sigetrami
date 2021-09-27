@@ -83,7 +83,7 @@ class pase(models.Model):
                 'type': 'ir.actions.act_window',
                 # 'target': 'new',
                 'domain': [('ultimo_pase_id', '!=', False)],
-                'views': [[self.env.ref('exp_cambio_tramite.expediente_corregir').id, "tree"]],
+                'views': [[self.env.ref('exp_envios_admin.expediente_corregir').id, "tree"]],
             # , [self.env.ref('exp_cambio_tramite.expediente_corregir_form').id, "form"]
                 }
         return action
@@ -144,7 +144,7 @@ class expediente(models.Model):
                 'type': 'ir.actions.act_window',
                 'target': 'new',
                 # 'domain': [('ubicacion_actual', '=', self.env['expediente.expediente'].depart_user())],
-                'views': [[self.env.ref('exp_cambio_tramite.expediente_corregir_form').id, "form"]],
+                'views': [[self.env.ref('exp_envios_admin.expediente_corregir_form').id, "form"]],
                 }
         return action
 
