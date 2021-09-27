@@ -83,34 +83,28 @@ class exp_canon_obligaciones(models.Model):
     def notificacion_pago(self):
         return True
 
+    def obtener_usuarios_notif(self):
+        grupos = self.exp_id.config_asociada.grupos_notificar
+        partner_ids = []
+        for g in grupos:
+            for u in g.user_notificar_id:
+                print (("EL PERSONAJE A NOTIFICAR ES: " + u.name + " ID Users: "+ str(u.user_id.partner_id.id) + " Usuario: "+ str(u.user_id.login)+ "Usuario Activo: " + str(u.active)))
+                partner_ids.append(u.user_id.partner_id.id)
+        return partner_ids
+
     def notificacion_obligacion_vencida(self):
         print (("DISPARANDO LA NOTIFICACION ..... "))
-        #info = "ESTE ES UN MENSAJE DE PRUEBA...7 enviado a Super Admin y Catastro Minero  <a href='http://localhost:8069/web#model=expediente.expediente&view_type=list&cids=&menu_id=198'>800-27a-08-2021-EXP</a> "
-        info = "ESTE ES UN MENSAJE DE PRUEBA...7 enviado a Super Admin y Catastro Minero  <a href='http://localhost:8069/web#id=3&action=277&model=exp_canon_obligaciones&view_type=form&cids=&menu_id=200'>800-27a-08-2021-EXP</a> "
-        kwargs = {'partner_ids': (49, 3),}
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        print (("BASE URL: " + str(base_url)))
+        partner_notif_list = self.obtener_usuarios_notif()
+        if partner_notif_list.__len__ == 0:
+            print (("LISTA VACIA"))
+        info = "ESTE ES UN MENSAJE DE PRUEBA 9...  <a href='"+base_url+"/web#id="+str(self.id)+"&model=exp_canon_obligaciones&view_type=form&menu_id=200'>800-27a-08-2021-EXP</a> "
+        kwargs = {'partner_ids': partner_notif_list,}
         #self.message_post(body=info, subject="Plazo Vencido", message_type='notification', parent_id=False, attachments=None)
+        self.message_subscribe(partner_ids=partner_notif_list, channel_ids=None, subtype_ids=None)
         self.message_post(body=info, subject=None, message_type='comment', parent_id=False, 
             attachments=None, **kwargs)
-        """
-        post_vars = {'subject': "Message subject",
-             'body': "Message body Prueba 4",
-             'partner_ids': [(49, 3)],} # Where "4" adds the ID to the list 
-                                       # of followers and "3" is the partner ID 
-        self.message_post(
-                message_type="comment",
-                parent_id=False,
-                **post_vars)
-        """
-        """
-        self.env['mail.message'].create({'message_type':"notification",
-                "subtype": self.env.ref("mail.mt_comment").id, # subject type
-                'body': "Message body",
-                'subject': "Message subject",
-                'needaction_partner_ids': [(4, self.user_id.partner_id.id)],   # partner to whom you send notification
-                'model': self._name,
-                'res_id': self.id,
-                })
-        """
         return True
 
 class expediente(models.Model):

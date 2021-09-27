@@ -58,9 +58,9 @@ class exp_canon_venc_emitidos(models.Model):
 
         #print (("EL DIA DE HOY ES: " + str(hoy) + " EL AÑO ES: " + str(hoy.year) + "  Y EL MES ES: " + str(hoy.month)))
         if hoy.month == 7 or hoy.month == 9:
-            if not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
+            #if not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
             #La siguiente condiciòn se utiliza para desarrollo
-            #if self.obtener_vencimiento_emitido(hoy.year, hoy.month) or not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
+            if self.obtener_vencimiento_emitido(hoy.year, hoy.month) or not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
                 self.crea_vencimientos()
         return True
 
@@ -114,13 +114,16 @@ class exp_canon_config(models.Model):
     validado = fields.Boolean('Configuración validada', help='Una vez validada no se puede volver a configurar', readonly=False, default=False)
 
     active = fields.Boolean('Activo', default=True, readonly=True)
+    procedimiento_id = fields.Many2one('procedimiento.procedimiento','Tramite Asociado', required=False)
     categoria_mineral = fields.Selection([
         ('primera', 'Primera'),
         ('segunda', 'Segunda'),
         ('tercera', 'Tercera'),
         ('todas', 'Todas'),
         ('no_corresponde', 'No corresponde'),], required=False,
-        help="Categoria del mineral asociada por defecto", string="Categoria Mineral Asociada")
+        help="Categoria del mineral asociada por defecto", string="Cat. Mineral Asociada")
+    grupos_notificar = fields.Many2many('grupo', string='Grupos de Usuarios a Notificar',
+                        required=False, readonly=False)
 
     _sql_constraints = [
         ('unique_default_config', 'EXCLUDE (config_defecto WITH =)  WHERE (config_defecto)',

@@ -46,6 +46,7 @@
           <field name="mes_segundo_plazo_gracia" attrs="{'readonly':[('validado','=', True)]}"/>
          </group>
           <group>
+                <field name="procedimiento_id" attrs="{'readonly':[('validado','=', True)]}"/>
                 <field name="categoria_mineral" attrs="{'readonly':[('validado','=', True)]}"/>
                 <field name="active" attrs="{'readonly':[('validado','=', True)]}"/>
            </group>    
@@ -60,6 +61,10 @@
                 <button attrs="{'invisible':[('validado','=', True)]}"   name="validar" string="Validar" class="oe_highlight" type="object"
                     confirm="Si confirma la validacion, no podra modificar el valor."/>
           </group>
+          <group>
+              <field name="grupos_notificar" />
+          </group>
+
 
       </form>
       </field>
