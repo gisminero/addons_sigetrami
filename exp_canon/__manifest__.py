@@ -17,7 +17,7 @@
     'category': 'Uncategorized',
     'version': '0.2',
     # any module necessary for this one to work correctly
-    'depends': ['base', 'expediente', 'mail'],
+    'depends': ['base', 'expediente', 'mail', 'notificaciones'],
     # always loaded
     'data': [
         'security/canon_security.xml',
