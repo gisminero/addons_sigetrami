@@ -22,6 +22,7 @@ class exp_canon_obligaciones(models.Model):
         help="Estado de la Obligación", string="Estado", readonly=True)
     notificacion_enviada = fields.Boolean('Notificación Enviada', default=False, readonly=True)
     exp_id = fields.Many2one('expediente.expediente', 'Canon', required=1, ondelete='cascade')
+    user_id = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)
 
     def crear_obligacion(self, exp, semestre):
         hoy = datetime.date.today()

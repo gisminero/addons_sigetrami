@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.module.category" id="expediente.accesos_pertenencias">
+		<field name="name">SIGETRAMI.Expediente.Pertenencias</field>
+		<field name="description">Niveles de acceso a expediene.pertenencias</field>
+		<field name="sequence">31</field>
+	</record>
+
+   <record id="exp_pertenencias.exp_pertenencias_sin_acceso" model="res.groups">
+     	<field name="name">Sin Acceso a Pertenencias</field>
+     	<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+     	<field name="users" eval="[(4, ref('base.user_root'))]"/>
+     	<field name="category_id" ref="expediente.accesos_pertenencias"/>
+    </record>
+
+	<record id="exp_pertenencias.exp_pertenencias_lectura" model="res.groups">
+     	<field name="name">Lectura de Pertenencias</field>
+     	<field name="implied_ids" eval="[(4, ref('exp_pertenencias.exp_pertenencias_sin_acceso'))]"/>
+     	<field name="category_id" ref="expediente.accesos_pertenencias"/>
+    </record>
+
+	<record id="exp_pertenencias.exp_pertenencias_escritura" model="res.groups">
+     	<field name="name">Escritura de Pertenencias</field>
+     	<field name="implied_ids" eval="[(4, ref('exp_pertenencias.exp_pertenencias_escritura'))]"/>
+     	<field name="category_id" ref="expediente.accesos_pertenencias"/>
+    </record>
+
+</odoo>

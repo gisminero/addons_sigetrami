@@ -22,13 +22,13 @@
     'data': [
         'security/canon_security.xml',
         'security/ir.model.access.csv',
+        'data/config_default.xml',
+        'data/cronos_vencimientos.xml',
+        'data/dispara_obligaciones_vencidas.xml',
         'views/views_canon_over.xml',
         'views/config_general_canon.xml',
         'views/config_valor_general.xml',
-        'data/config_default.xml',
         'views/popup_informa_pago.xml',
-        'data/cronos_vencimientos.xml',
-        'data/dispara_obligaciones_vencidas.xml',
         'views/popup_select_config.xml',
         'views/popup_config_canon_por_defecto.xml'
     ],
