@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "exp_pertenecias",
+    'name': "SIGETRAMI - Cantidad de pertenencias",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Registro de pertenencias""",
 
     'description': """
-        Long description of module's purpose
+       Registro de cantidad de pertenencias por expediente
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Secretaría de minería",
+    'website': "http://www.gismineronacional.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
@@ -31,6 +30,8 @@
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+        #'demo/demo.xml',
     ],
+    'application': True,
+    'auto_install': True
 }
