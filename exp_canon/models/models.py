@@ -43,6 +43,7 @@ class exp_canon_obligaciones(models.Model):
         concepto = 'Canon ' + str(anio) + ' - Pago ' + str(semestre)
         fecha_venc = str(anio) +'-'+ str(mes_vto) + '-' + str(self.obtener_ultimo_dia_mes(anio, mes_vto))
         fecha_venc_gracia = str(anio_gracia) +'-'+ str(mes_vto_gracia) + '-' + str(self.obtener_ultimo_dia_mes(anio_gracia, mes_vto_gracia))
+        self.calcular_monto()
         self.create({'name': concepto, 'exp_id': exp.id, 'fecha_vencimiento': fecha_venc, 'fecha_vencimiento_gracia': fecha_venc_gracia
                      , 'estado': 'emitido'})
         return True
