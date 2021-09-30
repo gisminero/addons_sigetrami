@@ -23,9 +23,9 @@
 
     # always loaded
     'data': [
-        'sceurity/accesos_pertenencias.xml',
-        'security/ir.model.access.csv'
-        # 'views/views.xml',
+        'security/accesos_pertenencias.xml',
+        'security/ir.model.access.csv',
+        'views/views.xml',
         # 'views/templates.xml',
     ],
     # only loaded in demonstration mode

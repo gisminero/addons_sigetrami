@@ -101,7 +101,7 @@
             <field name="state" widget="statusbar" statusbar_visible="draft,active,archive"/>
         </header>
 
-          <sheet name="hoja_0">
+        <sheet name="hoja_0">
 <!--          <group name="group_main">-->
                <group col="2">
 <!--                   <div class="oe_title">-->
@@ -174,9 +174,9 @@
                   <field name="estado_legal_actual"/>
             </group>
         <newline/>
-        <group col="2">
+        <!--<group col="2">
             <field name="cant_pertenencias" attrs="{'readonly':[('state','!=', 'draft')]}"/>
-         </group>
+         </group> -->
 
 
         <group col="2">
@@ -211,7 +211,7 @@
 <!--            a espera de que el modulo que las gestionará cambie su estado a visible.-->
         <sheet name="hoja_1" string="Canon Minero" invisible="1">
         </sheet>
-        <sheet name="hoja_2" string="Inversion" invisible="1">
+        <sheet name="hoja_2" string="Inversión" invisible="1">
         </sheet>
         <sheet name="hoja_3" string="" invisible="1">
         </sheet>

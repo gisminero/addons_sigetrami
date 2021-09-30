@@ -1,60 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="exp_pertenecias.list">
-      <field name="name">exp_pertenecias list</field>
-      <field name="model">exp_pertenecias.exp_pertenecias</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
+    <record model="ir.ui.view" id="exp_pertenencias.exp_pertenencias_over">
+        <field name="name">exp_pertenecias</field>
+        <field name="model">expediente.expediente</field>
+        <field name="inherit_id" ref="expediente.form"/>
+        <field name="arch" type="xml">
+          <field name="pertenencias"/>
+         <!-- <xpath expr="/form/sheet/notebook/sheet/group/group/field[@name='observaciones']" position="after">
+            <group col="2">
+              <field name="pertenencias"/>
+            </group>
+          </xpath>-->
+        </field>
     </record>
--->
-
-    <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="exp_pertenecias.action_window">
-      <field name="name">exp_pertenecias window</field>
-      <field name="res_model">exp_pertenecias.exp_pertenecias</field>
-      <field name="view_mode">tree,form</field>
-    </record>
--->
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="exp_pertenecias.action_server">
-      <field name="name">exp_pertenecias server</field>
-      <field name="model_id" ref="model_exp_pertenecias_exp_pertenecias"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
-
-    <!-- Top menu item -->
-<!--
-    <menuitem name="exp_pertenecias" id="exp_pertenecias.menu_root"/>
--->
-    <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="exp_pertenecias.menu_1" parent="exp_pertenecias.menu_root"/>
-    <menuitem name="Menu 2" id="exp_pertenecias.menu_2" parent="exp_pertenecias.menu_root"/>
--->
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="exp_pertenecias.menu_1_list" parent="exp_pertenecias.menu_1"
-              action="exp_pertenecias.action_window"/>
-    <menuitem name="Server to list" id="exp_pertenecias" parent="exp_pertenecias.menu_2"
-              action="exp_pertenecias.action_server"/>
--->
   </data>
 </odoo>
