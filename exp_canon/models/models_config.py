@@ -91,6 +91,7 @@ class exp_canon_config_global(models.Model):
     #My custom fields
     canon_valor_global = fields.Float('Valor General de Cálculo', default=1)
     canon_valor_global_control = fields.Char('Cadena de Integridad', required=False, readonly=False)
+    active = fields.Boolean('Activo', default=True, readonly=True)
 
     def activar(self):
         return True

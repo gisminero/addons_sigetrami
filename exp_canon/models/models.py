@@ -26,7 +26,21 @@ class exp_canon_obligaciones(models.Model):
     partner_id = fields.Many2one('res.partner', 'Responsible')
     guest_ids = fields.Many2many('res.partner', 'Participants')
 
+    def obtener_valor_global(self):
+        val_global_count = self.env['exp_canon_config_global'].search_count([('active', '=', True)])
+        if val_global_count == 1:
+            val_global =  self.env['exp_canon_config_global'].search([('active', '=', True)])
+            return False
+        elif num_empl > 1:
+            print (("Hay mas de un emplado asociado al usuario: " + str(user_id)))
+            return False
+
+
     def calcular_monto(self):
+        valor_pertenencia = self.exp_id.config_asociada.valor_pertenencia
+        cant_pertenencias = self.exp_id.cant_pertenencias
+
+        valor_final
         return 0
 
     def crear_obligacion(self, exp, semestre):
@@ -105,7 +119,6 @@ class exp_canon_obligaciones(models.Model):
             print (("LISTA VACIA"))
         info = "ESTE ES UN MENSAJE DE PRUEBA 9...  <a href='"+base_url+"/web#id="+str(self.id)+"&model=exp_canon_obligaciones&view_type=form&menu_id=200'>"+self.exp_id.name+"</a> "
         kwargs = {'partner_ids': partner_notif_list,}
-        #self.message_post(body=info, subject="Plazo Vencido", message_type='notification', parent_id=False, attachments=None)
         self.message_subscribe(partner_ids=partner_notif_list, channel_ids=None, subtype_ids=None)
         self.message_post(body=info, subject=None, message_type='comment', parent_id=False, 
             attachments=None, **kwargs)
