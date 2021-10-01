@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-
 from odoo import models, fields, api
+from odoo import exceptions
 
   
 class expediente(models.Model):
@@ -8,7 +8,7 @@ class expediente(models.Model):
     _inherit = 'expediente.expediente'
     _description = "Asociación con pertenencias"
     
-    pertenencias= fields.Integer('Cantidad de pertenencias', required = True, default = 0)
+    pertenencias= fields.Integer('Cantidad de pertenencias', required = False, default = 0)
 
 
 
