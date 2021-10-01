@@ -27,13 +27,16 @@ class exp_canon_obligaciones(models.Model):
     guest_ids = fields.Many2many('res.partner', 'Participants')
 
     def obtener_valor_global(self):
+        """
         val_global_count = self.env['exp_canon_config_global'].search_count([('active', '=', True)])
         if val_global_count == 1:
-            val_global =  self.env['exp_canon_config_global'].search([('active', '=', True)])
-            return False
+            val_global =  self.env['exp_canon_config_global'].search([('active', '=', True)])[0]
+            return val_global.
         elif num_empl > 1:
             print (("Hay mas de un emplado asociado al usuario: " + str(user_id)))
             return False
+        """
+        return 1
 
 
     def calcular_monto(self):
