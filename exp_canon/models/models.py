@@ -26,6 +26,29 @@ class exp_canon_obligaciones(models.Model):
     partner_id = fields.Many2one('res.partner', 'Responsible')
     guest_ids = fields.Many2many('res.partner', 'Participants')
 
+    def obtener_valor_global(self):
+        """
+        val_global_count = self.env['exp_canon_config_global'].search_count([('active', '=', True)])
+        if val_global_count == 1:
+            val_global =  self.env['exp_canon_config_global'].search([('active', '=', True)])[0]
+            return val_global.
+        elif num_empl > 1:
+            print (("Hay mas de un emplado asociado al usuario: " + str(user_id)))
+            return False
+        """
+        return 1
+
+
+    def calcular_monto(self, exp):
+        valor_pertenencia = exp.config_asociada.valor_pertenencia
+        valor_pertenencia_factor = exp.config_asociada.valor_pertenencia_factor
+        cant_pertenencias = exp.cant_pertenencias
+        print (("VALORES OBTENIDOS PARA REALIZAR EL CALCULO FINAL DEL EXPEDIENTE: " + str(exp.name)))
+        print (("VALOR PERTENECIA: " + str(valor_pertenencia) + "VALOR PERTENECIA FACTOR: " + str(valor_pertenencia_factor) ))
+        print (("CANTIDAD DE PERTENENCIAS: " + str(cant_pertenencias) ))
+        valor_final = valor_pertenencia * valor_pertenencia_factor * cant_pertenencias
+        return valor_final
+
     def crear_obligacion(self, exp, semestre):
         hoy = datetime.date.today()
         anio = hoy.year
@@ -40,8 +63,9 @@ class exp_canon_obligaciones(models.Model):
         concepto = 'Canon ' + str(anio) + ' - Pago ' + str(semestre)
         fecha_venc = str(anio) +'-'+ str(mes_vto) + '-' + str(self.obtener_ultimo_dia_mes(anio, mes_vto))
         fecha_venc_gracia = str(anio_gracia) +'-'+ str(mes_vto_gracia) + '-' + str(self.obtener_ultimo_dia_mes(anio_gracia, mes_vto_gracia))
+        monto_obligacion = self.calcular_monto(exp)
         self.create({'name': concepto, 'exp_id': exp.id, 'fecha_vencimiento': fecha_venc, 'fecha_vencimiento_gracia': fecha_venc_gracia
-                     , 'estado': 'emitido'})
+                     , 'estado': 'emitido', 'monto_debe': monto_obligacion})
         return True
 
     def realiza_pago(self):
@@ -99,9 +123,8 @@ class exp_canon_obligaciones(models.Model):
         partner_notif_list = self.obtener_usuarios_notif()
         if partner_notif_list.__len__ == 0:
             print (("LISTA VACIA"))
-        info = "ESTE ES UN MENSAJE DE PRUEBA 9...  <a href='"+base_url+"/web#id="+str(self.id)+"&model=exp_canon_obligaciones&view_type=form&menu_id=200'>800-27a-08-2021-EXP</a> "
+        info = "ESTE ES UN MENSAJE DE PRUEBA 9...  <a href='"+base_url+"/web#id="+str(self.id)+"&model=exp_canon_obligaciones&view_type=form&menu_id=200'>"+self.exp_id.name+"</a> "
         kwargs = {'partner_ids': partner_notif_list,}
-        #self.message_post(body=info, subject="Plazo Vencido", message_type='notification', parent_id=False, attachments=None)
         self.message_subscribe(partner_ids=partner_notif_list, channel_ids=None, subtype_ids=None)
         self.message_post(body=info, subject=None, message_type='comment', parent_id=False, 
             attachments=None, **kwargs)
