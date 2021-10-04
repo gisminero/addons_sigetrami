@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="expediente_pertenencias">
+        <field name="name">Expediente pertenencias</field>
+        <field name="model">expediente.expediente</field>
+        <field name="inherit_id" ref="expediente.form"/>
+
+        <field name="groups_id" eval="[(6,0, [ref('access_group_exp_pertenencias_lectura')])]"/>
+            
+              <field name="arch" type="xml">   
+                <xpath expr="/form/sheet/notebook/sheet/group/group/field[@name='observaciones']" position="after">
+                  <group col="2">
+                    <field name="pertenencias" position="attributes">
+                      <attribute name="readonly">1</attribute>
+                    </field>
+                  </group>
+                </xpath>
+              </field>     
+    </record>
+
+  </data>
+</odoo>

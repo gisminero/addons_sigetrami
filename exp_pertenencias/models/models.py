@@ -8,7 +8,7 @@ class expediente(models.Model):
     _inherit = 'expediente.expediente'
     _description = "Asociación con pertenencias"
     
-    pertenencias= fields.Integer('Cantidad de pertenencias', required = False, default = 0)
+    pertenencias= fields.Integer('Cantidad de pertenencias', readonly = 0,required = False, default = 0)
 
 
 

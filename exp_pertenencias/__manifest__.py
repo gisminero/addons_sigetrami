@@ -25,7 +25,7 @@
     'data': [
         'security/accesos_pertenencias.xml',
         'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/views_over.xml',
         # 'views/templates.xml',
     ],
     # only loaded in demonstration mode
