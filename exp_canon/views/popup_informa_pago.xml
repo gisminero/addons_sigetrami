@@ -37,7 +37,7 @@
 
 
     <record model="ir.ui.view" id="exp_canon.exp_canon_config_global_list">
-      <field name="name">Auditoria de Pagos</field>
+      <field name="name">Auditoria de Obligaciones</field>
       <field name="model">exp_canon_obligaciones</field>
       <field name="arch" type="xml">
         <tree>
@@ -49,10 +49,10 @@
     </record>
 
     <record model="ir.ui.view" id="exp_canon.form_auditoria_pago">
-      <field name="name">Auditoria de Pago</field>
+      <field name="name">Auditoria de Obligaciones</field>
       <field name="model">exp_canon_obligaciones</field>
       <field name="arch" type="xml">
-      <form string="Auditoria de Pagos">
+      <form string="Auditoria de Obliaciones">
              <separator string="Información de Pagos"/>.
                 <group >
                     <field name="name" />
@@ -79,13 +79,13 @@
     </record>
 
     <record model="ir.actions.act_window" id="exp_canon.canon_auditoria_pagos">
-      <field name="name">Auditoria de Pagos</field>
+      <field name="name">Auditoria de Obligaciones</field>
       <field name="res_model">exp_canon_obligaciones</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="exp_canon.exp_canon_config_global_list"/>
     </record>
 
-    <menuitem name="Auditoria de Pagos" id="exp_canon.auditoria_canon" parent="exp_canon.exp_canon_config"
+    <menuitem name="Auditoria de Obligaciones" id="exp_canon.auditoria_canon" parent="exp_canon.exp_canon_config"
               action="exp_canon.canon_auditoria_pagos"/>
 
   </data>

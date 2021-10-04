@@ -39,12 +39,15 @@ class exp_canon_obligaciones(models.Model):
         return 1
 
 
-    def calcular_monto(self):
-        valor_pertenencia = self.exp_id.config_asociada.valor_pertenencia
-        cant_pertenencias = self.exp_id.cant_pertenencias
-
-        valor_final
-        return 0
+    def calcular_monto(self, exp):
+        valor_pertenencia = exp.config_asociada.valor_pertenencia
+        valor_pertenencia_factor = exp.config_asociada.valor_pertenencia_factor
+        cant_pertenencias = exp.cant_pertenencias
+        print (("VALORES OBTENIDOS PARA REALIZAR EL CALCULO FINAL DEL EXPEDIENTE: " + str(exp.name)))
+        print (("VALOR PERTENECIA: " + str(valor_pertenencia) + "VALOR PERTENECIA FACTOR: " + str(valor_pertenencia_factor) ))
+        print (("CANTIDAD DE PERTENENCIAS: " + str(cant_pertenencias) ))
+        valor_final = valor_pertenencia * valor_pertenencia_factor * cant_pertenencias
+        return valor_final
 
     def crear_obligacion(self, exp, semestre):
         hoy = datetime.date.today()
@@ -60,9 +63,9 @@ class exp_canon_obligaciones(models.Model):
         concepto = 'Canon ' + str(anio) + ' - Pago ' + str(semestre)
         fecha_venc = str(anio) +'-'+ str(mes_vto) + '-' + str(self.obtener_ultimo_dia_mes(anio, mes_vto))
         fecha_venc_gracia = str(anio_gracia) +'-'+ str(mes_vto_gracia) + '-' + str(self.obtener_ultimo_dia_mes(anio_gracia, mes_vto_gracia))
-        self.calcular_monto()
+        monto_obligacion = self.calcular_monto(exp)
         self.create({'name': concepto, 'exp_id': exp.id, 'fecha_vencimiento': fecha_venc, 'fecha_vencimiento_gracia': fecha_venc_gracia
-                     , 'estado': 'emitido'})
+                     , 'estado': 'emitido', 'monto_debe': monto_obligacion})
         return True
 
     def realiza_pago(self):

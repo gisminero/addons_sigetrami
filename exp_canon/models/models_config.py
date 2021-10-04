@@ -57,7 +57,7 @@ class exp_canon_venc_emitidos(models.Model):
         hoy = datetime.date.today()
 
         #print (("EL DIA DE HOY ES: " + str(hoy) + " EL AÑO ES: " + str(hoy.year) + "  Y EL MES ES: " + str(hoy.month)))
-        if hoy.month == 7 or hoy.month == 9:
+        if hoy.month == 7 or hoy.month == 10:
             #if not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
             #La siguiente condiciòn se utiliza para desarrollo
             if self.obtener_vencimiento_emitido(hoy.year, hoy.month) or not self.obtener_vencimiento_emitido(hoy.year, hoy.month):
@@ -103,8 +103,8 @@ class exp_canon_config(models.Model):
     name = fields.Char('Nombre de la Configuracion', required=True, readonly=False)
     valida_desde = fields.Date('Valida Desde', required=True)
     valida_hasta = fields.Date('Valida Hasta', readonly=True)
-    valor_pertenencia_factor = fields.Float('Factor Valor de Pertenencia', help='')
-    valor_pertenencia = fields.Float('Valor de Pertenencia', help='Se calcula como el factor por un valor de ajuste genral. Inserto en Config generales del programa')
+    valor_pertenencia_factor = fields.Float('Factor Valor de Pertenencia', help='Factor de recargo o descuento.', default=1)
+    valor_pertenencia = fields.Float('Valor de Pertenencia', help='Se calcula como el factor por un valor de ajuste genral. Inserto en Config generales del programa', default=1)
     mes_primer_vencimiento_anual = fields.Integer('Mes primer vencimiento', help='', default=6)
     mes_segundo_vencimiento_anual = fields.Integer('Mes segundo vencimiento', help='', default=12)
     mes_primer_plazo_gracia = fields.Integer('Mes vencimiento primer plazo gracia', help='', default=8)
