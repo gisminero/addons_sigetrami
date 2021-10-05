@@ -9,9 +9,9 @@ class exp_canon_obligaciones(models.Model):
     #_inherit = ['mail.thread']
     _inherit = ['mail.activity.mixin', 'mail.thread']
 
-    name = fields.Char('Concepto', required=True, readonly=False)
+    name = fields.Char('Concepto', required=True, readonly=True)
     fecha_vencimiento = fields.Date('Vencimiento', readonly=True)
-    fecha_vencimiento_gracia = fields.Date('Plazo Gracia', readonly=False)
+    fecha_vencimiento_gracia = fields.Date('Plazo Gracia', readonly=True)
     fecha_pago = fields.Date('Fecha de Pago', readonly=True)
     monto_debe = fields.Float('Monto Debe', readonly=True)
     monto_haber = fields.Float('Monto Haber', readonly=True, default=0)
@@ -21,8 +21,9 @@ class exp_canon_obligaciones(models.Model):
         ('pagado', 'Pagado'),
         ('vencido', 'Vencido'),], required=False,
         help="Estado de la Obligación", string="Estado", readonly=True)
+    user_informa_pago = fields.Many2one('res.users','Informado por', required=False, readonly=True)
     notificacion_enviada = fields.Boolean('Notificación Enviada', default=False, readonly=True)
-    exp_id = fields.Many2one('expediente.expediente', 'Expediente', required=1, ondelete='cascade')
+    exp_id = fields.Many2one('expediente.expediente', 'Expediente', required=1, ondelete='cascade', readonly=True)
     partner_id = fields.Many2one('res.partner', 'Responsible')
     guest_ids = fields.Many2many('res.partner', 'Participants')
 
