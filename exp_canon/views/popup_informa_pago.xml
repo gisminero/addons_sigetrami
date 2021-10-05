@@ -20,6 +20,8 @@
                 <group >
                     <field name="monto_haber" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
                     <field name="fecha_pago" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
+                    <field name="user_informa_pago" />
+                    
                </group>
 
                <footer>
@@ -68,6 +70,7 @@
                 <group >
                     <field name="monto_haber" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
                     <field name="fecha_pago" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
+                    <field name="user_informa_pago" />
                </group>
 
               <div class="oe_chatter">
