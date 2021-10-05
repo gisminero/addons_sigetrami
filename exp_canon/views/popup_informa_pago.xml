@@ -20,7 +20,7 @@
                 <group >
                     <field name="monto_haber" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
                     <field name="fecha_pago" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
-                    <field name="user_informa_pago" />
+                  <!--  <field name="user_informa_pago" domain="[('id', '=', uid)]" value="uid" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>-->
                     
                </group>
 
@@ -45,6 +45,8 @@
         <tree>
           <field name="name"/>
           <field name="estado" />
+          <field name="notificacion_enviada" />
+          
   
         </tree>
       </field>
@@ -55,7 +57,7 @@
       <field name="model">exp_canon_obligaciones</field>
       <field name="arch" type="xml">
       <form string="Auditoria de Obliaciones">
-             <separator string="Información de Pagos"/>.
+              <separator string="Información de Pagos"/>.
                 <group >
                     <field name="name" />
                     <field name="fecha_vencimiento" />
@@ -65,13 +67,20 @@
                     <field name="monto_saldo" invisible="1"/>
                     <field name="estado"/>
                     <field name="exp_id"/>
-               </group>
-            <separator string="Ingrese Monto y Fecha de Pago"/>.
-                <group >
-                    <field name="monto_haber" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
-                    <field name="fecha_pago" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
-                    <field name="user_informa_pago" />
-               </group>
+              </group>
+              <separator string="Ingrese Monto y Fecha de Pago"/>.
+              <group>
+                    <field name="monto_haber" attrs="{'readonly':[('estado','in', ['pagado', 'vencido'])]}"/>
+                    <field name="fecha_pago" attrs="{'readonly':[('estado','in', ['pagado', 'vencido'])]}"/>
+                    <field name="user_informa_pago"  value="default_user_informa_pago"  attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
+                    <field name="notificacion_enviada" />
+              </group>
+              <group>
+                    <button name="corregir_pago" string="Corregir Pago" type="object" confirm="¿Está seguro que desea corregir el pago?" class="oe_highlight"/>
+              </group>
+
+
+
 
               <div class="oe_chatter">
                 <field name="message_follower_ids" widget="mail_followers"/>

@@ -14,14 +14,15 @@ class exp_canon_obligaciones(models.Model):
     fecha_vencimiento_gracia = fields.Date('Plazo Gracia', readonly=True)
     fecha_pago = fields.Date('Fecha de Pago', readonly=True)
     monto_debe = fields.Float('Monto Debe', readonly=True)
-    monto_haber = fields.Float('Monto Haber', readonly=True, default=0)
+    monto_haber = fields.Float('Monto Pago', readonly=True, default=0)
     monto_saldo = fields.Float('Monto de Saldo', readonly=True)
     estado = fields.Selection([
         ('emitido', 'Emitido'),
         ('pagado', 'Pagado'),
-        ('vencido', 'Vencido'),], required=False,
+        ('vencido', 'Vencido'),
+        ('vencido_corregido', 'Corrección de Pago')], required=False,
         help="Estado de la Obligación", string="Estado", readonly=True)
-    user_informa_pago = fields.Many2one('res.users','Informado por', required=False, readonly=True)
+    user_informa_pago = fields.Many2one('res.users','Informado por', required=False)
     notificacion_enviada = fields.Boolean('Notificación Enviada', default=False, readonly=True)
     exp_id = fields.Many2one('expediente.expediente', 'Expediente', required=1, ondelete='cascade', readonly=True)
     partner_id = fields.Many2one('res.partner', 'Responsible')
@@ -39,6 +40,8 @@ class exp_canon_obligaciones(models.Model):
         """
         return 1
 
+    def actual_user(self):
+        return 2#self.env.user
 
     def calcular_monto(self, exp):
         valor_pertenencia = exp.config_asociada.valor_pertenencia
@@ -92,7 +95,7 @@ class exp_canon_obligaciones(models.Model):
             'res_model': 'exp_canon_obligaciones',
             'type': 'ir.actions.act_window',
             # 'domain': [('seguimiento_id.expediente_id', '=', active_id)],
-            #'context': {'recibido': True, 'ubicacion_actual': depart_id},
+            'context': {'default_user_informa_pago': self.actual_user()},
             'views': [[self.env.ref('exp_canon.form_popup_informa_pago').id, "form"]],
             'target': 'new',
             'tag': 'reload',
@@ -124,12 +127,17 @@ class exp_canon_obligaciones(models.Model):
         partner_notif_list = self.obtener_usuarios_notif()
         if partner_notif_list.__len__ == 0:
             print (("LISTA VACIA"))
-        info = "ESTE ES UN MENSAJE DE PRUEBA 9...  <a href='"+base_url+"/web#id="+str(self.id)+"&model=exp_canon_obligaciones&view_type=form&menu_id=200'>"+self.exp_id.name+"</a> "
+        info = "Alerta de fecha vencida, por favor haga clic en el siguiente enlace <a href='"+base_url+"/web#id="+str(self.id)+"&model=exp_canon_obligaciones&view_type=form&menu_id=200'>"+self.exp_id.name+"</a> "
         kwargs = {'partner_ids': partner_notif_list,}
         self.message_subscribe(partner_ids=partner_notif_list, channel_ids=None, subtype_ids=None)
         self.message_post(body=info, subject=None, message_type='comment', parent_id=False, 
             attachments=None, **kwargs)
+        self.write({'notificacion_enviada': True, 'estado': 'vencido'})
         return True
+
+    def corregir_pago(self):
+        self.write({'estado': 'vencido_corregido'})
+        return True        
 
 class expediente(models.Model):
 

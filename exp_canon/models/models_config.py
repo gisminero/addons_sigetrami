@@ -34,7 +34,6 @@ class exp_canon_venc_emitidos(models.Model):
         # self.create({'name': nombre, 'anio': anio, 'semestre': semestre})
         exp_objs = self.env['expediente.expediente'].search([('state', '=', 'active'),('config_asociada', '!=', False)])
         for exp in exp_objs:
-            #print(("CREANDO OBLIGACION DEL EXPTE: " + exp.name))
             self.env['exp_canon_obligaciones'].crear_obligacion(exp, semestre)
         return True
 
@@ -68,7 +67,7 @@ class exp_canon_venc_emitidos(models.Model):
         hoy = datetime.date.today()
         hoy_str = str(hoy)
         obj_obligaciones_vencidas = self.env['exp_canon_obligaciones'].search([('fecha_vencimiento_gracia', '<', hoy_str), 
-                                                                        ('monto_haber', '=', 0), ('notificacion_enviada', '=', False)])
+                                                                        ('estado', '=', 'emitido'), ('notificacion_enviada', '=', False)])
         for linea in obj_obligaciones_vencidas:
             #print((" *** " + linea.name))
             linea.notificacion_obligacion_vencida()
