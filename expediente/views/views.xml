@@ -182,7 +182,8 @@
         <group col="2">
             <field name="observaciones" attrs="{'readonly':[('state','!=', 'draft'),('state','!=', 'active')]}"/>
          </group>
-              <newline/>
+        
+        <newline/>
         <group col="2">
 
         </group>
