@@ -7,7 +7,7 @@
       <form string="Seleccionar configuración de canon para expediente">
              <separator string="Seleccionar configuración de canon para expediente"/>
                 <group >
-                    <field name="config_asociada" domain="[('validado', '=', 'True')]" />
+                    <field name="config_asociada" domain="[('validado', '=', 'True'), ('active', '=', 'True')]" />
                </group>
                <footer>
                    <button name="confirmar" string="Confirmar" type="object" class="oe_highlight"/>

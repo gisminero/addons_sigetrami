@@ -113,7 +113,7 @@ class exp_canon_config(models.Model):
 
     validado = fields.Boolean('Configuración validada', help='Una vez validada no se puede volver a configurar', readonly=False, default=False)
 
-    active = fields.Boolean('Activo', default=True, readonly=True)
+    active = fields.Boolean('Activo', default=True, readonly=False)
     procedimiento_id = fields.Many2one('procedimiento.procedimiento','Tramite Asociado', required=False)
     categoria_mineral = fields.Selection([
         ('primera', 'Primera'),

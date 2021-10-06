@@ -7,7 +7,7 @@
     <data  noupdate="0">
         <record id="exp_canon_config_0" model="exp_canon_config"><field name="name">Configuracion por Defecto</field>
             <field name="valida_desde">2021-07-01</field>
-            <field name="valor_pertenencia_factor">0</field>
+            <field name="valor_pertenencia_factor">1</field>
             <field name="config_defecto">True</field><field name="categoria_mineral">todas</field>
         </record>
     </data>

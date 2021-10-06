@@ -32,24 +32,24 @@
 <!--    </record>-->
 
     <record id="exp_canon.exp_canon_modificacion" model="res.groups">
-        <field name="name">Cambiar configuración de Pagos</field>
+        <field name="name">Cambiar config. de canon en Exp.</field>
         <field name="implied_ids" eval="[(4, ref('exp_canon.exp_canon_escritura'))]"/>
         <field name="category_id" ref="exp_canon.autorizaciones"/>
     </record>
 
     <record id="exp_canon.exp_canon_configuracion" model="res.groups">
-      <field name="name">Configuración de Pagos</field>
+      <field name="name">Crear config. canon/Modificar grupos alerta</field>
       <field name="implied_ids" eval="[(4, ref('exp_canon.exp_canon_modificacion'))]"/>
       <field name="category_id" ref="exp_canon.autorizaciones"/>
     </record>
 
-    <!--
-    <record id="exp_canon.exp_canon_obligaciones" model="res.groups">
+    
+    <record id="exp_canon.exp_canon_audit_obligaciones" model="res.groups">
       <field name="name">Auditoria de Obligaciones</field>
       <field name="implied_ids" eval="[(4, ref('exp_canon.exp_canon_configuracion'))]"/>
       <field name="category_id" ref="exp_canon.autorizaciones"/>
     </record>
-    -->
+    
 
 
 

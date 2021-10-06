@@ -76,7 +76,8 @@
                     <field name="notificacion_enviada" />
               </group>
               <group>
-                    <button name="corregir_pago" string="Corregir Pago" type="object" confirm="¿Está seguro que desea corregir el pago?" class="oe_highlight"/>
+                    <button name="corregir_pago" string="Corregir Pago" type="object" confirm="¿Está seguro que desea corregir el pago?" class="oe_highlight"
+                    groups="exp_canon.exp_canon_audit_obligaciones"  />
               </group>
 
 
