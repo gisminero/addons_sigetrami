@@ -19,12 +19,6 @@
       <field name="category_id" ref="expediente.module_management"/>
     </record>
 
-    <record id="access_group_expte_pertenencias" model="res.groups">
-      <field name="name">Lectura/Escritura con pertnenencias</field>
-      <field name="implied_ids" eval="[(4, ref('expediente.access_group_expte_lectura'))]"/>
-      <field name="category_id" ref="expediente.module_management"/>
-    </record>
-
     <record id="access_group_expte_creacion" model="res.groups">
       <field name="name">Crear/Eliminar</field>
       <field name="implied_ids" eval="[(4, ref('expediente.access_group_expte_escritura'))]"/>

@@ -11,6 +11,8 @@ class exp_pertenencias(models.Model):
     exp_id = fields.Many2one('expediente.expediente', 'Pertenencias', required=1, ondelete='cascade')
     """user_id = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)"""
 
+ 
+
 
 class expediente(models.Model):
     _name = 'expediente.expediente'
@@ -18,7 +20,21 @@ class expediente(models.Model):
     _description = "Asociación con pertenencias"
    
     
-    pertenencias_id = fields.One2many('exp_pertenencias', 'exp_id', string='Obligaciones', required=False)
+    pertenencias_id = fields.One2many('exp_pertenencias', 'exp_id', string='Pertenencias', required=False)
+
+    def cambiar_pertenencias(self):
+         if True:
+            return {
+                'name': "Cambiar configuración de Canon",
+                'view_mode': 'form',
+                'res_id': self.id,  # SOLO PARA FORM
+                'res_model': 'exp_pertenencias',
+                'type': 'ir.actions.act_window',
+                'views': [[self.env.ref('exp_pertenencias.popup_exp_pertenencias').id, "form"]],
+                'target': 'new',
+                #'tag': 'reload',
+            }
+         return True
     
 """     def _compute_user_check(self):
         print("------------------------------")

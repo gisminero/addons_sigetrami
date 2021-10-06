@@ -19,8 +19,3 @@ access_expte_solic_escr,exp_solicitantes,model_exp_solicitantes,access_group_exp
 access_expte_solic_crea,exp_solicitantes,model_exp_solicitantes,access_group_expte_creacion,1,1,1,1
 
 
-access_exp_pertenencias,exp_pertenencias,model_exp_pertenencias,access_group_expte_lectura,1,0,0,0
-access_exp_pertenencias_lectura,exp_pertenencias_lectura,model_exp_pertenencias,access_group_expte_escritura,1,0,0,0
-access_exp_pertenencias_escritura,exp_pertenencias_escritura,model_exp_pertenencias,access_group_expte_pertenencias,1,1,1,1
-
-

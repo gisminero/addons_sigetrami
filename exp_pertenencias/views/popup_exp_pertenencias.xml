@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="exp_pertenencias.popup_exp_pertenencias">
+      <field name="name">Información del Documento</field>
+      <field name="model">exp_pertenencias</field>
+      <field name="arch" type="xml">
+      <form string="Pertenencias">
+            <separator string="Cantidad de pertenencias"/>.
+            <group colspan="1">
+                <p>    
+                    <field name="pertenencias"></field>
+                </p>
+            </group>
+      </form>
+      </field>
+    </record>
+  </data>
+</odoo>
+

@@ -4,14 +4,20 @@
 
     <record model="ir.ui.view" id="expediente_pertenencias">
         <field name="name">Expediente pertenencias</field>
-        <field name="model">exp_pertenencias</field>
+        <field name="model">expediente.expediente</field>
         <field name="inherit_id" ref="expediente.form"/> 
         <field name="arch" type="xml">   
-                <xpath expr="/form/sheet/notebook/sheet/group/group/field[@name='observaciones']" position="after">
-                    <field name="pertenencias"></field>
+                 <xpath expr="/form/sheet/notebook/sheet/group/group/field[@name='observaciones']" position="after">
+                    <field name="pertenencias_id" >
+
+                            <tree>
+                                <field name="pertenencias"></field>
+                            </tree>
+                    </field>
                 </xpath>
         </field>
     </record>
+
 
 
      
