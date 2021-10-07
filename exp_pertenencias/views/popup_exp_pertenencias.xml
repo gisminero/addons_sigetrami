@@ -7,12 +7,17 @@
       <field name="model">exp_pertenencias</field>
       <field name="arch" type="xml">
       <form string="Pertenencias">
-            <separator string="Cantidad de pertenencias"/>.
+            <separator string="Cantidad de pertenencias"/>
             <group colspan="1">
-                <p>    
+                <p>  
+                    <field name="exp_id" invisible="1"></field>  
                     <field name="pertenencias"></field>
                 </p>
             </group>
+            <footer>
+                    <button name="save" type="object" string="Guardar" class="oe_highlight"/>
+                    <button name="cancel" string="Cancelar" class="btn-default" special="cancel" />
+            </footer>
       </form>
       </field>
     </record>

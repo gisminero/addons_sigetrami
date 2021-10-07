@@ -7,34 +7,43 @@ class exp_pertenencias(models.Model):
     _description = "Cantidad de pertenencias por expediente"
     
     pertenencias = fields.Integer('Cantidad de pertenencias', readonly = 0,required = False, default = 0)
-    """writegroup = fields.Boolean(string='user', compute='_compute_user_check', default=False, store=True)"""
-    exp_id = fields.Many2one('expediente.expediente', 'Pertenencias', required=1, ondelete='cascade')
-    """user_id = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)"""
+    exp_id = fields.Many2one('expediente.expediente','Pertenencias', required=1, ondelete='cascade')
+    
+    def save(self):
+        return True
 
- 
 
 
 class expediente(models.Model):
     _name = 'expediente.expediente'
     _inherit = 'expediente.expediente'
     _description = "Asociación con pertenencias"
-   
     
-    pertenencias_id = fields.One2many('exp_pertenencias', 'exp_id', string='Pertenencias', required=False)
+    
+    pertenencias_id = fields.One2many('exp_pertenencias', 'exp_id', string='Pertenencias', required=False, limit=3)
+
 
     def cambiar_pertenencias(self):
-         if True:
+        
+        if self.pertenencias_id:
+            idPertenencias = self.pertenencias_id[0].id
+        else:
+            self.env['exp_pertenencias'].create({'exp_id': self.id})
+            idPertenencias = self.pertenencias_id[0].id
+
+        if True:
             return {
                 'name': "Cambiar configuración de Canon",
                 'view_mode': 'form',
-                'res_id': self.id,  # SOLO PARA FORM
+                'res_id': idPertenencias,  # SOLO PARA FORM
                 'res_model': 'exp_pertenencias',
                 'type': 'ir.actions.act_window',
                 'views': [[self.env.ref('exp_pertenencias.popup_exp_pertenencias').id, "form"]],
                 'target': 'new',
                 #'tag': 'reload',
             }
-         return True
+        return True
+ 
     
 """     def _compute_user_check(self):
         print("------------------------------")

@@ -8,12 +8,17 @@
         <field name="inherit_id" ref="expediente.form"/> 
         <field name="arch" type="xml">   
                  <xpath expr="/form/sheet/notebook/sheet/group/group/field[@name='observaciones']" position="after">
-                    <field name="pertenencias_id" >
-
-                            <tree>
-                                <field name="pertenencias"></field>
-                            </tree>
-                    </field>
+                   
+                                  
+                          <!--  <field name="pertenencias_id" nolabel="1" >
+                               <tree>
+                                    <field name="pertenencias"></field>
+                               </tree>
+                               
+                            </field>  -->
+                            <button name="cambiar_pertenencias" string="Pertenencias" type="object" class="oe_highlight"></button>
+                                           
+                                        
                 </xpath>
         </field>
     </record>
