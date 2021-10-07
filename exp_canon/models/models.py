@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 import datetime
-from odoo import exceptions
+#from odoo import exceptions
+from odoo.exceptions import UserError, ValidationError
 
 class exp_canon_obligaciones(models.Model):
     _name = 'exp_canon_obligaciones'
     _description = "Canon Obligaciones a Cumplir"
-    #_inherit = ['mail.thread']
     _inherit = ['mail.activity.mixin', 'mail.thread']
+    _order = "create_date desc"
 
     name = fields.Char('Concepto', required=True, readonly=True)
     fecha_vencimiento = fields.Date('Vencimiento', readonly=True)
@@ -146,12 +147,25 @@ class expediente(models.Model):
     _description = "Asociando las obligaciones de pago de canon minero."
 
     def default_config_canon(self):
-        default_canon = self.env['exp_canon_config'].search([('config_defecto', '=', True), ('active', '=', True)])
+        default_canon = self.env['exp_canon_config'].search([('config_defecto', '=', True), ('active', '=', True), ('procedimiento_id', '=', self.procedimiento_id)])
+        if default_canon == False:
+            #raise UserError(_('No hay configuración por defecto para calcular CANON MINERO en este trámite.'))
+            print (("NO HAY CONFIGURACION DE CANON POR DEFECTO PÀRA ESTE TRÁMITE."))
         return default_canon.id
+
+    def activar(self):
+        default_canon = self.env['exp_canon_config'].search([('config_defecto', '=', True), ('active', '=', True), ('procedimiento_id', '=', self.procedimiento_id.id)])
+        if not default_canon:
+            #raise UserError(('No configuración por defecto para este trámite.'))
+            print (("NO HAY CONFIGURACION DE CANON POR DEFECTO PÀRA ESTE TRÁMITE."))
+        print(("LA CONFIGURACION ASOCIADA ES: " + str(default_canon.id)))
+        self.write({'config_asociada' : default_canon.id})
+        res = super(expediente, self).activar()
+        return True        
 
     canon_obligaciones_id = fields.One2many('exp_canon_obligaciones', 'exp_id', string='Obligaciones', required=False)
     cant_vencimientos_no_cumplidos = fields.Integer('Vencimientos No Cumplidos', help='', default=0)
-    config_asociada = fields.Many2one('exp_canon_config', 'Configuracion Canon Asociada', readonly=False, default=default_config_canon, required=False)
+    config_asociada = fields.Many2one('exp_canon_config', 'Configuracion Canon Asociada', readonly=False, required=False)#default=default_config_canon, 
     
     def confirmar(self):
         print (("Confirmar"))

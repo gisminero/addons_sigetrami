@@ -114,7 +114,7 @@ class exp_canon_config(models.Model):
     validado = fields.Boolean('Configuración validada', help='Una vez validada no se puede volver a configurar', readonly=False, default=False)
 
     active = fields.Boolean('Activo', default=True, readonly=False)
-    procedimiento_id = fields.Many2one('procedimiento.procedimiento','Tramite Asociado', required=False)
+    procedimiento_id = fields.Many2one('procedimiento.procedimiento','Tramite Asociado', required=True)
     categoria_mineral = fields.Selection([
         ('primera', 'Primera'),
         ('segunda', 'Segunda'),
@@ -124,11 +124,12 @@ class exp_canon_config(models.Model):
         help="Categoria del mineral asociada por defecto", string="Cat. Mineral Asociada")
     grupos_notificar = fields.Many2many('grupo', string='Grupos de Usuarios a Notificar',
                         required=False, readonly=False)
-
+    """
     _sql_constraints = [
         ('unique_default_config', 'EXCLUDE (config_defecto WITH =)  WHERE (config_defecto)',
          'No se puede continuar debido a que ya existe una configuración por defecto')
     ]
+    """
 
     def activar(self):
         return True
@@ -143,7 +144,7 @@ class exp_canon_config(models.Model):
         return True
     
     def establecer_config_defecto(self):
-        conf_objs_list = self.search([('config_defecto', '=', True)])
+        conf_objs_list = self.search([('config_defecto', '=', True), ('procedimiento_id', '=', self.procedimiento_id.id)])
         for obj in conf_objs_list:
             obj.write({'config_defecto': False})
         self.write({'config_defecto': True})
