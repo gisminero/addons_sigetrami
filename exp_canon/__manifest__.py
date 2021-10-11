@@ -22,6 +22,7 @@
     'data': [
         'security/canon_security.xml',
         'security/ir.model.access.csv',
+        'reports/cupon_template.xml',
         'views/views_canon_over.xml',
         'views/config_general_canon.xml',
         #'views/config_valor_general.xml',
@@ -32,6 +33,7 @@
         'views/popup_select_config.xml',
         'views/popup_config_canon_por_defecto.xml',
         #'views/auditoria_obligaciones.xml',
+        'views/popup_select_entidad_pago.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

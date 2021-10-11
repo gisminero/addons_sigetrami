@@ -74,7 +74,7 @@ class exp_canon_venc_emitidos(models.Model):
         return True
 
 class exp_canon_config_bancos(models.Model):
-    _name = 'exp_canon_config_obligaciones'
+    _name = 'exp_canon_config_bancos'
     _description = "Entidades de Pago asociadas"
 
     name = fields.Char('Entidad de Pago', required=True, readonly=False)
@@ -122,6 +122,9 @@ class exp_canon_config(models.Model):
         ('todas', 'Todas'),
         ('no_corresponde', 'No corresponde'),], required=False,
         help="Categoria del mineral asociada por defecto", string="Cat. Mineral Asociada")
+    cuenta_pago = fields.Many2one('exp_canon_config_bancos','Cuenta de pago', required=False)
+    cuentas_pago_asoc = fields.Many2many('exp_canon_config_bancos', string='Entidades de Pago Asociadas',
+                        required=False, readonly=False)
     grupos_notificar = fields.Many2many('grupo', string='Grupos de Usuarios a Notificar',
                         required=False, readonly=False)
     """

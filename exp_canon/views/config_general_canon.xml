@@ -50,7 +50,16 @@
                 <field name="procedimiento_id" attrs="{'readonly':[('validado','=', True)]}" domain="[('iniciado', '=', '1')]"/>
                 <!-- <field name="categoria_mineral" attrs="{'readonly':[('validado','=', True)]}"/> -->
                 <field name="active" attrs="{'readonly':[('validado','=', True)]}"/>
-           </group>    
+           </group> 
+           <group> 
+                <field name="cuentas_pago_asoc"  nolabel="0" colspan="2" readonly="1">
+			            <tree string="Cuentas de Pago Asociadas" > 
+                        <field name="id" />
+                        <field name="name" />
+                        <field name="numero_cuenta" />
+                  </tree >  
+                </field >  
+           </group>
            <group> 
                 <field name="config_defecto" readonly="True" />  
                 <button  name="establecer_config_defecto" type="object" string="Config. Defecto" class="oe_highlight"

@@ -25,6 +25,7 @@ class exp_canon_obligaciones(models.Model):
         help="Estado de la Obligación", string="Estado", readonly=True)
     user_informa_pago = fields.Many2one('res.users','Informado por', required=False)
     notificacion_enviada = fields.Boolean('Notificación Enviada', default=False, readonly=True)
+    cuenta_pago = fields.Many2one('exp_canon_config_bancos','Cuenta de pago', required=False)
     exp_id = fields.Many2one('expediente.expediente', 'Expediente', required=1, ondelete='cascade', readonly=True)
     partner_id = fields.Many2one('res.partner', 'Responsible')
     guest_ids = fields.Many2many('res.partner', 'Participants')
@@ -103,10 +104,33 @@ class exp_canon_obligaciones(models.Model):
             }
         return True
 
+    def imprimir_cupon(self):
+        print (("IMPIMIR CUPON"))
+        if True:
+            return {
+            'name': "Seleccione entidad de pago",
+            'view_mode': 'form',
+            'res_id': self.id, #SOLO PARA FORM
+            'res_model': 'exp_canon_obligaciones',
+            'type': 'ir.actions.act_window',
+            # 'domain': [('seguimiento_id.expediente_id', '=', active_id)],
+            'context': {'default_user_informa_pago': self.actual_user()},
+            'views': [[self.env.ref('exp_canon.form_popup_select_pago').id, "form"]],
+            'target': 'new',
+            'tag': 'reload',
+            }
+        return True
+
     def informar_pago(self):
         if self.monto_haber == False or self.fecha_pago == False:
             raise exceptions.ValidationError('Faltan datos para continuar con la operación.')
         self.write({'monto_haber': self.monto_haber, 'fecha_pago': self.fecha_pago, 'estado': 'pagado'})
+        return True
+
+    def informar_entidad(self):
+        if self.cuenta_pago == False:
+            raise exceptions.ValidationError('Faltan datos para continuar con la operación.')
+        self.write({'cuenta_pago': self.cuenta_pago})
         return True
 
     def notificacion_pago(self):
