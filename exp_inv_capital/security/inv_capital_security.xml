@@ -6,10 +6,25 @@
 		<field name="sequence">40</field>
 	</record>
 
+	<record id="exp_inv_capital.exp_inv_sin_acceso" model="res.groups">
+		<field name="name">Sin acceso a Inversión de capital</field>
+		<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+		<field name="users" eval="[(4, ref('base.user_root'))]"/>
+		<field name="category_id" ref="exp_inv_capital.autorizaciones"/>
+    </record>
+
+	<record id="exp_inv_capital.exp_inv_capital_lectura" model="res.groups">
+		<field name="name">Lectura inversión de capital</field>
+		<field name="implied_ids" eval="[(4, ref('exp_inv_capital.exp_inv_sin_acceso'))]"/>
+		<field name="users" eval="[(4, ref('base.user_root'))]"/>
+		<field name="category_id" ref="exp_inv_capital.autorizaciones"/>
+    </record>
+
 	<record id="exp_inv_capital.exp_inv_capital_escritura" model="res.groups">
-     <field name="name">Lectura/Escritura de Pagos</field>
-     <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+     <field name="name">Lectura/Escritura de inversión de capital</field>
+     <field name="implied_ids" eval="[(4, ref('exp_inv_capital.exp_inv_capital_lectura'))]"/>
      <field name="users" eval="[(4, ref('base.user_root'))]"/>
      <field name="category_id" ref="exp_inv_capital.autorizaciones"/>
     </record>
+
 </odoo>
