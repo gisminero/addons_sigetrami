@@ -31,6 +31,8 @@
       </form>
       </field>
     </record>
+
+    
     <!-- actions opening views on models -->
     <record model="ir.actions.act_window" id="exp_canon.canon_config_action_window">
       <field name="name">Set General de Valor</field>

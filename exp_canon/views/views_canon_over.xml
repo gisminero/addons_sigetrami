@@ -23,13 +23,14 @@
              <xpath expr="/form/sheet/notebook/sheet[@name='hoja_1']"  position="inside" groups="exp_canon.exp_canon_lectura">
                  <group col="4">
                      <field name="config_asociada"  readonly="1" />
-                     <button name="canon_cambiar_config_default" type="object" string="Cambiar Config. de Canon"  />
+                     <button name="canon_cambiar_config_default" type="object" string="Cambiar Config. de Canon" 
+                     groups="exp_canon.exp_canon_modificacion" />
                  </group>
                  
                  <group>
                  <field name="canon_obligaciones_id" nolabel="1" colspan="2" readonly="1">
 			            <tree string="Canon Minero" > 
-                            <field name="id" />
+                            <field name="id" invisible="1"/>
                             <field name="name" />
                             <field name="fecha_vencimiento" />
                             <field name="fecha_vencimiento_gracia" />
@@ -37,9 +38,19 @@
                             <field name="monto_haber" />
                             <field name="fecha_pago"/>
                             <field name="estado"/>
+                            <field name="cuenta_pago"/>
+                            
                             <button name="informa_pago" type="object" string="Informar Pago" style="background-color: #00cc00;"
-                            attrs="{'invisible':[('estado','!=', 'emitido')]}" />
-                            <field name="notificacion_enviada"/>
+                            attrs="{'invisible':[('estado','!=', 'emitido')]}" groups="exp_canon.exp_canon_escritura"/>
+                            <button name="imprimir_cupon" type="object"  icon="fa-money" 
+                            attrs="{'invisible':[('estado','!=', 'emitido')]}" groups="exp_canon.exp_canon_escritura"/>
+                             <button name="%(custom_template_1)d" string="Imprimir" type="action"  
+                             icon="fa-barcode"
+                             attrs="{'invisible':[('estado','!=', 'emitido')]}" /> 
+                             <!-- icon="gtk-print" icon="fa-users" class="oe_highlight"-->
+                            <field name="notificacion_enviada" string="Notificación"/>
+                            
+   
 			            </tree>
 		        </field>
                 </group>

@@ -5,6 +5,7 @@
       <field name="model">exp_canon_obligaciones</field>
       <field name="arch" type="xml">
       <form string="Información de Pagos Adeudados">
+            	<sheet>
              <separator string="Información de Pagos Adeudados"/>.
                 <group >
                     <field name="name" />
@@ -19,14 +20,87 @@
                 <group >
                     <field name="monto_haber" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
                     <field name="fecha_pago" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
+                  <!--  <field name="user_informa_pago" domain="[('id', '=', uid)]" value="uid" attrs="{'readonly':[('estado','!=', 'emitido')]}"/>-->
+                    
                </group>
 
                <footer>
                    <button name="informar_pago" string="Informar Pago" type="object" confirm="¿Está seguro que desea informar el pago?" class="oe_highlight"/>
                    <button string="Cerrar" class="btn-default" special="cancel"/>
                </footer>
+          </sheet>
+              <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+              </div>
       </form>
       </field>
     </record>
+
+
+    <record model="ir.ui.view" id="exp_canon.exp_canon_config_global_list">
+      <field name="name">Auditoria de Obligaciones</field>
+      <field name="model">exp_canon_obligaciones</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="estado" />
+          <field name="create_date" string="Fecha de Creación"/>
+          <field name="notificacion_enviada" />
+          
+  
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="exp_canon.form_auditoria_pago">
+      <field name="name">Auditoria de Obligaciones</field>
+      <field name="model">exp_canon_obligaciones</field>
+      <field name="arch" type="xml">
+      <form string="Auditoria de Obliaciones">
+              <separator string="Información de Pagos"/>.
+                <group >
+                    <field name="name" />
+                    <field name="fecha_vencimiento" />
+                    <field name="fecha_vencimiento_gracia" />
+
+                    <field name="monto_debe" />
+                    <field name="monto_saldo" invisible="1"/>
+                    <field name="estado"/>
+                    <field name="exp_id"/>
+              </group>
+              <separator string="Ingrese Monto y Fecha de Pago"/>.
+              <group>
+                    <field name="monto_haber" attrs="{'readonly':[('estado','in', ['pagado', 'vencido'])]}"/>
+                    <field name="fecha_pago" attrs="{'readonly':[('estado','in', ['pagado', 'vencido'])]}"/>
+                    <field name="user_informa_pago"  value="default_user_informa_pago"  attrs="{'readonly':[('estado','!=', 'emitido')]}"/>
+                    <field name="notificacion_enviada" />
+              </group>
+              <group>
+                    <button name="corregir_pago" string="Corregir Pago" type="object" confirm="¿Está seguro que desea corregir el pago?" class="oe_highlight"
+                    groups="exp_canon.exp_canon_audit_obligaciones"  />
+              </group>
+
+
+
+
+              <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+              </div>
+      </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="exp_canon.canon_auditoria_pagos">
+      <field name="name">Auditoria de Obligaciones</field>
+      <field name="res_model">exp_canon_obligaciones</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="exp_canon.exp_canon_config_global_list"/>
+    </record>
+
+    <menuitem name="Auditoria de Obligaciones" id="exp_canon.auditoria_canon" parent="exp_canon.exp_canon_config"
+              action="exp_canon.canon_auditoria_pagos"/>
+
   </data>
 </odoo>
