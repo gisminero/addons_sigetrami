@@ -169,7 +169,7 @@ class expediente(models.Model):
     empleado = fields.Many2one('hr.employee','Empleado Asignado', readonly=False)
     #_sql_constraints =[('name_uniq_exp', 'unique(name)', 'El numero de Expediente debe ser único para cada trámite')]
     estado_plazos = fields.Char('Estado de Plazos', compute="_estadoPlazo", required=False)
-    cant_pertenencias = fields.Integer('Cantidad de Pertenencias', help='', required=True)
+    ##cant_pertenencias = fields.Integer('Cantidad de Pertenencias', help='', required=True)
     ###CAMPOS QUE NO PERTENECEN AL MODELO#####
     aux_categoria_mineral = fields.Char('Categoria del Mineral por Defecto', required=False, readonly=True)
 

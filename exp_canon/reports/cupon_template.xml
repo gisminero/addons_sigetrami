@@ -12,13 +12,12 @@
                     </div>
                     <div  style="float: left;">
                     <h2>Canon Minero a Pagar</h2>
-                    <p></p>
-                    <p>El pago corresponde a: <span t-field="o.name"/></p>
-                    <p>Monto a pagar: $ <span t-field="o.monto_debe"/></p>
+                    <h3>Expediente <span t-field="o.exp_id.name"/></h3>
+                    <p>Concepto: <span t-field="o.name"/> - Monto a pagar: $ <span t-field="o.monto_debe"/>  </p>
                     <p>Las fechas de vencimiento son: </p>
-                    <p>Vencimiento:  <span t-field="o.fecha_vencimiento"/>  --  Vencimiento de plazo de gracia:  <span t-field="o.fecha_vencimiento_gracia"/> </p>
+                    <p>Vencimiento:  <span t-field="o.fecha_vencimiento"/>  --  Plazo de gracia:  <span t-field="o.fecha_vencimiento_gracia"/> </p>
                     <p>Entidad de pago: <span t-field="o.cuenta_pago.name"/></p>
-                    <img t-att-src="'/report/barcode/Code128/%s' % o.cuenta_pago.numero_cuenta"/>
+                    <img t-att-src="'/report/barcode/Code128/%s' % o.cuenta_pago.numero_cuenta" Height="64"/>
                     <p></p>
                     
                    </div>

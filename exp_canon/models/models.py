@@ -45,15 +45,30 @@ class exp_canon_obligaciones(models.Model):
     def actual_user(self):
         return 2#self.env.user
 
+    def obtener_cant_pertenencias(self, exp_id):
+        print(("id DE EXOPEDIENTE BUSCADO: " + str(exp_id)))
+        pert_obj = self.env['exp_pertenencias'].search([('exp_id', '=', exp_id)], order="write_date desc", limit=1)
+        print(("OBJETOS: " + str(pert_obj)))
+        if pert_obj:
+            cant = pert_obj[0].pertenencias
+        else:
+            cant = 0
+        return cant
+
     def calcular_monto(self, exp):
         valor_pertenencia = exp.config_asociada.valor_pertenencia
         valor_pertenencia_factor = exp.config_asociada.valor_pertenencia_factor
-        cant_pertenencias = exp.cant_pertenencias
+        #cant_pertenencias = exp.cant_pertenencias
+        cant_pertenencias = self.obtener_cant_pertenencias(exp.id)
         print (("VALORES OBTENIDOS PARA REALIZAR EL CALCULO FINAL DEL EXPEDIENTE: " + str(exp.name)))
         print (("VALOR PERTENECIA: " + str(valor_pertenencia) + "VALOR PERTENECIA FACTOR: " + str(valor_pertenencia_factor) ))
         print (("CANTIDAD DE PERTENENCIAS: " + str(cant_pertenencias) ))
         valor_final = valor_pertenencia * valor_pertenencia_factor * cant_pertenencias
         return valor_final
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> 65e14e7bac7c6db851e32910afecba44e1f4de37
 
     def crear_obligacion(self, exp, semestre):
         hoy = datetime.date.today()
