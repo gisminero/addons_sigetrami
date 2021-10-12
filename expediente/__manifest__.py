@@ -25,7 +25,6 @@
     'data': [
         'security/expediente_security.xml',
         'security/ir.model.access.csv',
-        # 'security/accesos_pertenencias.xml',
         'views/views.xml',
         #'views/templates.xml',
         'models/secuence.xml',
