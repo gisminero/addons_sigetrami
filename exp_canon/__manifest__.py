@@ -15,13 +15,18 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Uncategorized',
-    'version': '0.3',
+    'version': '0.2',
     # any module necessary for this one to work correctly
-    'depends': ['base', 'expediente', 'mail', 'notificaciones', 'exp_pertenencias'],
+    'depends': ['base', 'expediente', 'mail', 'notificaciones'],
     # always loaded
     'data': [
         'security/canon_security.xml',
         'security/ir.model.access.csv',
+        'reports/cupon_template.xml',
+        'views/views_canon_over.xml',
+        'views/config_general_canon.xml',
+        #'views/config_valor_general.xml',
+        'data/config_default.xml',
         'views/popup_informa_pago.xml',
         'data/cronos_vencimientos.xml',
         'data/dispara_obligaciones_vencidas.xml',

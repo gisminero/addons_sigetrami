@@ -52,7 +52,7 @@
                 <field name="active" attrs="{'readonly':[('validado','=', True)]}"/>
            </group> 
            <group> 
-                <field name="cuentas_pago_asoc"  nolabel="0" colspan="2" attrs="{'readonly':[('validado','=', True)]}">
+                <field name="cuentas_pago_asoc"  nolabel="0" colspan="2" readonly="1">
 			            <tree string="Cuentas de Pago Asociadas" > 
                         <field name="id" />
                         <field name="name" />
