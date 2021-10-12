@@ -10,4 +10,13 @@ access_exp_canon_modifica,exp_canon.exp_cannon_config,model_exp_canon_config,exp
 
 access_exp_canon_admin_config,exp_canon_admin_config,model_exp_canon_config,exp_canon.exp_canon_configuracion,1,1,1,1
 
+access_exp_canon_obligaciones,exp_canon_obligaciones,model_exp_canon_obligaciones,exp_canon.exp_canon_configuracion,1,1,1,1
+
+access_exp_canon_valor_global,exp_canon_config_global,model_exp_canon_config_global,exp_canon.exp_canon_configuracion,1,1,1,1
+
+access_exp_entidad_pago_conf,exp_entidad_pago_config,model_exp_canon_config_bancos,exp_canon.exp_canon_configuracion,1,1,1,1
+access_exp_entidad_pago_lect,exp_entidad_pago_lect,model_exp_canon_config_bancos,exp_canon.exp_canon_modificacion,1,0,0,0
+
+
+
 
