@@ -16,6 +16,8 @@ access_exp_canon_valor_global,exp_canon_config_global,model_exp_canon_config_glo
 
 access_exp_entidad_pago_conf,exp_entidad_pago_config,model_exp_canon_config_bancos,exp_canon.exp_canon_configuracion,1,1,1,1
 access_exp_entidad_pago_lect,exp_entidad_pago_lect,model_exp_canon_config_bancos,exp_canon.exp_canon_modificacion,1,0,0,0
+access_exp_entidad_pago_modif,exp_entidad_pago_modif,model_exp_canon_config_bancos,exp_canon.exp_canon_escritura,1,1,0,0
+
 
 
 
