@@ -26,6 +26,7 @@ class exp_canon_obligaciones(models.Model):
     user_informa_pago = fields.Many2one('res.users','Informado por', required=False)
     notificacion_enviada = fields.Boolean('Notificación Enviada', default=False, readonly=True)
     cuenta_pago = fields.Many2one('exp_canon_config_bancos','Cuenta de pago', required=False)
+    config_utilizada = fields.Many2one('exp_canon_config','Configuración utilizada', required=False, help='Configuración utilizada para realizar el cálculo')
     exp_id = fields.Many2one('expediente.expediente', 'Expediente', required=1, ondelete='cascade', readonly=True)
     partner_id = fields.Many2one('res.partner', 'Responsible')
     guest_ids = fields.Many2many('res.partner', 'Participants')
