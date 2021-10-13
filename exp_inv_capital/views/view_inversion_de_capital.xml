@@ -9,6 +9,9 @@
 				<xpath expr="/form/sheet/notebook/sheet[@name='hoja_2']" position="attributes">
 					<attribute name="invisible">0</attribute>
 				</xpath>
+				<xpath expr="/form/sheet/notebook/sheet[@name='hoja_2']"  position="attributes">
+                   <attribute name="groups">exp_inv_capital.exp_inv_capital_lectura</attribute> 
+             	</xpath>
 			</field>
 		</record>
 
@@ -18,7 +21,7 @@
       		<field name="model">expediente.expediente</field>
       		<field name="inherit_id" ref="expediente.form"/>
       		<field name="arch" type="xml">
-             	<xpath expr="/form/sheet/notebook/sheet[@name='hoja_2']"  position="inside">				
+             	<xpath expr="/form/sheet/notebook/sheet[@name='hoja_2']"  position="inside" groups="exp_inv_capital.exp_inv_capital_lectura">				
 				 	<group>
 						<field name="declaracion_jurada_id" nolabel="1" colspan="2">
 								<tree string="Declaración Jurada" >
