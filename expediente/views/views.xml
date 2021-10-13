@@ -174,10 +174,12 @@
                   <field name="estado_legal_actual"/>
             </group>
         <newline/>
-        <group col="2">
-            <field name="cant_pertenencias" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+        
+        <!-- 
+          <group col="2">
+             <field name="cant_pertenencias" attrs="{'readonly':[('state','!=', 'draft')]}"/> 
          </group>
-
+-->
 
         <group col="2">
             <field name="observaciones" attrs="{'readonly':[('state','!=', 'draft'),('state','!=', 'active')]}"/>
