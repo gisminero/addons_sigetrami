@@ -1,2 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_exp_inv_capital_sin_acceso,exp_inv_capital.exp_inv_capital_sin_acceso,model_exp_inv_capital,expediente.access_group_expte_lectura,1,0,0,0
+access_exp_inv_capital_leer,exp_inv_capital.exp_inv_capital_lectura,model_exp_inv_capital,exp_inv_capital.exp_inv_capital_lectura,1,0,0,0
 access_exp_inv_capital_escribir,exp_inv_capital.exp_inv_capital_escribe,model_exp_inv_capital,exp_inv_capital.exp_inv_capital_escritura,1,1,1,1
