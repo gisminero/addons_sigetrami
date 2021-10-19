@@ -19,10 +19,26 @@ class tipos_aviso(models.Model):
 class notifica(models.Model):
     _name = 'notifica'
     _inherit = ['mail.thread']
-    _order = "write_date desc"
+    _order = "write_date desc"  
 
     def default_user_id(self):
         return self.env.context.get("default_user_id", self.env.user)
+
+    def mis_eventos(self):
+        usuario_actual = self.default_user_id()
+        #print(("EL ID DEL USUARIO ACTUAL ES: " + str() ))
+        if True:
+            action = {
+                'name': "Lista de Mis Eventos",
+                'view_mode': 'tree, form',
+                'res_model': 'notifica',
+                'type': 'ir.actions.act_window',
+                'domain': [('create_uid', '=', usuario_actual[0].id)],
+                'views': [[self.env.ref('notificaciones.notifica_list').id, "tree"], [self.env.ref('notificaciones.notifica_form').id, "form"]],
+            }
+        else:
+            raise ValidationError(('No se encontro el departamento del usuario'))
+        return action     
 
     def esFeriado(self, dia):
         res = self.env['feriados'].search([('fecha', '=', dia)])

@@ -7,11 +7,11 @@
       <field name="model">notifica</field>
       <field name="arch" type="xml">
         <tree >
-<!--            colors="green: alertas_enviados==False" -->
           <field name="name"/>
           <field name="fecha_notificacion"/>
           <field name="fecha_vencimiento"/>
           <field name="state"/>
+          <field name="create_uid" string="Creado por"/>
           <field name="alertas_enviados"/>
         </tree>
       </field>
@@ -214,14 +214,33 @@
       </form>
       </field>
     </record>
-<!--   -->
-
-
+<!--   
     <record model="ir.actions.act_window" id="notificaciones.notifica_action_window">
       <field name="name">Creacion de Notificacion</field>
       <field name="res_model">notifica</field>
       <field name="view_mode">tree,form</field>
     </record>
+-->
+<record model="ir.actions.server" id="notificaciones.notifica_action_server">
+    <field name="name">Mis Eventos</field>
+    <field name="model_id" ref="model_notifica"/>
+    <field name="state">code</field>
+    <field name="code">action = env.get('notifica').mis_eventos()</field>
+      <!--
+        action =    {
+            'name': "Mis Eventos",
+            'view_mode': 'tree, form',
+            'res_model': 'notifica',
+            'type': 'ir.actions.act_window',
+            'domain': [('create_uid', '=', env.user)],
+            'views': [[env.ref('notificaciones.notifica_list').id, "tree"], [env.ref('notificaciones.notifica_form').id, "form"]],
+            #'views': [[env.ref('notificaciones.pop_sin_alerta_form').id, "form"], [env.ref('notificaciones.alerta_list').id, "tree"]],
+            #'target': 'new',
+            #'res_id': 1,
+            }
+    </field>
+    -->
+</record>
 
 <!-- POP UP ALERTA DE USUARIO AL INGRESAR AL SISTEMA 2021 ODOO 11 -->
 
@@ -285,7 +304,7 @@ else:
   <menuitem name="Notificaciones" id="gepromi.notifica" parent="gepromi.menu_root"/>
 
   <menuitem name="Mis Eventos" id="notificaciones.menu_list" parent="gepromi.notifica"
-        action="notificaciones.notifica_action_window" groups="notificaciones.group_config_notif_lect"/>
+        action="notificaciones.notifica_action_server" groups="notificaciones.group_config_notif_lect"/>
 
   <menuitem name="Mis Alertas" id="notificaciones.alerta_server_list" parent="gepromi.notifica"
              action="notificaciones.alerta_mis_alertas"/>
