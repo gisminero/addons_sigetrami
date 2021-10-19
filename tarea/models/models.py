@@ -58,7 +58,7 @@ class plazo(models.Model):
     _name = 'tarea.plazo'
     _description = 'Plazos de Tiempo'
     name = fields.Char('Nombre', required=True)
-    descrip = fields.Char('Descripcion', required=False)
+    descrip = fields.Char('Descripcion/Art.', required=False)
     active = fields.Boolean('Activo', default=True)
     #voucher_id = fields.Many2one('tarea.tarea', 'Tarea', required=1, ondelete='cascade')
     cant = fields.Integer('Dias de Plazo', required=True)
@@ -66,5 +66,19 @@ class plazo(models.Model):
             ('1', 'Habiles'),
             ('2', 'Corridos'),
         ], 'Dias de Plazo', index=True, readonly=False, default='1')
-    #07-03-19: Asociar grupos de usuarios que deben recibir el aviso
-    #y de que forma
+    #15-10-2021: Los grupos a notificar cuando vence el plazo, se encuentran en el mòdulo notficaciones.
+
+    def name_get(self):
+        result = []
+        for record in self:
+            if not record.descrip:
+                codigo = "-"
+            else:
+                codigo = record.descrip
+            if not record.name:
+                nombre = "-"
+            else:
+                nombre = record.name
+            record_name = codigo + ' - ' + nombre # + ' (' + str(tipo) + ')'
+            result.append((record.id, record_name))
+        return result

@@ -36,13 +36,17 @@
 <!--          <field name="fueraflujo"/>-->
           <!-- attrs="{'readonly':[('tipo','!=', '4')]}"/>-->
           <field name="estado_legal"/>
+          <field name="descrip"/>
          </group>
-
-
-
           <group colspan="4">
+            
+          <field name="plazos" nolabel="0" colspan="1">
+			      <tree string="Plazos" editable="bottom">
+              <field name="name"/>
               <field name="descrip"/>
-              <field name="plazos"/>
+              <field name="active"/>
+             </tree>
+           </field>
           </group>
       </form>
       </field>
