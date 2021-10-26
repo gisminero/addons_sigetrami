@@ -23,15 +23,17 @@
         </t>
     </t>
     </template>
+   
            <report
-                id="pase.recibo_pase"
+                id="pase.constancia_impresa"
                 model="pase.pase"
                 string="Constancia de Envío"
                 report_type="qweb-pdf"
                 name="pase.constancia_impresa"
                 file="pase.constancia_impresa"
-                menu="False"
+                menu="True"
         />
+  
     </data>
 </odoo>
 

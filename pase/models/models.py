@@ -119,7 +119,7 @@ class pase(models.Model):
                 return False
 
     def imprimir_pase(self):
-        print (("IMPRIMIENDO PASE DESDE LA CLASE PASE..............." + self.name + " ---- "+ self.depart_origen_id.name))
+        print (("IMPRIMIENDO PASE DESDE LA CLASE PASE..............." + self.name + " ---- "+ self.depart_origen_id.name + " EL ID ES: " + str(self.id)))
         data = {}
         #return self.env.ref('pase.recibo_pase').report_action(self, data=data)
         #view = self.env.ref('pase.form_constancia_envio')
@@ -136,7 +136,7 @@ class pase(models.Model):
                 #'domain': [('ubicacion_actual', '=', env['expediente.expediente'].depart_user())],
                 #'domain': [('recibido', '=', False), ('oficina_destino', '=', self.env['expediente.expediente'].depart_user())],
                 #'context': {'recibido': False, 'oficina_destino': False, 'observ_pase': '', 'id_activo': active_id},
-                'views': [[self.env.ref('pase.form_constancia_envio').id, "form"]],
+                #'views': [[self.env.ref('pase.form_constancia_envio').id, "form"]],
                 'target': 'new',
                 #'flags': {'form': {'action_buttons': False}},
                 }
@@ -147,8 +147,10 @@ class pase(models.Model):
             'form': self,
             }
         return {
-            'type': 'ir.actions.report.xml',
-            'report_name': 'pase.recibo_pase', 
-            'datas': datas,
+            'name': 'Nombre del Reporte',
+            'model': 'pase.pase',
+            'type': 'ir.actions.report',
+            'report_name': 'pase.recibo_pase_1', 
+            #'datas': datas,
             }
         """
