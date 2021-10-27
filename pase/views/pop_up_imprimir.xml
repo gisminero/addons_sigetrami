@@ -41,6 +41,7 @@
           <field name="folios"/>
           <field name="observ_pase" />
          </group>
+        <button string="Print" icon="fa-print" type="action" name="%(pase.constancia_impresa)d" class="oe_highlight"/>
       </form>
       </field>
     </record>

@@ -29,9 +29,9 @@
                 model="pase.pase"
                 string="Constancia de Envío"
                 report_type="qweb-pdf"
-                name="pase.constancia_impresa"
-                file="pase.constancia_impresa"
-                menu="True"
+                name="pase.recibo_pase_1"
+                file="pase.recibo_pase_1"
+                menu="False"
         />
   
     </data>

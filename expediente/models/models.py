@@ -698,8 +698,8 @@ class expediente(models.Model):
         print(("OJALA FUNCIONE: " + pase_objs[0].name))
         #for pase in pase_objs:
         #    print(("PASE: " + pase.name + " - ID "+ str(pase.id ) + " - DESTINO:" + pase.depart_destino_id.name))
-        pase_objs[0].imprimir_pase()
-        return True
+        res = pase_objs[0].imprimir_pase()
+        return res
 
 
     class estado_legal(models.Model):
