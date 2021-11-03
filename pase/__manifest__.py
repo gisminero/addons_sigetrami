@@ -27,11 +27,13 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'reports/recibo_pase.xml',
+        'views/pop_up_imprimir.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
-    #'application': True,
+    'application': True,
     'auto_install': True,
 }

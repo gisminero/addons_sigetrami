@@ -1,0 +1,70 @@
+<odoo>
+  <data>
+   
+
+    <record model="ir.ui.view" id="pase.form_constancia_envio">
+      <field name="name">Imprimir Pase</field>
+      <field name="model">pase.pase</field>
+      <field name="arch" type="xml">
+      <form string="Impresión de Pases">
+        <header>
+        <separator string="PASE DE EXPEDIENTE" colspan="4"/>
+        <field name="name"/>
+        </header>
+        <group>
+          <field name="expediente_id" readonly="1" string="Expediente"/>
+          <field name="depart_origen_id" readonly="1"/>
+          <field name="depart_destino_id" readonly="1"/>
+          <field name="user_origen_id" readonly="1"/>
+          <field name="user_recep_id" readonly="1"/>
+          <field name="fecha_hora_envio" readonly="1"/>
+          <field name="fecha_hora_recep" readonly="1"/>
+          <field name="folios" readonly="1"/>
+          <field name="observ_pase" readonly="1"/>
+         </group>
+           <footer>
+                <button string="Cerrar" class="btn-default" special="cancel"/>
+                <button string="Imprimir" icon="fa-print" type="action" name="%(pase.constancia_impresa)d" class="oe_highlight"/>
+           </footer>
+
+      </form>
+      </field>
+    </record>
+
+
+
+
+
+    <!-- actions opening views on models 
+
+    <record model="ir.actions.act_window" id="pase.action_window1">
+      <field name="name">Pases</field>
+      <field name="res_model">pase.pase</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+
+
+
+    <!-- Top menu item 
+
+    <menuitem name="GeProMi Pase." id="pase.menu_root" sequence="1" groups="pase.access_group_pase_ajustes" />
+-->
+    <!-- menu categories 
+
+    <menuitem name="Mi Oficina" id="pase.mi" parent="pase.menu_root"/>
+-->
+
+
+    <!-- actions -->
+
+
+
+<!--
+    <menuitem name="Auditoria de Pases" id="pase.menu_1_list" parent="pase.mi"
+              action="pase.action_window1" />
+ groups="gepromi.group_gepromi_config" -->
+
+  </data>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <template id="pase.recibo_pase_1">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+                <div class="page">
+         <!-- You can add your report contetnt here -->
+                   <div style="float: right;"> 
+                    <img t-att-src="'/report/barcode/Code128/%s' % o.name" Height="64"/>
+                    </div>
+                    <div  style="float: left;">
+                    <h3>Constancia de pase</h3>
+                    <h4>Exp.: <span t-field="o.name"/> </h4>
+                   
+                   </div>
+                    <table style="width:100%; border: 1px solid grey;">
+                        <tr style="border: 1px solid grey;">
+                            <th style="width:20%">Desde</th>
+                            <th style="width:20%">Usuario</th>
+                            <th style="width:10%" >Enviado</th>
+                            <th style="width:20%">Destino</th>
+                            <th style="width:20%">Recibe</th>
+                            <th style="width:10%">Fecha (h)</th>
+                        </tr>
+                        <tr style="border: 1px solid grey;">
+                            <td style="width:20%"><span t-field="o.depart_origen_id"/></td>
+                            <td style="width:20%"><span t-field="o.user_origen_id"/></td>
+                            <td style="width:10%"><span t-field="o.fecha_hora_envio"/></td>
+                            <td style="width:20%"><span t-field="o.depart_destino_id"/></td>
+                            <td style="width:20%"><span t-field="o.user_recep_id"/></td>
+                            <td style="width:10%"><span t-field="o.fecha_hora_recep"/></td>
+                        </tr>
+                         <tr style="border: 1px solid grey;">
+                            <td style="width:20%">Folios: <span t-field="o.folios"/></td>
+                            <td colspan="5" style="width:80%">Observaciones: <span t-field="o.observ_pase"/></td>
+                        </tr> 
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+    </template>
+   
+           <report
+                id="pase.constancia_impresa"
+                model="pase.pase"
+                string="Constancia de Envío"
+                report_type="qweb-pdf"
+                name="pase.recibo_pase_1"
+                file="pase.recibo_pase_1"
+                menu="False"
+        />
+  
+    </data>
+</odoo>
+
