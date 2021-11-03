@@ -127,7 +127,7 @@ class pase(models.Model):
         #context = dict(self._context or {})
         #context['message'] = 'Constancia de envio.'
         return {
-                'name': "Imprimir Constancia de Pase",
+                'name': "Constancia de pase (vista previa)",
                 'view_mode': 'form',
                 'res_id': self.id,
                 'view_id': self.env.ref('pase.form_constancia_envio').id,

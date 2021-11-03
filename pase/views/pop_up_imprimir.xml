@@ -1,25 +1,6 @@
 <odoo>
   <data>
-    <!-- explicit list view definition 
-
-    <record model="ir.ui.view" id="pase.list">
-      <field name="name">Lista de Pases</field>
-      <field name="model">pase.pase</field>
-      <field name="arch" type="xml">
-        <tree>
-            <field name="name"/>
-       
-          <field name="depart_origen_id"/>
-          <field name="depart_destino_id"/>
-          <field name="folios"/>
-          <field name="fecha_hora_envio"/>
-          <field name="user_recep_id"/>
-          <field name="fecha_hora_recep"/>
-          <field name="observ_pase" />
-        </tree>
-      </field>
-    </record>
-    -->
+   
 
     <record model="ir.ui.view" id="pase.form_constancia_envio">
       <field name="name">Imprimir Pase</field>
@@ -31,17 +12,21 @@
         <field name="name"/>
         </header>
         <group>
-          <field name="expediente_id"/>
-          <field name="depart_origen_id"/>
-          <field name="depart_destino_id"/>
-          <field name="user_origen_id"/>
-          <field name="user_recep_id"/>
-          <field name="fecha_hora_envio"/>
-          <field name="fecha_hora_recep"/>
-          <field name="folios"/>
-          <field name="observ_pase" />
+          <field name="expediente_id" readonly="1" string="Expediente"/>
+          <field name="depart_origen_id" readonly="1"/>
+          <field name="depart_destino_id" readonly="1"/>
+          <field name="user_origen_id" readonly="1"/>
+          <field name="user_recep_id" readonly="1"/>
+          <field name="fecha_hora_envio" readonly="1"/>
+          <field name="fecha_hora_recep" readonly="1"/>
+          <field name="folios" readonly="1"/>
+          <field name="observ_pase" readonly="1"/>
          </group>
-        <button string="Print" icon="fa-print" type="action" name="%(pase.constancia_impresa)d" class="oe_highlight"/>
+           <footer>
+                <button string="Cerrar" class="btn-default" special="cancel"/>
+                <button string="Imprimir" icon="fa-print" type="action" name="%(pase.constancia_impresa)d" class="oe_highlight"/>
+           </footer>
+
       </form>
       </field>
     </record>
