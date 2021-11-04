@@ -8,7 +8,7 @@
       <field name="arch" type="xml">
       <form string="Impresión de Pases">
         <header>
-        <separator string="PASE DE EXPEDIENTE" colspan="4"/>
+        <separator string="Pase de Expediente" colspan="4"/>
         <field name="name"/>
         </header>
         <group>
