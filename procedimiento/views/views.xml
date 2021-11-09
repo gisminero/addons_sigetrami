@@ -27,6 +27,7 @@
           <field name="name"/>
           <field name="description"/>
           <field name="iniciado"/>
+          <field name="proced_principal" attrs="{'readonly':[('iniciado','=', '1')]}"/>
           <field name="susplazo"/>
           <field name="categoria_mineral"/>
          </group>

@@ -11,18 +11,24 @@
             <group>
                 <field name="id"/>
                 <field name="name" domain="[('active', '=', True)]" />
+                <!--
                 <button name="obtener_id" type="object"  string="Editar Flujo"
-                    class="oe_highlight" context="{'id_activo': name}"/>
+                    class="oe_highlight" context="{'id_procedimiento': name}"/>
+                    -->
                 <button name="exportar" type="object"  string="Exportar"
-                    class="oe_highlight" context="{'id_activo': id}"/>
+                    class="oe_highlight" context="{'id_activo': id}" active="False"/>
                 <field name="csvfilename" invisible="1"/>
                 <field name="filebinary" filename="csvfilename"/>
             </group>
         <field name="lineflujo_ids" nolabel="1" colspan="1">
             <tree string="Flujo de Tareas" editable="bottom">
                 <field name="id"/>
-                <field name="tarea_padre" domain="[('active', '=', True)]" on_change="tareaSusp(tarea_padre)"/>
+                <field name="tarea_padre" domain="[ ('active', '=', True)]" on_change="tareaSusp(tarea_padre)"/>
+                <!-- ('proced_id', '=', context.get('id_procedimiento')),  Este domain funciona pero solo filtra flujos principales
+                En subflujos muestra lista vacía-->
                 <field name="tarea" domain="[('active', '=', True)]" on_change="tareaInicial(tarea,tarea_padre)"/>
+                <!-- ('proced_id', '=', context.get('id_procedimiento')),  Este domain funciona pero solo filtra flujos principales
+                En subflujos muestra lista vacía-->
                 <field name="descrip"/>
 
             </tree>
@@ -43,7 +49,17 @@
                 </tree>
 
             </field>
-<!--            <field name="observaciones"/>-->
+        </record>
+
+        <record id="flujos_tareas_tree" model="ir.ui.view">
+            <field name="name">tarea_flujo.flujo_tree</field>
+            <field name="model">tarea_flujo.flujo</field>
+            <field name="arch" type="xml">
+                <tree string="Procedimientos"  editable="bottom">
+                    <field name="name" />
+                    <button name="editar_flujo" type="object"  string="Editar Flujo"   class="oe_highlight" />
+                </tree>
+            </field>
         </record>
 
 

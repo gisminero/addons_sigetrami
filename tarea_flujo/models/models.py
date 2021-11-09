@@ -105,15 +105,16 @@ class flujo(models.Model):
 
 
     proc_ini=0
-    def obtener_id(self):
-        active_id = self.env.context.get('id_activo')
-        print("El valor del procedimiento en el flujo: " + str(active_id))
-        procedim=self.env['procedimiento.procedimiento'].browse(active_id)
+    def obtener_id(self, proced_id):
+        #proced_id = self.env.context.get('id_procedimiento')
+        print("El valor del procedimiento en el flujo: " + str(proced_id))
+        procedim=self.env['procedimiento.procedimiento'].browse(proced_id)
         print("Aqui obtengo quien inicio el procedimiento: "+ str(procedim.iniciado))
         global bandera
         bandera=True
         global proc_ini
         proc_ini=procedim.iniciado
+        return True
 
     def crear_archivo(self,dic):
 #        newfile= open('/opt/odoo/server/addonsgis/tarea_flujo/models/filedatos.csv','wb')
@@ -124,7 +125,7 @@ class flujo(models.Model):
             archivo = csv.writer(newfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             archivo.writerow(fieldnames)
             for row in dic:
-                archivo.writerow(unicode(row))
+                archivo.writerow(str(row))
         print("EL ARCHIVO FUE CREADO")
         descarga=self.generate_file()#llama a la función que descargará el archivo
 
@@ -179,3 +180,15 @@ class flujo(models.Model):
             datosflujo=diccionario.values()
         generarfile= self.crear_archivo(datosflujo)
         #ver_archivo=self.mostrar_archivo()
+
+    def editar_flujo(self):
+        return {
+                'name': "Editar Flujo",
+                'view_mode': 'form',
+                'res_id': self.id, 
+                'res_model': 'tarea_flujo.flujo',
+                'type': 'ir.actions.act_window',
+                'context': {'id_procedimiento': self.name.id},
+                'views': [[self.env.ref('tarea_flujo.flujolist_form').id, "form"]],
+                #'tag': 'reload',
+                }

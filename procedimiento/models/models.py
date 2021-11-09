@@ -12,6 +12,7 @@ class procedimiento(models.Model):
         ('1', 'Usuario'),
         ('2', 'Tarea')
         ], 'Iniciado por', index=True, readonly=False,required=True)
+    proced_principal = fields.Many2one('procedimiento.procedimiento', 'Procedimiento Principal', required=False, help="""Procedimiento del cual depende""""")
     susplazo = fields.Selection([
         ('1', 'Si'),
         ('2', 'No')
