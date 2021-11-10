@@ -27,7 +27,8 @@
           <field name="name"/>
           <field name="description"/>
           <field name="iniciado"/>
-          <field name="proced_principal" attrs="{'readonly':[('iniciado','=', '1')]}"/>
+          <field name="proced_principal" attrs="{'readonly':[('iniciado','=', '1')]}" 
+          domain="[('iniciado', '=', '1')]" string="Procedimiento Ppal."/>
           <field name="susplazo"/>
           <field name="categoria_mineral"/>
          </group>

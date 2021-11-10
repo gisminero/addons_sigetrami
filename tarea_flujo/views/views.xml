@@ -23,14 +23,9 @@
         <field name="lineflujo_ids" nolabel="1" colspan="1">
             <tree string="Flujo de Tareas" editable="bottom">
                 <field name="id"/>
-                <field name="tarea_padre" domain="[ ('active', '=', True)]" on_change="tareaSusp(tarea_padre)"/>
-                <!-- ('proced_id', '=', context.get('id_procedimiento')),  Este domain funciona pero solo filtra flujos principales
-                En subflujos muestra lista vacía-->
-                <field name="tarea" domain="[('active', '=', True)]" on_change="tareaInicial(tarea,tarea_padre)"/>
-                <!-- ('proced_id', '=', context.get('id_procedimiento')),  Este domain funciona pero solo filtra flujos principales
-                En subflujos muestra lista vacía-->
+                <field name="tarea_padre" domain="[('proced_id', '=', context.get('id_procedimiento')), ('active', '=', True)]" on_change="tareaSusp(tarea_padre)"/>
+                <field name="tarea" domain="[('proced_id', '=', context.get('id_procedimiento')), ('active', '=', True)]" on_change="tareaInicial(tarea,tarea_padre)"/>
                 <field name="descrip"/>
-
             </tree>
         </field>
         </form>

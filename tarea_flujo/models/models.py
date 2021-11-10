@@ -182,13 +182,16 @@ class flujo(models.Model):
         #ver_archivo=self.mostrar_archivo()
 
     def editar_flujo(self):
+        if self.name.proced_principal.id != False:
+            procedimiento_ppal = self.name.proced_principal.id 
+        else:
+            procedimiento_ppal = self.name.id
         return {
                 'name': "Editar Flujo",
                 'view_mode': 'form',
                 'res_id': self.id, 
                 'res_model': 'tarea_flujo.flujo',
                 'type': 'ir.actions.act_window',
-                'context': {'id_procedimiento': self.name.id},
+                'context': {'id_procedimiento': procedimiento_ppal},
                 'views': [[self.env.ref('tarea_flujo.flujolist_form').id, "form"]],
-                #'tag': 'reload',
                 }
