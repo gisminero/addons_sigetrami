@@ -10,8 +10,10 @@
           <field name="codigo"/>
             <field name="departament_id"/>
           <field name="name"/>
-          <field name="descrip"/>
           <field name="proced_id"/>
+          <field name="tipo"/>
+          <field name="subproc"/>
+          <field name="tarea_vuelve"/>
         </tree>
       </field>
     </record>
@@ -33,6 +35,8 @@
           <field name="departament_id"/>
           <field name="tipo"/>
           <field name="subproc" attrs="{'readonly':[('tipo','!=', '6')]}"/>
+          <field name="tarea_vuelve" attrs="{'readonly':[('tipo','!=', '5')]}"/>
+          
 <!--          <field name="fueraflujo"/>-->
           <!-- attrs="{'readonly':[('tipo','!=', '4')]}"/>-->
           <field name="estado_legal"/>

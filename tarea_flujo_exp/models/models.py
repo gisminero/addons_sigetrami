@@ -179,6 +179,7 @@ class seguimiento(models.Model):
                 # 06/05/2021 Se agrega el parametro pase_de_oficina, el mismo posibilita la logistica de saber si se
                 # deben ingresar las fechas de terminacion inicio o terminacion de tarea
                 seguim_obj_encontrado = self.search([('expediente_id', '=', expte_id.id)], limit=1)
+                print (("EL SUBFLUJO ENCONTRADO 11/2021 ES: " + str(seguim_obj_encontrado)))
                 #AVERIGUAR SI HAY SUBPROCEDIMIENTO ABIERTO
                 obj_seguim_subproc = self.env['seguimiento_subproc']
                 subproc_a_asignar = False
@@ -188,6 +189,8 @@ class seguimiento(models.Model):
                         control_subproc_obj = obj_seguim_subproc.def_buscar_subflujo_abierto(seguim_obj_encontrado)
                         if not control_subproc_obj:
                                 subproc_a_asignar = tarea_proxima_obj.subproc.id
+                                if subproc_a_asignar == False and tarea_actual_obj.tipo == '6':
+                                        raise ValidationError('No hay subflujo configurado para ésta tarea de inicio de Subflujo. Comuníquese con el administrador.')
                                 #Tarea 6 es una tarea de ingreso a subproceso, para tareas de otro tipo
                                 #sigue el curso normal, fuera de este IF
                                 if tarea_proxima_obj.tipo == '6':
@@ -268,13 +271,14 @@ class expediente(models.Model):
                 seguim_obj_encontrado = obj_seguim.search([('expediente_id', '=', id_active)], limit=1)
                 if seguim_obj_encontrado == False:
                         raise ValidationError(
-                                ('No existe objeto de seguimiento de tareas. Comuniquese con su administrador'))
+                                ('No existe lista de seguimiento de tareas. Comuniquese con su administrador'))
                 # print (("DESPES DEL SEARCH .... " + seguim_obj_encontrado.name))
                 obj_seguim_subproc = self.env['seguimiento_subproc']
                 control_subproc_obj = obj_seguim_subproc.def_buscar_subflujo(seguim_obj_encontrado)
-                # print((" EL NOMBRE DEL SUBPROCESO ENCONTRADO ES : " + str(control_subproc_obj.seguimiento_id.name)))
+                print((" EL NOMBRE DEL SUBPROCESO ENCONTRADO ES : " + str(control_subproc_obj.seguimiento_id.name)))
                 if control_subproc_obj:
                         if not control_subproc_obj.subproc_cerrado:
+                                print (("EL CONTROL DE FLUJOS NO ESTA CERRADO"))
                                 # if control_subproc_obj and tarea_actual.tipo == '3':
                                 if tarea_actual.tipo == '3':
                                         #print(("ESTABLECER TODOS LOS MECANISMOS PARA EL ARCHIVO DLE EXPEDIENTE ########################"))
@@ -284,17 +288,22 @@ class expediente(models.Model):
                                         self._archivar_exped()
                                         # control_subproc_obj.def_cerrar_segu_subproc()
                                 elif tarea_actual.tipo == '5':
-                                        #print(("VOLVIENDO  A LA TAREA DE INICIO DE EXPEDIENTE #######24/010/2019#################"))
+                                        print(("VOLVIENDO  A LA TAREA DE INICIO DE EXPEDIENTE #######15/11/2021#################"))
+                                        #Agregando tarea anterior a la que inicia el subflujo
                                         legal_list.append(control_subproc_obj.tarea_regreso.id)
                                         return legal_list
                                 else:
-                                        print (("EL OBJETO FLUJO TRAIDO ES: " + str(flujo_obj)))
+                                        #print (("EL OBJETO FLUJO TRAIDO ES: " + str(flujo_obj)))
                                         flujo_obj = self.env['tarea_flujo.flujo'].search([('name', '=', [control_subproc_obj.subproc_id.id])])
                         else:
-                                #print(("EL CONTROL DE SUBFLUJO ESTA CERRADO ########################"))
+                                print(("EL CONTROL DE SUBFLUJO ESTA CERRADO 15-11-2021################"))
                                 if tarea_actual.tipo == '5':
                                         #print(("ASIGNANDO CONTRO DEL FLUJO TAREA DE REGRESO #####///###################"))
-                                        legal_list.append(control_subproc_obj.tarea_regreso.id)
+                                        #legal_list.append(control_subproc_obj.tarea_regreso.id)
+                                        #15/11/2021 Agregando tarea de vuelve, configurada en la tarea del tipo vuelve
+                                        #La tarea vuelve configurada en el objeto tarea con tipo tarea_vuelve, fue incluida
+                                        #debido a que en muchos casos el sub. no volvia a la tarea que lo iniciaba.
+                                        legal_list.append(tarea_actual.tarea_vuelve.id)
                                         return legal_list
                 # 24/03/2021
                 # Nota: La siguiente linea es muy importante, si no hubo subprocedimiento abierto, entonces significa
@@ -323,14 +332,13 @@ class expediente(models.Model):
         ## @api.multi
         @api.depends("tarea_actual")
         def _proxima_tarea_list(self):
-            print(("BUSCANDO LISTA LEGAL #############################"))
+            #print(("BUSCANDO LISTA LEGAL #############################"))
             #####IMPORTACION DE ACCIONES DESDE LA FUNCION ORIGINAL################
-            print(("TAREA ENVIAR 2021"))
+            #print(("TAREA ENVIAR 2021"))
             permiso_de_ingreso = self._get_permiso_ingreso()
             legal_list = []
             legal_list_office = []
             active_id = self.env.context.get('id_activo')
-            print (("EL ID ACTIVO EN ESTE EXPEDIENTE ES 2021: " + str(active_id)))
             expte_obj = self.browse([active_id])
             tarea_actual = expte_obj.tarea_actual
             en_flujo = expte_obj.en_flujo
@@ -364,7 +372,7 @@ class expediente(models.Model):
             # Es el caso en el cual el documento, ingresa en un subflujo por lo tanto, el manejador de subflujos se encuentra
             # abtierto.
             # Fin tareas desde subflujo
-            print(("LISTA LEGAL TRAIDA Y ENVIADA AL DOMAIN: " + str(legal_list)))
+            #print(("LISTA LEGAL TRAIDA Y ENVIADA AL DOMAIN: " + str(legal_list)))
             return [('id', 'in', legal_list)]
 
         def _actual_tarea_list(self):
@@ -376,7 +384,7 @@ class expediente(models.Model):
             :return: lista de tareas actuales
             """
             ##################################DEFINIENDO LA TAREA ACTUAL EN EL FLUJO
-            print(("TAREA actual de la oficina"))
+            #print(("TAREA actual de la oficina"))
             permiso_de_ingreso = self._get_permiso_ingreso()
             legal_list_office = []
             active_id = self.env.context.get('id_activo')
@@ -722,7 +730,7 @@ class expediente(models.Model):
                         # print (("LISTA LEGAL TRAIDA: " + str(legal_list)))
                 if pase_cerrado:
                     #NUEVO PASE A OFICINA
-                    print (("ID ACTIVO: " + str(active_id)))
+                    #print (("ID ACTIVO: " + str(active_id)))
                     return {
                             'name': "Seleccionar la próxima tarea",
                             'view_mode': 'form',
@@ -765,14 +773,14 @@ class expediente(models.Model):
         def onchange_define_pase(self):
                 obj_tarea = self.tarea_proxima
                 #self.write({'oficina_destino': 2})
-                print (("OBTENIENDO OFICINA DESTINO DE LA TAREA : " + str(obj_tarea.name)))
+                #print (("OBTENIENDO OFICINA DESTINO DE LA TAREA : " + str(obj_tarea.name)))
                 active_id = self.env.context.get('id_activo')
                 expte_obj = self.browse([active_id])
                 # tarea_obj = self.env['tarea.tarea']
                 # tarea_obj_prox = tarea_obj.browse([tarea_prox])
                 expte_obj.write({'oficina_destino': obj_tarea.departament_id.id})
                 self = self.with_context(oficina_destino_new=obj_tarea.departament_id.id)
-                print(("IMPRIMIENDO CONTEXTO des pues de actualizar la oficina: " + str(self.env.context)))
+                #print(("IMPRIMIENDO CONTEXTO des pues de actualizar la oficina: " + str(self.env.context)))
                 # self.env.context.update({'oficina_destino_new': obj_tarea.departament_id.id})
                 return {'value': {'oficina_destino': obj_tarea.departament_id }}
 
@@ -829,7 +837,7 @@ class expediente(models.Model):
         def activar(self):
                 # active_id_2 = self.env.context.get('id_activo')
                 active_id_2 = self._get_current_id()
-                print(("ACTIVANDO ... DESDE ... TAREA_FLUJO_EXP: " + str(active_id_2)))
+                #print(("ACTIVANDO ... DESDE ... TAREA_FLUJO_EXP: " + str(active_id_2)))
                 expte_obj_2 = self.browse([active_id_2])
                 tarea_inicial_id = self.obtener_tarea_inicial(expte_obj_2.procedimiento_id.id)
                 user_id = self.env.user.id
@@ -850,7 +858,7 @@ class expediente(models.Model):
                                     'estado_legal_actual_id': False})
                 else:
                         if tarea_inicial_id:
-                                print(("INGRESANDO POR TAREA INICIAL "))
+                                #print(("INGRESANDO POR TAREA INICIAL "))
                                 self.write({'en_flujo': valor_en_flujo, 'tarea_actual': tarea_inicial_id,
                                         'estado_legal_actual': tarea_obj_inicial.estado_legal.name,
                                         'estado_legal_actual_id': tarea_obj_inicial.estado_legal.id})
@@ -874,7 +882,6 @@ class expediente(models.Model):
                                         'target': 'new',
                                         'context': context,
                                         }
-                print (("llamando al activar padre"))
                 res = super(expediente, self).activar()
                 return res
 
@@ -907,7 +914,6 @@ class expediente(models.Model):
                 lineas = seguimiento_obj_lineas.seguimiento_lineas[0]
                 depart_id_ultima_tarea = lineas.tarea.departament_id.id
                 if lineas.tarea.name != False:
-                        print (("SACANDO COSAS: " + lineas.tarea.name))
                         print(("Oficina de la tarea: " + lineas.tarea.departament_id.name))
                 if self.ubicacion_actual.id == depart_id_ultima_tarea:
                         #Si la ubicacion actual coincide con la oficina en la cual se ejecuta la tarea.
@@ -936,7 +942,6 @@ class expediente(models.Model):
 
         def recibir_conf(self):
                 id_active = self._get_current_id()
-                print((" EL ID ACTIVO QUE ME ESTA FALLANDO ES ......................... : " + str(id_active)))
                 seguimiento_obj_count = self.env['seguimiento'].search_count([('expediente_id', '=', id_active)])
                 if seguimiento_obj_count < 1:
                     seguimiento_obj = self.env['seguimiento'].ingresa_tarea_actual(self, self.tarea_actual, self.tarea_proxima, False)

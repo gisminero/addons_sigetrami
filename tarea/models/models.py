@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 #from unidecode import unidecode
+from odoo.exceptions import UserError, ValidationError
 
 class tarea(models.Model):
     _name = 'tarea.tarea'
@@ -29,7 +30,8 @@ class tarea(models.Model):
         ('5', 'Final_Vuelve'),
         ('4', 'Fuera de Flujo')
                 ], 'Tipo de Tarea', index=True, readonly=False, default='2', required=True)
-    subproc =fields.Many2one('procedimiento.procedimiento', 'Subproceso', required=False, domain=[('iniciado', '=', 2)])
+    subproc =fields.Many2one('procedimiento.procedimiento', 'Subproceso que inicia', required=False, domain=[('iniciado', '=', 2)])
+    tarea_vuelve =fields.Many2one('tarea.tarea', 'Tarea a la que vuelve', required=False)
     plazos = fields.Many2many('tarea.plazo', string='Plazos de Tiempo', help="Only for tax excluded from price")
     estado_legal = fields.Many2one('estado_legal.estado_legal', 'Estado Legal', copy=False, required=True)
     fueraflujo = fields.Boolean('Suspende Plazo',required=False)#, compute='_get_value'
@@ -53,6 +55,16 @@ class tarea(models.Model):
             record_name = codigo + ' - ' + nombre # + ' (' + str(tipo) + ')'
             result.append((record.id, record_name))
         return result
+
+    def write(self, vals):
+        if vals.get('tipo') == '6': #Iniciado por tarea
+            if not vals.get('subproc'):
+                raise UserError("Seleccione el subprocedimiento que inicia esta tarea.") 
+        if vals.get('tipo') == '5': #Iniciado por tarea
+            if not vals.get('tarea_vuelve'):
+                raise UserError("Seleccione la tarea del procedimiento principal a la que vuelve.") 
+        res = super(tarea, self).write(vals)
+        return res
 
 class plazo(models.Model):
     _name = 'tarea.plazo'
