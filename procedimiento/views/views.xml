@@ -24,6 +24,7 @@
         <separator string="Nuevo Procedimiento" colspan="4"/>
         </header>
         <group>
+        <field name="id" readonly="1"/>
           <field name="name"/>
           <field name="description"/>
           <field name="iniciado"/>

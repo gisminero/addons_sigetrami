@@ -140,8 +140,8 @@
             <field name="tarea_actual" />
         </xpath>
         <xpath expr="//button[@name='popup_mas']"  position="after">
-            <button name="proxima_tarea" type="object" string="Enviar... " context="{'id_activo': id}"
-                attrs="{'invisible':[('state', '!=', 'active')]}"/>
+            <button name="proxima_tarea" type="object" string="Enviar..." context="{'id_activo': id}"
+                attrs="{'invisible':[('state', '!=', 'active')]}" />
         </xpath>
       </field>
     </record>
@@ -172,7 +172,7 @@
           </xpath>
           <xpath expr="//field[@name='ubicacion_actual']" position="after">
             <field name="en_flujo"  readonly="1" />
-            <button name="proxima_tarea" type="object" string="Enviar ... " context="{'id_activo': id, 'vista_padre': 'view', 'default_tarea_proxima': False}"
+            <button name="proxima_tarea" type="object" string="Enviar..." context="{'id_activo': id, 'vista_padre': 'view', 'default_tarea_proxima': False}"
                     attrs="{'invisible':[('state', '!=', 'active')]}"/>
           </xpath>
       </field>
