@@ -77,6 +77,7 @@ class plazo(models.Model):
     tipo = fields.Selection([
             ('1', 'Habiles'),
             ('2', 'Corridos'),
+            ('3', 'Ingresa vencimiento manualmente'),
         ], 'Dias de Plazo', index=True, readonly=False, default='1')
     #15-10-2021: Los grupos a notificar cuando vence el plazo, se encuentran en el mòdulo notficaciones.
 
