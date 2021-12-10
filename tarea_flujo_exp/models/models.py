@@ -105,7 +105,7 @@ class seguimiento(models.Model):
                 count = 1
                 pertenece_subflujo = False
                 for linea in proc_obj_instan.lineflujo_ids:
-                        print ((str(count) + " - Padre: " + linea.tarea_padre.codigo +  " Tarea: " + linea.tarea.codigo))
+                        print ((str(count) + " - Padre: " + str(linea.tarea_padre.codigo) +  " Tarea: " + str(linea.tarea.codigo)))
                         if tarea_selec_id == linea.tarea_padre.id:
                                 return True
                 return pertenece_subflujo

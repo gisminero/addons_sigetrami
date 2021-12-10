@@ -69,6 +69,7 @@ class tarea(models.Model):
 class plazo(models.Model):
     _name = 'tarea.plazo'
     _description = 'Plazos de Tiempo'
+    _order = "name asc"
     name = fields.Char('Nombre', required=True)
     descrip = fields.Char('Descripcion/Art.', required=False)
     active = fields.Boolean('Activo', default=True)
