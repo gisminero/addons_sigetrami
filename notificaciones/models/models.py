@@ -115,7 +115,7 @@ class notifica(models.Model):
     nombre_pedimento = fields.Char('Nombre Pedimento', readonly=True, compute="_onchangeExpte", store=False)
     plazo_id = fields.Many2one('tarea.plazo', 'Plazo Asignado', required=True)
     fecha_notificacion = fields.Datetime('Fecha de Notificacion', readonly=False, required=True)#, default=fields.Datetime.now
-    fecha_vencimiento = fields.Date('Fecha de Vencimiento', readonly=True, compute="_onchangeInicioNotifica", store=True)
+    fecha_vencimiento = fields.Date('Fecha de Vencimiento', readonly=False, compute="_onchangeInicioNotifica", store=True)
     fecha_suspension_actual = fields.Date('Fecha de Inicio de Suspension', readonly=True, store=True)
     alertas_enviados = fields.Boolean('Alertas Enviados', default=False, readonly=False)
     notificar_plazo_vencidos = fields.Boolean('Notificar Plazo Vencido', default=True, readonly=True)
@@ -611,11 +611,12 @@ class plazo(models.Model):
                 'context': context,
             }
         #########################################
-        # print("LOS VALORES QUE TRAE: "  )
-        # print("id PLAZO: "+ str(active_plazo_id))
-        # print("id EXP: " + str(active_exp_id))
+        print("LOS VALORES QUE TRAE: "  )
+        print("id PLAZO: "+ str(active_plazo_id))
+        print("id EXP: " + str(active_exp_id))
         # print(("BUSCANDO PLAZOS ASOCIADOS A LA TAREA"))
         tarea_plazo_obj = self.env['notifica'].search([('expediente_id', '=', active_exp_id), ('plazo_id', '=', active_plazo_id)], limit=1)
+        plazo_configurado_obj = self.env['tarea.plazo'].browse([active_plazo_id])
         if tarea_plazo_obj:
             #NUEVO PASE A OFICINA
             return {
@@ -631,16 +632,30 @@ class plazo(models.Model):
             'target': 'new',
             }
         else:
-            return {
-            'name': "Agenda de Plazo",
-            'view_mode': 'form',
-            #'res_id': active_id,
-            #'view_id': self.env.ref('pase.form_enviar').id,
-            'res_model': 'notifica',
-            'type': 'ir.actions.act_window',
-            # 'domain': [('id', 'in', legal_list)],
-            'context': {'default_expediente_id': active_exp_id, 'default_plazo_id': active_plazo_id},
-            'views': [[self.env.ref('notificaciones.notifica_form_exped').id, "form"]],
-            'target': 'new',
-            }
+            if plazo_configurado_obj[0].tipo != '3':
+                return {
+                'name': "Agenda de Plazo",
+                'view_mode': 'form',
+                #'res_id': active_id,
+                #'view_id': self.env.ref('pase.form_enviar').id,
+                'res_model': 'notifica',
+                'type': 'ir.actions.act_window',
+                # 'domain': [('id', 'in', legal_list)],
+                'context': {'default_expediente_id': active_exp_id, 'default_plazo_id': active_plazo_id},
+                'views': [[self.env.ref('notificaciones.notifica_form_exped').id, "form"]],
+                'target': 'new',
+                }
+            else:
+                return {
+                'name': "Agenda de Plazo con fecha de vencimiento libre",
+                'view_mode': 'form',
+                #'res_id': active_id,
+                #'view_id': self.env.ref('pase.form_enviar').id,
+                'res_model': 'notifica',
+                'type': 'ir.actions.act_window',
+                # 'domain': [('id', 'in', legal_list)],
+                'context': {'default_expediente_id': active_exp_id, 'default_plazo_id': active_plazo_id},
+                'views': [[self.env.ref('notificaciones.notifica_form_exped_vencim_manual').id, "form"]],
+                'target': 'new',
+                } 
         return True
