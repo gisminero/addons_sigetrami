@@ -50,7 +50,6 @@ class notifica(models.Model):
     def recalculaDias(self, dia_inicio, cant_dias, tipo):
         print(("INGRESANDO A LA FUNCION DE PARA RECALCI"))
         informacion = ""
-        # d = str(dateutil.parser.parse(dia_inicio).date())
         d_full = dia_inicio.isoformat()
         d = d_full.split('T')[0]
         cont_dias = 0
@@ -86,7 +85,10 @@ class notifica(models.Model):
         plazo_obj = self.env['tarea.plazo'].browse([plazo_id.id])
         cant_dias = plazo_obj.cant
         tipo_dias = plazo_obj.tipo
-        dias_final = self.recalculaDias(fecha_inicio, cant_dias,tipo_dias)
+        if tipo_dias != '3':
+            dias_final = self.recalculaDias(fecha_inicio, cant_dias,tipo_dias)
+        else: 
+            dias_final = False#Debe ingresar fecha manual
         self.fecha_vencimiento = dias_final
 
     @api.depends('expediente_id', 'plazo_id')
@@ -146,6 +148,9 @@ class notifica(models.Model):
             print (("DEBE GRABAR ANTES DE ACTIVAR"))
         user_id = self.env.user.id
         expte_obj = self.browse([active_id])
+        if (expte_obj.fecha_vencimiento == False):
+            raise UserError(('Debe seleccionar una fecha de vencimiento.'))
+            return False
         expte_obj.write({'state': "active"})
         return True
 

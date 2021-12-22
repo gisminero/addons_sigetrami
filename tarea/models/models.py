@@ -97,7 +97,7 @@ class plazo(models.Model):
             if str(record.tipo[0]) == '3':
                 info_dias = "(" + str(tipo_label) + ")"
             else:
-                info_dias = "(" + str(record.cant) + " " + str(tipo_label) + ")"
-            record_name = codigo + ' - ' + nombre + info_dias
+                info_dias = " (" + str(record.cant) + " " + str(tipo_label) + ")"
+            record_name = nombre + ' - ' + codigo + info_dias
             result.append((record.id, record_name))
         return result
