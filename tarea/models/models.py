@@ -69,16 +69,17 @@ class tarea(models.Model):
 class plazo(models.Model):
     _name = 'tarea.plazo'
     _description = 'Plazos de Tiempo'
+    _order = "name asc"
     name = fields.Char('Nombre', required=True)
     descrip = fields.Char('Descripcion/Art.', required=False)
     active = fields.Boolean('Activo', default=True)
     #voucher_id = fields.Many2one('tarea.tarea', 'Tarea', required=1, ondelete='cascade')
     cant = fields.Integer('Dias de Plazo', required=True)
     tipo = fields.Selection([
-            ('1', 'Habiles'),
+            ('1', 'Hábiles'),
             ('2', 'Corridos'),
             ('3', 'Ingresa vencimiento manualmente'),
-        ], 'Dias de Plazo', index=True, readonly=False, default='1')
+        ], 'Dias de Plazo', index=True, readonly=False, default='1', required=True)
     #15-10-2021: Los grupos a notificar cuando vence el plazo, se encuentran en el mòdulo notficaciones.
 
     def name_get(self):
@@ -92,6 +93,11 @@ class plazo(models.Model):
                 nombre = "-"
             else:
                 nombre = record.name
-            record_name = codigo + ' - ' + nombre # + ' (' + str(tipo) + ')'
+            tipo_label = dict(self._fields['tipo'].selection).get(self.tipo)
+            if str(record.tipo[0]) == '3':
+                info_dias = "(" + str(tipo_label) + ")"
+            else:
+                info_dias = " (" + str(record.cant) + " " + str(tipo_label) + ")"
+            record_name = nombre + ' - ' + codigo + info_dias
             result.append((record.id, record_name))
         return result
