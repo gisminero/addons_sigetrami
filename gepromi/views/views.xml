@@ -13,7 +13,9 @@
     <menuitem name="Administración" id="gepromi.administracion" parent="gepromi.menu_root"/>
     <menuitem name="Notificaciones" id="gepromi.notifica" parent="gepromi.menu_root"/>
 <!--    <menuitem name="Configuracion" id="gepromi.config" parent="gepromi.menu_root"/> -->
-    <menuitem name="Configuracion" id="gepromi.config" parent="gepromi.menu_root_conf"/>
+    <menuitem name="General" id="gepromi.config_general" parent="gepromi.menu_root_conf" sequence="2"/>
+    <menuitem name="Del Trámite" id="gepromi.config" parent="gepromi.menu_root_conf" sequence="4"/>
+    <menuitem name="Auditoría" id="gepromi.config_audit" parent="gepromi.menu_root_conf" sequence="6"/>
 
 
 
