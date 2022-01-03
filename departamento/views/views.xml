@@ -23,12 +23,21 @@
         <separator string="Nuevo departamento" colspan="4"/>
         </header>
         <group>
+        <field name="id"/>
           <field name="name"/>
 <!--          <field name="description"/>-->
-        <field name="state_id"/>
-<field name="active"/>
-
-         </group>
+          <field name="state_id"/>
+          <field name="active"/>
+        </group>
+        <group>
+         
+          <field name="distritos" nolabel="1" colspan="1" context="{'default_depart_id': id}">
+          <!-- context="{'default_categoria_mineral_exp': aux_categoria_mineral}" -->
+			      <tree string="Distritos" editable="bottom">
+                  <field name="name"/>
+			      </tree>
+		      </field>
+        </group>
       </form>
       </field>
     </record>
@@ -41,10 +50,7 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-
-
-
-     <menuitem name="Departamento" id="departamento.menu_1_list" parent="gepromi.config"
+    <menuitem name="Departamentos" id="departamento.menu_1_list" parent="gepromi.config_general"
               action="departamento.action_window"/>
 
   </data>

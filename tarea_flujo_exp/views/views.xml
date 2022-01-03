@@ -57,7 +57,7 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-     <menuitem name="Seguimiento por Tareas" id="tarea_flujo_exp.lista_menu" parent="gepromi.config"  action="tarea_flujo_exp.lista"/>
+     <menuitem name="Seguimiento por Tareas" id="tarea_flujo_exp.lista_menu" parent="gepromi.config_audit"  action="tarea_flujo_exp.lista"/>
 
   </data>
 </odoo>

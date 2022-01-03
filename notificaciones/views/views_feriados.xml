@@ -40,7 +40,7 @@
     </record>
 
 
-     <menuitem name="Feriados" id="notificaciones.menu_1_list" parent="gepromi.config"
+     <menuitem name="Feriados" id="notificaciones.menu_1_list" parent="gepromi.config_general"
               action="notificaciones.feriados_action_window" />
 
   </data>

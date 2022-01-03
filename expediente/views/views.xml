@@ -168,6 +168,7 @@
                     <field name="departamento" nolabel="1" colspan="1">
 			            <tree string="Departamentos" editable="bottom">
                             <field name="departamento_id" domain="[('state_id', '=', state_id_exp)]"/>
+                            <field name="distrito_id" domain="[('depart_id', '=', departamento_id)]"/>
                             <field name="state_id_exp"/>
 			            </tree>
 		            </field>
