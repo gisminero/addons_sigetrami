@@ -30,11 +30,11 @@
           <field name="active"/>
         </group>
         <group>
+         
           <field name="distritos" nolabel="1" colspan="1" context="{'default_depart_id': id}">
-        <!-- context="{'default_categoria_mineral_exp': aux_categoria_mineral}" -->
+          <!-- context="{'default_categoria_mineral_exp': aux_categoria_mineral}" -->
 			      <tree string="Distritos" editable="bottom">
-                  <field name="name" />
-                  <field name="depart_id"  domain="[('id', '=', id)]" />
+                  <field name="name"/>
 			      </tree>
 		      </field>
         </group>
@@ -50,10 +50,7 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-
-
-
-     <menuitem name="Departamentos" id="departamento.menu_1_list" parent="gepromi.config_general"
+    <menuitem name="Departamentos" id="departamento.menu_1_list" parent="gepromi.config_general"
               action="departamento.action_window"/>
 
   </data>

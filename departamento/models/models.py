@@ -28,6 +28,7 @@ class departamento(models.Model):
 
 class exp_distrito(models.Model):
     _name = 'exp_distrito'
+
     name = fields.Char('Distrito Minero', required=True)
     # description = fields.Char('Descripcion', required=False)
     depart_id = fields.Many2one('departamento.departamento', string="Departamento")

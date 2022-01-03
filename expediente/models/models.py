@@ -30,7 +30,8 @@ class exp_depart(models.Model):
     def default_state(self):
         return self.env.user.company_id.state_id
 
-    departamento_id = fields.Many2one('departamento.departamento', 'Departamento', copy=False, required=True, )#domain="[('state_id', '=', provincia)]"
+    departamento_id = fields.Many2one('departamento.departamento', 'Departamento', copy=False, required=True, )
+    distrito_id = fields.Many2one('exp_distrito', 'Distrito Minero', required=False, )
     exp_id = fields.Many2one('expediente.expediente', 'Departamentos', required=1, ondelete='cascade')
     state_id_exp = fields.Many2one('res.country.state', string="Provincia", default=default_state, store=True, readonly=True)
 
