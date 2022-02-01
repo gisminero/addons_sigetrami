@@ -68,11 +68,12 @@ class exp_actualiza(models.Model):
 	    # using the connect function
         print(("CONECTANDO"))
         try:
-            conn = psycopg2.connect(dbname ="NQN-08-2021",
+            conn = psycopg2.connect(dbname = "neuquen06-08-19",
+                            #"NQN-08-2021",
                             #dbname ="catamarca-stm",
 							user = "postgres",
 							password = "123456",
-							host = "192.168.0.107",
+							host = "192.168.2.98",
                             #host = "localhost",
 							port = "5432",
                             connect_timeout="10")
@@ -132,40 +133,65 @@ class exp_actualiza(models.Model):
                 print (("No existe el id en la BD, tampoco se encontro el nombre de exp."))
                 return 2
 
+    def actualiza_registro(self, reg_modificado, id_reg_modificar, clase):
+        #Modificar registro para actualizarlo
+        #keys =  ['id', 'name', 'write_date', 'procedimiento_id', 'folios', 'estado_legal_actual', 'ubicacion_actual', 'tarea_actual', 'en_flujo']
+        print(("EL ID QUE VIENE ES: " + str(id_reg_modificar)))
+        exp_obj = self.env['expediente.expediente'].browse([id_reg_modificar])
+        print (("ACTUALIZANDO REGISTRO EXPEDIENTE: " + str(exp_obj)))
+        #exp_obj.write({'folios' : 238})        
+        exp_obj.write({'procedimiento_id': reg_modificado['procedimiento_id'], 'folios' : reg_modificado['folios'],  
+                'ubicacion_actual': reg_modificado['ubicacion_actual'], 'en_flujo': reg_modificado['en_flujo']})        
+        #'estado_legal_actual' : reg_modificado['estado_legal_actual'],
+        #'tarea_actual': reg_modificado['tarea_actual'], 
+        return True
+
     def inserta_comunicacion(self, id_exp, nombre, fecha_actualiza, estado, clase, obs):
         if clase == "expediente":
             exp_obj = self.env['exp_actualiza_exp']
+            print (("CREANDO COMUNICACION EXPEDIENTE"))
             exp_obj.create([{'name': nombre, 'expediente_id' : id_exp, 'estado' : estado, 'observ': obs},])        
         return True
 
-    def accion_necesaria(self, id_exp, nombre, fecha_actualiza, estado, clase):
+
+    def accion_necesaria(self, record_dict, estado, clase):
+    #keys =  ['id', 'name', 'write_date', 'procedimiento_id', 'folios', 'estado_legal_actual', 'ubicacion_actual', 'tarea_actual', 'en_flujo']
         if estado == 0:
             print (("No llamar a metodo de actualizacion de registro"))
         elif estado == 1:
             print (("Informar Faltante de Registro, no encontrado por nombre"))
             obs = "Informar Faltante de Registro, no encontrado por nombre"
-            self.inserta_comunicacion(id_exp, nombre, fecha_actualiza, estado, clase, obs)
+            self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], estado, clase, obs)
         elif estado == 2:
             print (("No existe el nombre ni ID en la nueva DB"))
             obs = "No existe el nombre ni ID en la nueva DB"
-            self.inserta_comunicacion(id_exp, nombre, fecha_actualiza, estado, clase, obs)
+            self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], estado, clase, obs)
         elif estado==3:
             print (("El id del registro no coincide con el nombre en la nueva base de datos - debe informarse inconsistencia"))
             obs = "El id del registro no coincide con el nombre en la nueva base de datos - debe informarse inconsistencia"
-            self.inserta_comunicacion(id_exp, nombre, fecha_actualiza, estado, clase, obs)
+            self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], estado, clase, obs)
         elif estado==4:
             print(("******************************************"))
             print(("Id y nombre coincide en la nueva base de datos, pero no coincide la fecha de actualizacion - Debe actualizarse"))
             print(("******************************************"))
-            obs = "Id y nombre coincide en la nueva base de datos, pero no coincide la fecha de actualizacion - Debe actualizarse"
-            #self.inserta_comunicacion(id_exp, nombre, fecha_actualiza, str(estado), clase, obs)
+            obs = "Id y nombre coincide en la nueva base de datos, pero no coincide la fecha de actualizacion - Se actualizará autommáticamente"
+            self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], str(estado), clase, obs)
+            self.actualiza_registro(record_dict, record_dict['id'], clase)
         return True
+
+    def list_to_dict(self, keys1, record):
+        # using naive method to convert lists to dictionary
+        # = {}
+        record_dict = dict(zip(keys1, record))
+        print ("Resultant dictionary is : " +  str(record_dict))
+        return record_dict
 
     def consulta_exp(self):
         print(("INGRESANDO POR CONSULTA"))
         conn, cur = self.connect()        
-        # Open a cursor to perform database operations        
-        cur.execute("SELECT id, name, write_date FROM expediente_expediente")
+        # Open a cursor to perform database operations    
+        keys =  ['id', 'name', 'write_date', 'procedimiento_id', 'folios', 'estado_legal_actual', 'ubicacion_actual', 'tarea_actual', 'en_flujo']
+        cur.execute("SELECT id, name, write_date, procedimiento_id, folios, estado_legal_actual, ubicacion_actual, tarea_actual, en_flujo FROM expediente_expediente")
         cur.fetchone()
         # will return (1, 100, "abc'def")
         # You can use `cur.fetchmany()`, `cur.fetchall()` to return a list
@@ -173,7 +199,8 @@ class exp_actualiza(models.Model):
         for record in cur:
             print(("EL EXPEDIENTE ES: " + str(record[1])))
             estado = self.define_estado_actualizacion(record[0], record[1], record[2])
-            #self.accion_necesaria(record[0], record[1], record[2], estado, "expediente")
+            record_dict = self.list_to_dict(keys, record)
+            self.accion_necesaria(record_dict, estado, "expediente")
         return True
 
     def consulta_pases(self):
