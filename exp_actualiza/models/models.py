@@ -133,6 +133,32 @@ class exp_actualiza(models.Model):
                 print (("No existe el id en la BD, tampoco se encontro el nombre de exp."))
                 return 2
 
+
+    def inserta_registro(self, reg_nuevo,clase):
+        print(("CREANDO REGISTRO"))
+        #self.env.cr.execute("SELECT id, name FROM expediente_expediente WHERE id = %s", [reg_modificado['id'],])
+        #Campos obligatorios: name, state, procedimiento_id, folios, nombre_pedimento, momento_inicio, active, ultimo_pase_id, ubicacion_actual
+        # recibido, provincia
+        exp_obj = self.env['expediente.expediente']
+        #exp_obj.write({'procedimiento_id': reg_modificado['procedimiento_id'], 'folios' : reg_modificado['folios'],  
+        #        'ubicacion_actual': reg_modificado['ubicacion_actual'], 'en_flujo': reg_modificado['en_flujo']})        
+        reg_creado = exp_obj.create([{'name': reg_nuevo['name'] , 'state': reg_nuevo['state'], 'procedimiento_id': 42, 'folios': 2, 'nombre_pedimento': 'Gualcamayo', 
+                    'active': True , 'ultimo_pase_id': 14, 'ubicacion_actual': 21, 'recibido': True, 'provincia': 566, 'cant_pertenencias': 0}]) 
+        print(("REGISTRO CREADO: " + str(reg_creado)))
+        """
+        try:
+            self.env.cr.execute("INSERT INTO public.expediente_expediente (name, state, procedimiento_id, folios, nombre_pedimento, active, ultimo_pase_id, ubicacion_actual, "
+                            + "recibido, provincia, cant_pertenencias) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", 
+                            [reg_nuevo['name'], reg_nuevo['state'], 42, 2, "Gualcamayo", True, 14, 21, True, 566, 0])
+            
+            print((" 3##############3 "))
+        except Exception as error:
+            print(("ERROR: " + str(error)))
+        """
+        #for record in self.env.cr.fetchall():
+        #    print(("EL RESULTADO ES : " + str(record)))
+        return True
+
     def actualiza_registro(self, reg_modificado, id_reg_modificar, clase):
         #Modificar registro para actualizarlo
         #keys =  ['id', 'name', 'write_date', 'procedimiento_id', 'folios', 'estado_legal_actual', 'ubicacion_actual', 'tarea_actual', 'en_flujo']
@@ -147,6 +173,8 @@ class exp_actualiza(models.Model):
         return True
 
     def inserta_comunicacion(self, id_exp, nombre, fecha_actualiza, estado, clase, obs):
+        if estado == "2":
+            id_exp = False
         if clase == "expediente":
             exp_obj = self.env['exp_actualiza_exp']
             print (("CREANDO COMUNICACION EXPEDIENTE"))
@@ -160,16 +188,18 @@ class exp_actualiza(models.Model):
             print (("No llamar a metodo de actualizacion de registro"))
         elif estado == 1:
             print (("Informar Faltante de Registro, no encontrado por nombre"))
-            obs = "Informar Faltante de Registro, no encontrado por nombre"
-            self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], estado, clase, obs)
+            obs = "Informar Faltante de Registro, no encontrado por nombre, INSETANDO EL REGISTRO"
+            self.inserta_registro(record_dict, "expediente")
+            #self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], str(estado), clase, obs)
+            exit()
         elif estado == 2:
             print (("No existe el nombre ni ID en la nueva DB"))
             obs = "No existe el nombre ni ID en la nueva DB"
-            self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], estado, clase, obs)
+            self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], str(estado), clase, obs)
         elif estado==3:
             print (("El id del registro no coincide con el nombre en la nueva base de datos - debe informarse inconsistencia"))
             obs = "El id del registro no coincide con el nombre en la nueva base de datos - debe informarse inconsistencia"
-            self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], estado, clase, obs)
+            self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], str(estado), clase, obs)
         elif estado==4:
             print(("******************************************"))
             print(("Id y nombre coincide en la nueva base de datos, pero no coincide la fecha de actualizacion - Debe actualizarse"))
@@ -190,8 +220,8 @@ class exp_actualiza(models.Model):
         print(("INGRESANDO POR CONSULTA"))
         conn, cur = self.connect()        
         # Open a cursor to perform database operations    
-        keys =  ['id', 'name', 'write_date', 'procedimiento_id', 'folios', 'estado_legal_actual', 'ubicacion_actual', 'tarea_actual', 'en_flujo']
-        cur.execute("SELECT id, name, write_date, procedimiento_id, folios, estado_legal_actual, ubicacion_actual, tarea_actual, en_flujo FROM expediente_expediente")
+        keys =  ['id', 'name', 'write_date', 'procedimiento_id', 'folios', 'estado_legal_actual', 'ubicacion_actual', 'tarea_actual', 'en_flujo', 'state']
+        cur.execute("SELECT id, name, write_date, procedimiento_id, folios, estado_legal_actual, ubicacion_actual, tarea_actual, en_flujo, state FROM expediente_expediente")
         cur.fetchone()
         # will return (1, 100, "abc'def")
         # You can use `cur.fetchmany()`, `cur.fetchall()` to return a list
