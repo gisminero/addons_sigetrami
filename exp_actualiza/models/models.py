@@ -139,11 +139,19 @@ class exp_actualiza(models.Model):
         #self.env.cr.execute("SELECT id, name FROM expediente_expediente WHERE id = %s", [reg_modificado['id'],])
         #Campos obligatorios: name, state, procedimiento_id, folios, nombre_pedimento, momento_inicio, active, ultimo_pase_id, ubicacion_actual
         # recibido, provincia
+        #Update Sequence#
+        #query_sec = """ALTER SEQUENCE IF EXISTS public.%s_id_seq minvalue 1 increment 1;"""
+        query_sec = "SELECT setval('expediente_expediente_id_seq', %s, true);"
+        print (("Estableciendo el valor del id actual en : " + str(reg_nuevo['id']-1)))
+        self.env.cr.execute(query_sec, [reg_nuevo['id']-1])
+        self.env.cr.commit()
+        ##
         exp_obj = self.env['expediente.expediente']
         #exp_obj.write({'procedimiento_id': reg_modificado['procedimiento_id'], 'folios' : reg_modificado['folios'],  
         #        'ubicacion_actual': reg_modificado['ubicacion_actual'], 'en_flujo': reg_modificado['en_flujo']})        
         reg_creado = exp_obj.create([{'name': reg_nuevo['name'] , 'state': reg_nuevo['state'], 'procedimiento_id': 42, 'folios': 2, 'nombre_pedimento': 'Gualcamayo', 
                     'active': True , 'ultimo_pase_id': 14, 'ubicacion_actual': 21, 'recibido': True, 'provincia': 566, 'cant_pertenencias': 0}]) 
+        self.env.cr.commit()
         print(("REGISTRO CREADO: " + str(reg_creado)))
         """
         try:
@@ -189,6 +197,7 @@ class exp_actualiza(models.Model):
         elif estado == 1:
             print (("Informar Faltante de Registro, no encontrado por nombre"))
             obs = "Informar Faltante de Registro, no encontrado por nombre, INSETANDO EL REGISTRO"
+            print (("########################################### INSERTANDO REGISTRO ###########################"))
             self.inserta_registro(record_dict, "expediente")
             #self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], str(estado), clase, obs)
             exit()
