@@ -143,7 +143,7 @@ class exp_actualiza(models.Model):
 
     def usuario_existe(self, user_id):
         usr_obj = self.env['res.users']
-        usr_obj_count = usr_obj.search_count([('id', '=', user_exp)])
+        usr_obj_count = usr_obj.search_count([('id', '=', user_id)])
         if usr_obj_count==0:
             return 1
         else:
