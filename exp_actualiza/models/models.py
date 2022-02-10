@@ -136,10 +136,29 @@ class exp_actualiza(models.Model):
             exp_obj_id = exp_obj.search([('id', '=', id_exp)], limit=1)
             exp_obj_id_count = exp_obj.search_count([('id', '=', id_exp)])
             if exp_obj_id_count == 0:
-                return 2
+                print (("SE ENCONTRO UN REGISRTO QUE NO SE ENCUETRA EN LA NUEVA BD ..... " + str(id_exp) ))
+                #exit()
+                return 1
             if exp_obj_id_count == 1:
                 print (("EL ID SE ENCUENTRA Y SE DEBE ACTUALIZAR"))
                 return 4
+        if clase=='seguimiento':
+            exp_obj_id = exp_obj.search([('id', '=', id_exp)], limit=1)
+            exp_obj_id_count = exp_obj.search_count([('id', '=', id_exp)])
+            if exp_obj_id_count == 0:
+                print (("SE ENCONTRO UN REGISRTO QUE NO SE ENCUETRA EN LA NUEVA BD ..... " + str(id_exp) ))
+                return 1 #no esxiste la actualizacion para ese registro.
+        if clase=='seguimiento_linea':
+            exp_obj_id = exp_obj.search([('id', '=', id_exp)], limit=1)
+            exp_obj_id_count = exp_obj.search_count([('id', '=', id_exp)])
+            if exp_obj_id_count == 0:
+                print (("SE ENCONTRO UN REGISRTO QUE NO SE ENCUETRA EN LA NUEVA BD ..... " + str(id_exp) ))
+                #exit()
+                return 1
+            if exp_obj_id_count == 1:
+                print (("EL ID SE ENCUENTRA Y SE DEBE ACTUALIZAR"))
+                return 4
+
 
     def usuario_existe(self, user_id):
         usr_obj = self.env['res.users']
@@ -158,8 +177,6 @@ class exp_actualiza(models.Model):
         #Update Sequence#
         #query_sec = """ALTER SEQUENCE IF EXISTS public.%s_id_seq minvalue 1 increment 1;"""
         exp_obj = self.env[clase]
-        usr_origen_valido =  self.usuario_existe(reg_nuevo['user_origen_id'])
-        usr_rec_valido =  self.usuario_existe(reg_nuevo['user_recep_id'])
         if clase=='expediente.expediente':
             query_sec = "SELECT setval('expediente_expediente_id_seq', %s, true);"
             print (("Estableciendo el valor del id actual en : " + str(reg_nuevo['id']-1)))
@@ -170,6 +187,8 @@ class exp_actualiza(models.Model):
                                 'ubicacion_actual': reg_nuevo['ubicacion_actual'], 'en_flujo': reg_nuevo['en_flujo'],
                                 'recibido': reg_nuevo['recibido'], 'provincia': 566, 'cant_pertenencias': 0}]) 
         if clase=='pase.pase':
+            usr_origen_valido =  self.usuario_existe(reg_nuevo['user_origen_id'])
+            usr_rec_valido =  self.usuario_existe(reg_nuevo['user_recep_id'])
             query_sec = "SELECT setval('pase_pase_id_seq', %s, true);"
             print (("Estableciendo el valor del id actual en : " + str(reg_nuevo['id']-1)))
             self.env.cr.execute(query_sec, [reg_nuevo['id']-1])
@@ -182,6 +201,22 @@ class exp_actualiza(models.Model):
                                 'user_recep_id': usr_rec_valido, 
                                 'fecha_hora_envio': reg_nuevo['fecha_hora_envio'], 'fecha_hora_recep': reg_nuevo['fecha_hora_recep'],
                                 'folios': reg_nuevo['folios'], 'observ_pase': reg_nuevo['observ_pase']}])
+        if clase=='seguimiento':
+            query_sec = "SELECT setval('seguimiento_id_seq', %s, true);"
+            print (("Estableciendo el valor del id actual en : " + str(reg_nuevo['id']-1)))
+            self.env.cr.execute(query_sec, [reg_nuevo['id']-1])
+            self.env.cr.commit()
+            print(("el id de expediente traiso es: " + str(reg_nuevo['expediente_id'])))
+            reg_creado = exp_obj.create([{'name': reg_nuevo['name'] , 'expediente_id': reg_nuevo['expediente_id']}]) 
+        if clase=='seguimiento_linea':
+            query_sec = "SELECT setval('seguimiento_linea_id_seq', %s, true);"
+            print (("Estableciendo el valor del id actual en : " + str(reg_nuevo['id']-1)))
+            self.env.cr.execute(query_sec, [reg_nuevo['id']-1])
+            self.env.cr.commit()
+            print(("el id de expediente traiso es: " + str(reg_nuevo['seguimiento_id'])))
+            reg_creado = exp_obj.create([{'name': reg_nuevo['name'] , 'seguimiento_id': reg_nuevo['seguimiento_id'], 'tarea': reg_nuevo['tarea'], 
+                                        'tarea_inicio': reg_nuevo['tarea_inicio'], 
+                                        'subproc': reg_nuevo['subproc'], 'observ_segui': reg_nuevo['observ_segui'], 'create_uid': reg_nuevo['create_uid'] }]) 
         self.env.cr.commit()
         #Nota el id correspondiente al ùltmimo pase se insertara cuando se actualice la tabla pases.pases
         #'ultimo_pase_id': 14,
@@ -193,13 +228,13 @@ class exp_actualiza(models.Model):
         print(("EL ID DE "+ clase +" QUE VIENE ES: " + str(id_reg_modificar)))
         exp_obj = self.env[clase].browse([id_reg_modificar])
         print (("ACTUALIZANDO REGISTRO "+clase+" : " + str(exp_obj)))
-        usr_rec_valido =  self.usuario_existe(reg_modificado['user_recep_id'])
         if clase =="expediente.expediente":
             #keys =  ['id', 'name', 'write_date', 'procedimiento_id', 'folios', 'estado_legal_actual', 'ubicacion_actual', 'tarea_actual', 'en_flujo']
             exp_obj.write({'procedimiento_id': reg_modificado['procedimiento_id'], 'folios' : reg_modificado['folios'],  
                 'ubicacion_actual': reg_modificado['ubicacion_actual'], 'en_flujo': reg_modificado['en_flujo'], 'state': reg_modificado['state'],
                 'tarea_actual': reg_modificado['tarea_actual']})
         if clase =="pase.pase":
+            usr_rec_valido =  self.usuario_existe(reg_modificado['user_recep_id'])
             #keys =  ['id', 'name', 'write_date', 'expediente_id', 'depart_origen_id', 'depart_destino_id', 'user_origen_id', 'user_recep_id', 
             #    'fecha_hora_envio', 'fecha_hora_recep', 'folios', 'observ_pase']
             exp_obj.write({'write_date': reg_modificado['write_date'], 'folios' : reg_modificado['folios'],  
@@ -227,7 +262,7 @@ class exp_actualiza(models.Model):
             print (("########################################### INSERTANDO REGISTRO ###########################"))
             self.inserta_registro(record_dict, clase)
             #self.inserta_comunicacion(record_dict['id'], record_dict['name'], record_dict['write_date'], str(estado), clase, obs)
-            exit()
+            #exit()
         elif estado == 2:
             print (("No existe el nombre ni ID en la nueva DB"))
             obs = "No existe el nombre ni ID en la nueva DB"
@@ -258,7 +293,7 @@ class exp_actualiza(models.Model):
         conn, cur = self.connect()        
         # Open a cursor to perform database operations    
         keys =  ['id', 'name', 'write_date', 'procedimiento_id', 'folios', 'estado_legal_actual', 'ubicacion_actual', 'tarea_actual', 'en_flujo', 'state', 'recibido']
-        cur.execute("SELECT id, name, write_date, procedimiento_id, folios, estado_legal_actual, ubicacion_actual, tarea_actual, en_flujo, state, recibido FROM expediente_expediente")
+        cur.execute("SELECT id, name, write_date, procedimiento_id, folios, estado_legal_actual, ubicacion_actual, tarea_actual, en_flujo, state, recibido FROM expediente_expediente ORDER BY id ASC")
         cur.fetchone()
         # will return (1, 100, "abc'def")
         # You can use `cur.fetchmany()`, `cur.fetchall()` to return a list
@@ -277,7 +312,7 @@ class exp_actualiza(models.Model):
         #  operations    
         keys =  ['id', 'name', 'write_date', 'expediente_id', 'depart_origen_id', 'depart_destino_id', 'user_origen_id', 'user_recep_id', 
                 'fecha_hora_envio', 'fecha_hora_recep', 'folios', 'observ_pase']
-        cur.execute("SELECT id, name, write_date, expediente_id, depart_origen_id, depart_destino_id, user_origen_id, user_recep_id, fecha_hora_envio, fecha_hora_recep, folios, observ_pase FROM pase_pase")
+        cur.execute("SELECT id, name, write_date, expediente_id, depart_origen_id, depart_destino_id, user_origen_id, user_recep_id, fecha_hora_envio, fecha_hora_recep, folios, observ_pase FROM pase_pase ORDER BY id ASC")
         cur.fetchone()
         # will return (1, 100, "abc'def")
         # You can use `cur.fetchmany()`, `cur.fetchall()` to return a list
@@ -289,13 +324,47 @@ class exp_actualiza(models.Model):
             self.accion_necesaria(record_dict, estado, 'pase.pase')
         return True
 
+    def consulta_seguimiento(self):
+        conn, cur = self.connect()        
+        keys =  ['id', 'name', 'write_date', 'expediente_id']
+        cur.execute("SELECT id, name, write_date, expediente_id FROM seguimiento ORDER BY id ASC")
+        cur.fetchone()
+        # will return (1, 100, "abc'def")
+        # You can use `cur.fetchmany()`, `cur.fetchall()` to return a list
+        # of several records, or even iterate on the cursor
+        for record in cur:
+            print(("EL SEGIMIENTO TRABAJADO CORRESPONDE AL EXPTE: " + str(record[1])))
+            estado = self.define_estado_actualizacion(record[0], record[1], record[2], 'seguimiento')
+            record_dict = self.list_to_dict(keys, record)
+            self.accion_necesaria(record_dict, estado, 'seguimiento')
+        return True
+
+    def consulta_seguimiento_linea(self):
+        print(("CONSULTANDO SEGUIMIENTO_LINEA"))
+        conn, cur = self.connect()        
+        # Open a cursor to perform database
+        #  operations    
+        keys =  ['id', 'name', 'write_date', 'create_uid', 'tarea_inicio', 'seguimiento_id', 'observ_segui', 'tarea', 'subproc']
+        cur.execute("SELECT id, name, write_date, create_uid, tarea_inicio, seguimiento_id, observ_segui, tarea, subproc FROM seguimiento_linea ORDER BY id ASC")
+        cur.fetchone()
+        # You can use()`, `cur.fetchall()` to return a list
+        # of several records, or even iterate on the cursor
+        for record in cur:
+            print(("EL SEGUIMIENTO LINEA TRABAJADO CORRESPONDE AL EXPTE: " + str(record[1])))
+            estado = self.define_estado_actualizacion(record[0], record[1], record[2], 'seguimiento_linea')
+            record_dict = self.list_to_dict(keys, record)
+            self.accion_necesaria(record_dict, estado, 'seguimiento_linea')
+        return True
+
     def consulta_historial_tareas(self):
         return True
 
 
     def rastreo(self):
         #self.conexion_externa()
-        #self.consulta_exp()
+        self.consulta_exp()
         self.consulta_pases()
+        self.consulta_seguimiento()
+        self.consulta_seguimiento_linea()
         return True
 
