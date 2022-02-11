@@ -232,14 +232,16 @@ class exp_actualiza(models.Model):
             #keys =  ['id', 'name', 'write_date', 'procedimiento_id', 'folios', 'estado_legal_actual', 'ubicacion_actual', 'tarea_actual', 'en_flujo']
             exp_obj.write({'procedimiento_id': reg_modificado['procedimiento_id'], 'folios' : reg_modificado['folios'],  
                 'ubicacion_actual': reg_modificado['ubicacion_actual'], 'en_flujo': reg_modificado['en_flujo'], 'state': reg_modificado['state'],
-                'tarea_actual': reg_modificado['tarea_actual']})
+                'tarea_actual': reg_modificado['tarea_actual'], 'recibido': reg_modificado['recibido'],})
         if clase =="pase.pase":
+            print(("FECHA HORA DE RECEPCION: " + str(reg_modificado['fecha_hora_recep'])))
             usr_rec_valido =  self.usuario_existe(reg_modificado['user_recep_id'])
             #keys =  ['id', 'name', 'write_date', 'expediente_id', 'depart_origen_id', 'depart_destino_id', 'user_origen_id', 'user_recep_id', 
             #    'fecha_hora_envio', 'fecha_hora_recep', 'folios', 'observ_pase']
             exp_obj.write({'write_date': reg_modificado['write_date'], 'folios' : reg_modificado['folios'],  
                 'depart_origen_id': reg_modificado['depart_origen_id'], 'depart_destino_id': reg_modificado['depart_destino_id'],
                 'user_recep_id': usr_rec_valido, 'fecha_hora_recep': reg_modificado['fecha_hora_recep']})
+        self.env.cr.commit()
         return True
 
     def inserta_comunicacion(self, id_exp, nombre, fecha_actualiza, estado, clase, obs):
@@ -361,10 +363,9 @@ class exp_actualiza(models.Model):
 
 
     def rastreo(self):
-        #self.conexion_externa()
-        self.consulta_exp()
+        #self.consulta_exp()
         self.consulta_pases()
-        self.consulta_seguimiento()
-        self.consulta_seguimiento_linea()
+        #self.consulta_seguimiento()
+        #self.consulta_seguimiento_linea()
         return True
 
