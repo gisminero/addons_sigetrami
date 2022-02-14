@@ -365,7 +365,7 @@ class exp_actualiza(models.Model):
     def rastreo(self):
         #self.consulta_exp()
         self.consulta_pases()
-        #self.consulta_seguimiento()
-        #self.consulta_seguimiento_linea()
+        self.consulta_seguimiento()
+        self.consulta_seguimiento_linea()
         return True
 
