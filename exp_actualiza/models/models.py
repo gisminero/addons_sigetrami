@@ -352,14 +352,45 @@ class exp_actualiza(models.Model):
             self.accion_necesaria(record_dict, estado, 'seguimiento_linea')
         return True
 
+    def obtener_depart_id(self, record_dict):
+        nuevo_depart_id = 1
+        return nuevo_depart_id
+
+    def actualizar_si_es_necesario(self, record_dict, tabla):
+        if tabla == "departamento":
+            depart_obj = self.env['exp_depart']
+            exp_obj_count = depart_obj.search_count([('exp_id', '=', record_dict['expediente_expediente_id'])])
+            if exp_obj_count == 0:
+                print (("EL EXPEDIENTE NO TIENE CARGADOS LOS DEPARTAMENTOS ENCONTRADOS: " + record_dict['name']))
+                nuevo_depart_id = self.obtener_depart_id(self, record_dict)
+        return True
+
+    def consulta_depart_exp(self):
+        #print(("CONSULTANDO SEGUIMIENTO_LINEA"))
+        conn, cur = self.connect()        
+        # Open a cursor to perform database
+        #  operations    
+        keys =  ['expediente_expediente_id', 'departamento_departamento_id', 'name']
+        cur.execute("SELECT expediente_expediente_id, departamento_departamento_id, name FROM departamento_departamento_expediente_expediente_rel \
+                    INNER JOIN departamento_departamento \
+                    ON departamento_departamento_expediente_expediente_rel.departamento_departamento_id = departamento_departamento.id \
+                    WHERE departamento_departamento_expediente_expediente_rel.expediente_expediente_id = 26432 \
+                    ORDER BY id ASC")
+        res = cur.fetchall()
+        for record in res:
+            record_dict = self.list_to_dict(keys, record)
+            self.actualizar_si_es_necesario(record_dict, 'departamento')
+        return True
+
     def consulta_historial_tareas(self):
         return True
 
 
     def rastreo(self):
-        self.consulta_exp()
-        self.consulta_pases()
-        self.consulta_seguimiento()
-        self.consulta_seguimiento_linea()
+        #self.consulta_exp()
+        #self.consulta_pases()
+        #self.consulta_seguimiento()
+        #self.consulta_seguimiento_linea()
+        self.consulta_depart_exp()
         return True
 
