@@ -354,15 +354,25 @@ class exp_actualiza(models.Model):
 
     def obtener_depart_id(self, record_dict):
         nuevo_depart_id = 1
-        return nuevo_depart_id
+        depart_obj = self.env['departamento.departamento']
+        depart_obj_count = depart_obj.search_count([('name', '=', record_dict['name'])])
+        if depart_obj_count > 0:
+            depart_obj = depart_obj.search([('name', '=', record_dict['name'])])
+            return depart_obj[0].id
+        else:
+            return False
 
     def actualizar_si_es_necesario(self, record_dict, tabla):
         if tabla == "departamento":
             depart_obj = self.env['exp_depart']
             exp_obj_count = depart_obj.search_count([('exp_id', '=', record_dict['expediente_expediente_id'])])
             if exp_obj_count == 0:
-                print (("EL EXPEDIENTE NO TIENE CARGADOS LOS DEPARTAMENTOS ENCONTRADOS: " + record_dict['name']))
-                nuevo_depart_id = self.obtener_depart_id(self, record_dict)
+                print (("EL EXPEDIENTE NO TIENE CARGADOS LOS DEPARTAMENTOS ENCONTRADOS: " + record_dict['name'] + "  EL ID VIEJO ES: " + str(record_dict['departamento_departamento_id'])))
+                nuevo_depart_id = self.obtener_depart_id(record_dict)
+                if nuevo_depart_id == False:
+                    print(("DEPARTAMENTO NO ENCONTRADO EN LA NUEVA TABLA"))
+                else:
+                    print(("EL id del departamento en la nueva tabla es: " + str(nuevo_depart_id)))
         return True
 
     def consulta_depart_exp(self):
