@@ -21,7 +21,7 @@ class exp_actualiza_exp(models.Model):
         ('2', 'No existe el id en la nueva DB.'),
         ('3', 'EL id no coincide para el nombre en la nueva DB.'),
         ('4', 'EL id y nombre coincide no la fecha actualizacion.'),
-        ], string='Estado', required=True, default="draft",
+        ], string='Estado', required=False, default="draft",
         help="Determina el estado del expediente")
     observ = fields.Text(string='Observaciones de Pase', translate=True)
 
@@ -68,13 +68,13 @@ class exp_actualiza(models.Model):
 	    # using the connect function
         print(("CONECTANDO"))
         try:
-            conn = psycopg2.connect(dbname = "neuquen06-08-19",
+            conn = psycopg2.connect(dbname = "neuquen06-08-19c",
                             #"NQN-08-2021",
                             #dbname ="catamarca-stm",
 							user = "postgres",
 							password = "123456",
-							host = "192.168.2.98",
-                            #host = "localhost",
+							#host = "192.168.2.98",
+                            host = "192.168.0.106",
 							port = "5432",
                             connect_timeout="10")
 		    # creating the cursor object
@@ -253,6 +253,10 @@ class exp_actualiza(models.Model):
             exp_obj = self.env['exp_actualiza_exp']
             #print (("CREANDO COMUNICACION EXPEDIENTE"))
             exp_obj.create([{'name': nombre, 'expediente_id' : id_exp, 'estado' : estado, 'observ': obs},])        
+        if clase == "departamento":
+            exp_obj = self.env['exp_actualiza_exp']
+            #print (("CREANDO COMUNICACION EXPEDIENTE"))
+            exp_obj.create([{'name': nombre, 'expediente_id' : id_exp, 'estado' : estado, 'observ': obs},])        
         return True
 
 
@@ -352,55 +356,120 @@ class exp_actualiza(models.Model):
             self.accion_necesaria(record_dict, estado, 'seguimiento_linea')
         return True
 
-    def obtener_depart_id(self, record_dict):
+    def obtener_nuevo_id(self, record_dict, clase):
         nuevo_depart_id = 1
-        depart_obj = self.env['departamento.departamento']
-        depart_obj_count = depart_obj.search_count([('name', '=', record_dict['name'])])
-        if depart_obj_count > 0:
-            depart_obj = depart_obj.search([('name', '=', record_dict['name'])])
-            return depart_obj[0].id
+        obj = self.env[clase]
+        obj_count = obj.search_count([('name', '=', record_dict['name']), ('active','=', True)])
+        if obj_count > 0:
+            obj = obj.search([('name', '=', record_dict['name']), ('active','=', True)])
+            if clase == 'departamento.departamento':
+                return obj[0].id, obj[0].state_id.id
+            if clase == 'mineral':
+                return obj[0].id, obj[0].categoria
         else:
-            return False
+            print(("EL DEPARTAMENTO/MINERAL NO ENOTRADO ES:" + record_dict['name']))
+            self.inserta_comunicacion(record_dict['expediente_expediente_id'], record_dict['name'], False, "1", "departamento", "No se encontró el departamento/mineral por nombre: " + record_dict['name'])
+            self.env.cr.commit()
+            print(("Retornando False"))
+            return False, False
+
+    def insert_expte_en_tabla(self, exp_id, tabla, nuevo_id, state_id):
+        if tabla == "departamento":
+            depart_obj = self.env['exp_depart']
+            exp_obj_count = depart_obj.create({'departamento_id': nuevo_id, 
+                                                'exp_id': exp_id,
+                                                'state_id_exp': state_id})
+        if tabla == "mineral":
+            min_obj = self.env['exp_mineral']
+            print(("LA categoria que se intenta ingresar es: " + str(state_id)))
+            exp_obj_count = min_obj.create({'mineral_id': nuevo_id, 
+                                                'exp_id': exp_id,
+                                                'categoria_mineral_exp': state_id})
+        self.env.cr.commit()
+        return True
+
 
     def actualizar_si_es_necesario(self, record_dict, tabla):
         if tabla == "departamento":
+            nuevo_depart_id, nuevo_state_id = self.obtener_nuevo_id(record_dict, 'departamento.departamento')
+            if nuevo_depart_id is False:
+                print(("DEPARTAMENTO NO ENCONTRADO POR NOMBRE EN LA NUEVA TABLA"))
+                print(("-----------------------   " + record_dict['name'] + " --------------------"))
+                return False
+            else:
+                print(("EL id del departamento en la nueva tabla es: " + str(nuevo_depart_id)))
+            print(("Buscando la combinacion expediente/departamento."))
             depart_obj = self.env['exp_depart']
-            exp_obj_count = depart_obj.search_count([('exp_id', '=', record_dict['expediente_expediente_id'])])
+            exp_obj_count = depart_obj.search_count([('exp_id', '=', record_dict['expediente_expediente_id']), 
+                            ('departamento_id', '=', nuevo_depart_id)])
             if exp_obj_count == 0:
-                print (("EL EXPEDIENTE NO TIENE CARGADOS LOS DEPARTAMENTOS ENCONTRADOS: " + record_dict['name'] + "  EL ID VIEJO ES: " + str(record_dict['departamento_departamento_id'])))
-                nuevo_depart_id = self.obtener_depart_id(record_dict)
-                if nuevo_depart_id == False:
-                    print(("DEPARTAMENTO NO ENCONTRADO EN LA NUEVA TABLA"))
-                else:
-                    print(("EL id del departamento en la nueva tabla es: " + str(nuevo_depart_id)))
+                print (("EL EXPEDIENTE NO TIENE CARGADO EL DEPARTAMENTO ENCONTRADO: " + record_dict['name'] + "  EL ID VIEJO ES: " + str(record_dict['departamento_departamento_id'])))
+                self.insert_expte_en_tabla(record_dict['expediente_expediente_id'], tabla, nuevo_depart_id, nuevo_state_id)
+        if tabla == "mineral":
+            nuevo_mineral_id, categoria = self.obtener_nuevo_id(record_dict, 'mineral')
+            if nuevo_mineral_id is False:
+                print(("MINERAL NO ENCONTRADO POR NOMBRE EN LA NUEVA TABLA"))
+                print(("-----------------------   " + record_dict['name'] + " --------------------"))
+                return False
+            else:
+                print(("EL id del MINERAL en la nueva tabla es: " + str(nuevo_mineral_id)))
+            print(("Buscando la combinacion expediente/mineral."))
+            mineral_obj = self.env['exp_mineral']
+            exp_obj_count = mineral_obj.search_count([('exp_id', '=', record_dict['expediente_expediente_id']), 
+                            ('mineral_id', '=', nuevo_mineral_id)])
+            if exp_obj_count == 0:
+                print (("EL EXPEDIENTE NO TIENE CARGADO EL mineral ENCONTRADO: " + record_dict['name']  ))
+                self.insert_expte_en_tabla(record_dict['expediente_expediente_id'], tabla, nuevo_mineral_id, categoria.lower())
         return True
 
     def consulta_depart_exp(self):
         #print(("CONSULTANDO SEGUIMIENTO_LINEA"))
         conn, cur = self.connect()        
         # Open a cursor to perform database
-        #  operations    
+        #  operations
+        # Como operacion previa se puede borrar la tabla entera (DROP), para insertar todos los registros
+        # Nuevamente    
         keys =  ['expediente_expediente_id', 'departamento_departamento_id', 'name']
         cur.execute("SELECT expediente_expediente_id, departamento_departamento_id, name FROM departamento_departamento_expediente_expediente_rel \
                     INNER JOIN departamento_departamento \
                     ON departamento_departamento_expediente_expediente_rel.departamento_departamento_id = departamento_departamento.id \
-                    WHERE departamento_departamento_expediente_expediente_rel.expediente_expediente_id = 26432 \
                     ORDER BY id ASC")
+        # WHERE departamento_departamento_expediente_expediente_rel.expediente_expediente_id = 26432 \
         res = cur.fetchall()
         for record in res:
             record_dict = self.list_to_dict(keys, record)
+            print(("Registro encontrado"))
             self.actualizar_si_es_necesario(record_dict, 'departamento')
         return True
 
-    def consulta_historial_tareas(self):
+    def consulta_mineral_exp(self):
+        #print(("CONSULTANDO SEGUIMIENTO_LINEA"))
+        conn, cur = self.connect()        
+        # Open a cursor to perform database
+        #  operations
+        # Como operacion previa se puede borrar la tabla entera (DROP), para insertar todos los registros
+        # Nuevamente    
+        keys =  ['expediente_expediente_id', 'mineral_id', 'name']
+        cur.execute("SELECT expediente_expediente_id, mineral_id, name FROM expediente_expediente_mineral_rel \
+                    INNER JOIN mineral \
+                    ON expediente_expediente_mineral_rel.mineral_id = mineral.id \
+                    WHERE expediente_expediente_mineral_rel.expediente_expediente_id = 22080 \
+                    ORDER BY id ASC")
+        
+        
+        res = cur.fetchall()
+        for record in res:
+            record_dict = self.list_to_dict(keys, record)
+            print(("Registro encontrado"))
+            self.actualizar_si_es_necesario(record_dict, 'mineral')
         return True
-
 
     def rastreo(self):
         #self.consulta_exp()
         #self.consulta_pases()
         #self.consulta_seguimiento()
         #self.consulta_seguimiento_linea()
-        self.consulta_depart_exp()
+        #self.consulta_depart_exp()
+        self.consulta_mineral_exp()
         return True
 

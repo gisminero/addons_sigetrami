@@ -24,8 +24,8 @@ Consulta un sistema anterior instalado cada 5 minutos, para mantener actualizada
     # always loaded
     'data': [
         #'security/notificaciones_security.xml',
-        #'security/ir.model.access.csv',
-        #'views/views.xml',
+        'security/ir.model.access.csv',
+        'views/views.xml',
         'data/auto_server.xml',
         #'data/ini.xml',
     ],

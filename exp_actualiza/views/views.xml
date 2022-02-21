@@ -2,360 +2,52 @@
 
 <data>
     <!-- explicit list view definition -->
-    <record model="ir.ui.view" id="notificaciones.notifica_list">
-      <field name="name">Lista de Notificaciones Activas</field>
-      <field name="model">notifica</field>
+    <record model="ir.ui.view" id="exp_actualiza.lista_log">
+      <field name="name">Log de Errores encontrados</field>
+      <field name="model">exp_actualiza_exp</field>
       <field name="arch" type="xml">
         <tree >
+          <field name="create_date"/>
           <field name="name"/>
-          <field name="fecha_notificacion"/>
-          <field name="fecha_vencimiento"/>
-          <field name="state"/>
-          <field name="create_uid" string="Creado por"/>
-          <field name="alertas_enviados"/>
+          <field name="expediente_id"/>
+          <field name="estado"/>
+          <field name="observ"/>
         </tree>
       </field>
     </record>
 
-    <record model="ir.ui.view" id="notificaciones.notifica_form">
-      <field name="name">Crear Notificacion</field>
-      <field name="model">notifica</field>
+    <record model="ir.ui.view" id="exp_actualiza.form_log">
+      <field name="name">Log de Error</field>
+      <field name="model">exp_actualiza_exp</field>
 <!--      <field name="create">false</field>-->
       <field name="arch" type="xml">
-      <form string="Creando Evento"  attrs="{'delete': [('state', '=', ['draft'])]}" >
+      <form string="Creando Evento"  >
       <!--  delete="false"   -->
-        <header>
-        <field name="state" widget="statusbar" statusbar_visible="draft,active,cumplido,suspendido,vencido"/>
-        </header>
+    
           <sheet>
-            <separator string="Evento Asociado a Notificacion" colspan="4"/>
-             <group>
-
-                  <field name="name"   nolabel="1" colspan="1"/>
-                  <!--  attrs="{'readonly':[('state','!=', 'draft')]}"  -->
-                    <button name="activar" type="object" states="draft" string="Validar"
-                    class="oe_highlight" context="{'id_activo': id}"/>
-                    <!--     confirm="Si confirma la validacion, no podra modificar el alerta."
-                    groups="group_config_notif_crea"
-                    context="{'id_activo': id}"   -->
-                    <button name="recibir" type="object" states="active" string="Documentacion Recibida"
-                    class="oe_highlight" context="{'id_activo': id}" confirm="Recibo documentacion relacionada con este plazo, para anexar al expediente." />
-
-                <!-- PRUEBAS PARA DESARROLLO
-                 <button name="prueba_envio_mensaje" type="object"  string="Envio de Mensaje"
-                    class="oe_highlight" context="{'id_activo': id}"/>
-                 <button name="crea_alertas" type="object"  string="Crear Alertas"
-                    class="oe_highlight" context="{'id_activo': id}"/>
-                   <button name="eliminar_alertas" type="object"  string="Eliminar Alertas"
-                    class="oe_highlight" context="{'id_activo': id}"/>
-                -->
-
-            </group>
+            <separator string="Evento Asociado a Importación" colspan="4"/>
+ 
         <group>
-        <field name="id" invisible="1" />
-          <field name="expediente_id"  attrs="{'readonly':[('state','!=', 'draft')]}" />
-            <field name="nombre_pedimento"   />
-          <!--   on_change="nombrePlazo(expediente_id, plazo_id)"   -->
-          <field name="plazo_id"  attrs="{'readonly':[('state','!=', 'draft')]}" />
-          <!--   on_change="nombrePlazo(expediente_id, plazo_id)"   -->
-          <field name="fecha_notificacion"  attrs="{'readonly':[('state','!=', 'draft')]}" />
-          <!--  on_change="onchangeInicioNotifica(fecha_notificacion, plazo_id)"  -->
-            <field name="fecha_vencimiento" />
-            <field name="fecha_suspension_actual" />
-            <field name="alertas_enviados" attrs="{'readonly':[('state','!=', 'draft')]}" invisible="0"/>
-            <field name="user_creador_id"/>
-            <field name="info" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+            <field name="create_date"/>
+            <field name="name"   />
+            <field name="expediente_id" />
+            <field name="estado" />
+            <field name="observ"/>
          </group>
-          <group>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="message_ids" widget="mail_thread"/>
-                </div>
-          </group>
+        
        </sheet>
       </form>
       </field>
     </record>
 
-    <record model="ir.ui.view" id="notificaciones.notifica_form_exped">
-    <field name="name">Crear Notificacion</field>
-    <field name="model">notifica</field>
-    <!--  <field name="create">false</field>-->
-    <field name="arch" type="xml">
-    <form string="Creando Evento"  attrs="{'delete': [('state', '=', ['draft'])]}" >
-    <!--  delete="false"   -->
-        <header>
-        <field name="state" widget="statusbar" statusbar_visible="draft,active,cumplido,suspendido,vencido"/>
-        </header>
-          <sheet>
-            <separator string="Nuevo Plazo de Tiempo Asociado a Notificacion" colspan="4" states="draft"/>
-            <separator string="Plazo de Tiempo Asociado a Notificacion" colspan="4" states="active"/>
-             <group>
-                  <field name="name"   nolabel="1" colspan="1"/>
-                    <button name="activar" type="object" states="draft" string="Validar"
-                    class="oe_highlight" context="{'id_activo': id}"/>
-                    <button name="recibir" type="object" states="active" string="Documentacion Recibida"
-                    class="oe_highlight" context="{'id_activo': id}" confirm="Recibo documentacion relacionada con este plazo, para anexar al expediente." />
-            </group>
-        <group>
-        <field name="id" invisible="1" />
-          <field name="expediente_id"  readonly="1" />
-            <field name="nombre_pedimento"   />
-          <!--   on_change="nombrePlazo(expediente_id, plazo_id)"   -->
-          <field name="plazo_id"  readonly="1" />
-          <!--   on_change="nombrePlazo(expediente_id, plazo_id)"   -->
-          <field name="fecha_notificacion"  attrs="{'readonly':[('state','!=', 'draft')]}" />
-          <!--  on_change="onchangeInicioNotifica(fecha_notificacion, plazo_id)"  -->
-            <field name="fecha_vencimiento" readonly="1"/>
-            <field name="fecha_suspension_actual" />
-            <field name="alertas_enviados" attrs="{'readonly':[('state','!=', 'draft')]}" invisible="1"/>
-            <field name="user_creador_id"/>
-            <field name="info" attrs="{'readonly':[('state','!=', 'draft')]}"/>
-         </group>
-            </sheet>
-            <footer>
-                <button name="desactiva_notificaciones" string="Dejar de Notificar Plazo Vencido" class="oe_highlight" type="object"
-                            attrs="{'invisible':[('state','!=', 'vencido')]}" context="{'id_activo': id}" />
-                <button string="Cerrar" class="btn-default" special="cancel"/>
-            </footer>
-        </form>
-        </field>
-      </record>
 
-
-      <!-- POP UP UTILIZADO PARA EL INGRESO DE FECHA DE VENCIMIENTO MANUAL 
-      EN PROXIMAS VERSIONES UNIFICAR CON EL POP UP ORIGINAL-->
-    <record model="ir.ui.view" id="notificaciones.notifica_form_exped_vencim_manual">
-    <field name="name">Crear Notificacion</field>
-    <field name="model">notifica</field>
-    <!--  <field name="create">false</field>-->
-    <field name="arch" type="xml">
-    <form string="Creando Evento"  attrs="{'delete': [('state', '=', ['draft'])]}" >
-    <!--  delete="false"   -->
-        <header>
-        <field name="state" widget="statusbar" statusbar_visible="draft,active,cumplido,suspendido,vencido"/>
-        </header>
-          <sheet>
-            <separator string="Nuevo Plazo de Tiempo Asociado a Notificacion" colspan="4" states="draft"/>
-            <separator string="Plazo de Tiempo Asociado a Notificacion" colspan="4" states="active"/>
-             <group>
-                  <field name="name"   nolabel="1" colspan="1"/>
-                    <button name="activar" type="object" states="draft" string="Validar"
-                    class="oe_highlight" context="{'id_activo': id}" confirm="¿Confirma fecha de vencimiento manual?" />
-                    <button name="recibir" type="object" states="active" string="Documentacion Recibida"
-                    class="oe_highlight" context="{'id_activo': id}" confirm="Recibo documentacion relacionada con este plazo, para anexar al expediente." />
-            </group>
-        <group>
-        <field name="id" invisible="1" />
-          <field name="expediente_id"  readonly="1" />
-            <field name="nombre_pedimento"   />
-          <!--   on_change="nombrePlazo(expediente_id, plazo_id)"   -->
-          <field name="plazo_id"  readonly="1" />
-          <!--   on_change="nombrePlazo(expediente_id, plazo_id)"   -->
-          <field name="fecha_notificacion"  attrs="{'readonly':[('state','!=', 'draft')]}" />
-          <!--  on_change="onchangeInicioNotifica(fecha_notificacion, plazo_id)"  -->
-            <field name="fecha_vencimiento" attrs="{'readonly':[('state','!=', 'draft')]}"/>
-            <field name="fecha_suspension_actual" />
-            <field name="alertas_enviados" attrs="{'readonly':[('state','!=', 'draft')]}" invisible="1"/>
-            <field name="user_creador_id"/>
-            <field name="info" attrs="{'readonly':[('state','!=', 'draft')]}"/>
-         </group>
-            </sheet>
-            <footer>
-                <button name="desactiva_notificaciones" string="Dejar de Notificar Plazo Vencido" class="oe_highlight" type="object"
-                            attrs="{'invisible':[('state','!=', 'vencido')]}" context="{'id_activo': id}" />
-                <button string="Cerrar" class="btn-default" special="cancel"/>
-            </footer>
-        </form>
-        </field>
-      </record>
-      <!-- FIN POP UP UTILIZADO PARA EL INGRESO MANUAL DE FECHA DE VENCIMIENTO-->
-
-
-
-
-
-    <!-- ALERTA -->
-    <record model="ir.ui.view" id="notificaciones.alerta_list">
-      <field name="name">Lista Alertas para Mi</field>
-      <field name="model">alerta</field>
-      <field name="arch" type="xml">
-        <tree  editable="top" >
-<!--            colors="red: alerta_recibido==False;green:alerta_recibido==True"-->
-
-          <field name="id" invisible="1" />
-          <field name="notificacion_id" attrs="{'readonly': True}"/>
-          <field name="info" attrs="{'readonly': True}"/>
-          <field name="user_alerta_id" attrs="{'readonly': True}" invisible="1"/>
-         <field name="alerta_recibido" attrs="{'readonly': True}" />
-  <button name="recibido" type="object"  string="Notificado"
-                    class="oe_highlight" context="{'id_alerta': id}"/>
-        </tree>
-      </field>
-    </record>
-
-    <record model="ir.ui.view" id="notificaciones.alerta_form">
-      <field name="name">Alerta de Notificacion</field>
-      <field name="model">alerta</field>
-      <field name="arch" type="xml">
-      <form string="Alerta de Notificacion">
-        <header>
-        </header>
-        <separator string="Alerta de Notificacion" colspan="4"/>
-         <group>
-        </group>
-        <group>
-          <field name="id" invisible="1" />
-          <field name="notificacion_id" />
-          <field name="user_alerta_id"/>
-          <field name="alerta_recibido" attrs="{'readonly': True}" />
-        </group>
-      </form>
-      </field>
-    </record>
-<!--   -->
-
- <!--  POP UP SIN ALERTAS  -->
-
-    <record model="ir.ui.view" id="notificaciones.alerta_list_pop">
-      <field name="name">Lista Alertas para Mi</field>
-      <field name="model">alerta</field>
-      <field name="arch" type="xml">
-        <tree editable='bottom'  >
-<!--            colors="red: alerta_recibido==False;green:alerta_recibido==True"-->
-            <!-- editable="top" -->
-
-          <field name="id" invisible="1" />
-          <field name="notificacion_id" attrs="{'readonly': True}"/>
-       <!--   <field name="user_alerta_id" attrs="{'readonly': True}"/> -->
-       <field name="info" />
-          <field name="alerta_recibido" attrs="{'readonly': True}" />
-            <button name="recibido" type="object"  string="Notificado"
-                    class="oe_highlight" context="{'id_alerta': id}"/>
-        <!--
-          <button name="recibido" type="object"  string="Notificado"
-                    class="oe_highlight" context="{'id_activo': id}" groups="notificaciones.group_config_notif_write"/>
-            -->
-        </tree>
-      </field>
-    </record>
-
-
-    <record model="ir.ui.view" id="notificaciones.pop_sin_alerta_form">
-      <field name="name">Alerta de Notificacion</field>
-      <field name="model">alerta</field>
-      <field name="arch" type="xml">
-      <form string="Vencimientos de Plazos">
-        <header>
-        </header>
-            <separator string="No existen plazos vencidos el dia de hoy." colspan="4"/>
-        <footer>
-            <button name="ir_a_expedientes" type="object" string="Ir a Expedientes en Mi Oficina"
-                    class="oe_highlight"   />
-            <button name="ir_a_alertas" type="object" string="Ir a Mis Alertas Recibidos"
-                    class="oe_highlight"   />
-            </footer>
-      </form>
-      </field>
-    </record>
-<!--   
-    <record model="ir.actions.act_window" id="notificaciones.notifica_action_window">
-      <field name="name">Creacion de Notificacion</field>
-      <field name="res_model">notifica</field>
-      <field name="view_mode">tree,form</field>
-    </record>
--->
-<record model="ir.actions.server" id="notificaciones.notifica_action_server">
-    <field name="name">Mis Eventos</field>
-    <field name="model_id" ref="model_notifica"/>
-    <field name="state">code</field>
-    <field name="code">action = env.get('notifica').mis_eventos()</field>
-      <!--
-        action =    {
-            'name': "Mis Eventos",
-            'view_mode': 'tree, form',
-            'res_model': 'notifica',
-            'type': 'ir.actions.act_window',
-            'domain': [('create_uid', '=', env.user)],
-            'views': [[env.ref('notificaciones.notifica_list').id, "tree"], [env.ref('notificaciones.notifica_form').id, "form"]],
-            #'views': [[env.ref('notificaciones.pop_sin_alerta_form').id, "form"], [env.ref('notificaciones.alerta_list').id, "tree"]],
-            #'target': 'new',
-            #'res_id': 1,
-            }
-    </field>
-    -->
-</record>
-
-<!-- POP UP ALERTA DE USUARIO AL INGRESAR AL SISTEMA 2021 ODOO 11 -->
-
-    <record model="ir.ui.view" id="notificaciones.pop_alerta_form">
-      <field name="name">Prueba 2021 - Alerta de Notificacion</field>
-      <field name="model">alerta</field>
-      <field name="arch" type="xml">
-      <form string="Vencimientos de Plazos">
-        <header>
-        </header>
-            <separator string="Prueba de Alerta." colspan="4"/>
-        <footer>
-            <button name="ir_a_expedientes" type="object" string="Ir a Expedientes en Mi Oficina"
-                    class="oe_highlight"   />
-            <button name="ir_a_alertas" type="object" string="Ir a Mis Alertas Recibidos"
-                    class="oe_highlight"   />
-            </footer>
-      </form>
-      </field>
-    </record>
-
-    <record model="ir.actions.act_window" id="notificaciones.alerta_action_window">
-      <field name="name">AVISO DE ALERTA EN FORMULARIO POP UP</field>
-      <field name="res_model">alerta</field>
+    <record model="ir.actions.act_window" id="exp_actualiza.action_window">
+      <field name="name">Log de Actualizaciones</field>
+      <field name="res_model">exp_actualiza_exp</field>
       <field name="view_mode">tree,form</field>
     </record>
 
-<!-- FIN FORM POP UP -->
-
-<record model="ir.actions.server" id="notificaciones.alerta_mis_alertas">
-    <field name="name">Alertas para mi</field>
-    <field name="model_id" ref="model_alerta"/>
-    <field name="state">code</field>
-    <field name="code">
-res = env['alerta'].select_target()
-if res == 'new':
-    action =    {
-            'name': "Mis Alertas Pendientes",
-            'view_mode': 'tree, form',
-            'res_model': 'alerta',
-            'type': 'ir.actions.act_window',
-            'domain': [('user_alerta_id', '=', env['alerta'].default_user_id()), ('alerta_recibido', '=', False)],
-            'views': [[env.ref('notificaciones.alerta_list').id, "tree"], [env.ref('notificaciones.alerta_form').id, "form"]],
-            'target': 'new',
-            }
-else:
-    action =    {
-            'name': "Mis Alertas Pendientes",
-            'view_mode': 'tree, form',
-            'res_model': 'alerta',
-            'type': 'ir.actions.act_window',
-            #'domain': [('user_alerta_id', '=', env['alerta'].default_user_id()), ('alerta_recibido', '=', False)],
-            'views': [[env.ref('notificaciones.pop_sin_alerta_form').id, "form"], [env.ref('notificaciones.alerta_list').id, "tree"]],
-            'target': 'new',
-            'res_id': 1,
-            }
-    </field>
-</record>
-
-<!-- EL SIGUIENTE MENU ES SOLO PARA JUJUY  -->
-  <menuitem name="Notificaciones" id="gepromi.notifica" parent="gepromi.menu_root"/>
-
-  <menuitem name="Mis Eventos" id="notificaciones.menu_list" parent="gepromi.notifica"
-        action="notificaciones.notifica_action_server" groups="notificaciones.group_config_notif_lect"/>
-
-  <menuitem name="Mis Alertas" id="notificaciones.alerta_server_list" parent="gepromi.notifica"
-             action="notificaciones.alerta_mis_alertas"/>
-
-      <!--
-      <menuitem name="Mis Alertas 21" id="notificaciones.alerta_action_pop_up" parent="gepromi.notifica"
-             action="notificaciones.alerta_action_window"/>
-      -->
+    <menuitem name="Log. Actualizacion" id="exp_actualiza.menu_log" parent="gepromi.config"
+             action="exp_actualiza.action_window"/>
     </data>
 </odoo>
