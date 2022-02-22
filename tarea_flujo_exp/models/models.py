@@ -384,19 +384,20 @@ class expediente(models.Model):
             :return: lista de tareas actuales
             """
             ##################################DEFINIENDO LA TAREA ACTUAL EN EL FLUJO
-            #print(("TAREA actual de la oficina"))
             permiso_de_ingreso = self._get_permiso_ingreso()
+            print(("El permiso de ingreso es: " + str(permiso_de_ingreso)))
             legal_list_office = []
             active_id = self.env.context.get('id_activo')
             expte_obj = self.browse([active_id])
             tarea_actual = expte_obj.tarea_actual
             en_flujo = expte_obj.en_flujo
             proced_id = expte_obj.procedimiento_id.id
+            proced_name = expte_obj.procedimiento_id.name
             # NO SE PUEDE ENVIAR SI NO ESTA EN MI OFICINA
             user_id = self.env.user.id
             depart_id = self.userdepart(user_id)
-            flujo_obj = self.env['tarea_flujo.flujo'].search([('name', '=', [proced_id])])
-            # print(("NO HAY FLUJO PARA ... " + expte_obj.procedimiento_id.name))
+            flujo_obj = self.env['tarea_flujo.flujo'].search([('name', '=', proced_name)])
+            #print(("NO HAY FLUJO PARA ... " + expte_obj.procedimiento_id.name))
             # SI NO HAY FLUJO O EL EXPEDIENTE TIENE UBICACION ACTUAL EN LA NUBE--
             if not flujo_obj or expte_obj.ubicacion_actual.name.lower() == "Nube".lower():
                 return False
@@ -902,7 +903,7 @@ class expediente(models.Model):
                 active_id = self.env.context.get('id_activo')
                 expte_obj = self.browse([active_id])
                 seguimiento_obj = self.env['seguimiento']
-                seguimiento_obj_lineas = seguimiento_obj.search([('expediente_id', '=', expte_obj.id)], limit=1)
+                seguimiento_obj_lineas = seguimiento_obj.search([('expediente_id', '=', expte_obj.id)], limit=2)
                 # for lineas in seguimiento_obj_lineas.seguimiento_lineas:
                 #         if lineas.tarea.name != False:
                 #                 print (("SACANDO COSAS: " + unidecode(lineas.tarea.name)))
@@ -911,13 +912,15 @@ class expediente(models.Model):
                          #El Documento no tiene historial de tareas.
                          raise ValidationError(('No es correcto utilizar esta función. No hay historial de tareas. '
                                                 'Utilice la opción - Enviar - y seleccione tarea actual.'))
-                lineas = seguimiento_obj_lineas.seguimiento_lineas[0]
+                lineas = seguimiento_obj_lineas.seguimiento_lineas[1]
+                #print(("EL NOMBRE DE LA ULTIMA TAREA ES; " + str(lineas.tarea.name)))
                 depart_id_ultima_tarea = lineas.tarea.departament_id.id
                 if lineas.tarea.name != False:
                         print(("Oficina de la tarea: " + lineas.tarea.departament_id.name))
                 if self.ubicacion_actual.id == depart_id_ultima_tarea:
                         #Si la ubicacion actual coincide con la oficina en la cual se ejecuta la tarea.
                         self.write({'en_flujo': True, 'tarea_actual': lineas.tarea.id, 'ubicacion_actual': lineas.tarea.departament_id.id})
+                        pase_oficina = False
                 else:
                         #Si la ubicacion actual no coincide con la oficina en la cual se ejecuta la tarea.
                         pase_obj = self.env['pase.pase']
@@ -933,7 +936,8 @@ class expediente(models.Model):
                                          'observ_pase': "Reingreso Directo en Flujo de Tareas.",
                                          'en_flujo': True,
                                          'tarea_actual': lineas.tarea.id})
-                seguimiento_obj.ingresa_tarea_actual(expte_obj, lineas.tarea, lineas.tarea)
+                        pase_oficina = True
+                seguimiento_obj.ingresa_tarea_actual(expte_obj, lineas.tarea, lineas.tarea, pase_oficina)
                 #############################################################################################
                 #REHABILITAR PLAZOS SUSPENDIDOS!!!
                 self.cambia_estado_plazos(expte_obj.id, 'active')
