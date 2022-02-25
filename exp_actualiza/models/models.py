@@ -68,13 +68,13 @@ class exp_actualiza(models.Model):
 	    # using the connect function
         print(("CONECTANDO"))
         try:
-            conn = psycopg2.connect(dbname = "neuquen06-08-19c",
+            conn = psycopg2.connect(dbname = "neuquen06-08-19-c",
                             #"NQN-08-2021",
                             #dbname ="catamarca-stm",
 							user = "postgres",
 							password = "123456",
-							#host = "192.168.2.98",
-                            host = "192.168.0.106",
+							host = "192.168.2.98",
+                            #host = "192.168.0.106",
 							port = "5432",
                             connect_timeout="10")
 		    # creating the cursor object
@@ -359,9 +359,9 @@ class exp_actualiza(models.Model):
     def obtener_nuevo_id(self, record_dict, clase):
         nuevo_depart_id = 1
         obj = self.env[clase]
-        obj_count = obj.search_count([('name', '=', record_dict['name']), ('active','=', True)])
+        obj_count = obj.search_count([('name', '=', record_dict['name'])])#, ('active','=', True)
         if obj_count > 0:
-            obj = obj.search([('name', '=', record_dict['name']), ('active','=', True)])
+            obj = obj.search([('name', '=', record_dict['name'])])#, ('active','=', True)
             if clase == 'departamento.departamento':
                 return obj[0].id, obj[0].state_id.id
             if clase == 'mineral':
@@ -453,10 +453,8 @@ class exp_actualiza(models.Model):
         cur.execute("SELECT expediente_expediente_id, mineral_id, name FROM expediente_expediente_mineral_rel \
                     INNER JOIN mineral \
                     ON expediente_expediente_mineral_rel.mineral_id = mineral.id \
-                    WHERE expediente_expediente_mineral_rel.expediente_expediente_id = 22080 \
                     ORDER BY id ASC")
-        
-        
+        #WHERE expediente_expediente_mineral_rel.expediente_expediente_id = 22080 \
         res = cur.fetchall()
         for record in res:
             record_dict = self.list_to_dict(keys, record)
