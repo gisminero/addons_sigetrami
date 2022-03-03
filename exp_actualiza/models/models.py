@@ -68,13 +68,10 @@ class exp_actualiza(models.Model):
 	    # using the connect function
         print(("CONECTANDO"))
         try:
-            conn = psycopg2.connect(dbname = "neuquen06-08-19-c",
-                            #"NQN-08-2021",
-                            #dbname ="catamarca-stm",
+            conn = psycopg2.connect(dbname = "nombre_base",
 							user = "postgres",
-							password = "123456",
-							host = "192.168.2.98",
-                            #host = "192.168.0.106",
+							password = "******",
+							host = "localhost",
 							port = "5432",
                             connect_timeout="10")
 		    # creating the cursor object
