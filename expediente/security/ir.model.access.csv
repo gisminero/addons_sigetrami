@@ -17,8 +17,5 @@ exp_depart_crea,exp_depart_lect,expediente.model_exp_depart,access_group_expte_c
 access_expte_solic_lect,exp_solicitantes,model_exp_solicitantes,access_group_expte_lectura,1,0,0,0
 access_expte_solic_escr,exp_solicitantes,model_exp_solicitantes,access_group_expte_escritura,1,1,0,0
 access_expte_solic_crea,exp_solicitantes,model_exp_solicitantes,access_group_expte_creacion,1,1,1,1
+access_distrito_lect,exp_distrito_lect,departamento.model_exp_distrito,access_group_expte_lectura,1,0,0,0
 access_wizard_lect,expediente.wizard,sh_message.model_sh_message_wizard,access_group_expte_lectura,1,1,0,0
-
-
-
-
