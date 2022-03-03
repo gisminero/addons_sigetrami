@@ -696,7 +696,6 @@ class expediente(models.Model):
         data = False
         pase_obj = self.env['pase.pase']
         pase_objs = pase_obj.search([('expediente_id', '=', self.id)], limit=1, order="id DESC")
-        print(("OJALA FUNCIONE: " + pase_objs[0].name))
         #for pase in pase_objs:
         #    print(("PASE: " + pase.name + " - ID "+ str(pase.id ) + " - DESTINO:" + pase.depart_destino_id.name))
         res = pase_objs[0].imprimir_pase()

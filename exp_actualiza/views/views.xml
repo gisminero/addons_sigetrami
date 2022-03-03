@@ -1,0 +1,53 @@
+<odoo>
+
+<data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="exp_actualiza.lista_log">
+      <field name="name">Log de Errores encontrados</field>
+      <field name="model">exp_actualiza_exp</field>
+      <field name="arch" type="xml">
+        <tree >
+          <field name="create_date"/>
+          <field name="name"/>
+          <field name="expediente_id"/>
+          <field name="estado"/>
+          <field name="observ"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="exp_actualiza.form_log">
+      <field name="name">Log de Error</field>
+      <field name="model">exp_actualiza_exp</field>
+<!--      <field name="create">false</field>-->
+      <field name="arch" type="xml">
+      <form string="Creando Evento"  >
+      <!--  delete="false"   -->
+    
+          <sheet>
+            <separator string="Evento Asociado a Importación" colspan="4"/>
+ 
+        <group>
+            <field name="create_date"/>
+            <field name="name"   />
+            <field name="expediente_id" />
+            <field name="estado" />
+            <field name="observ"/>
+         </group>
+        
+       </sheet>
+      </form>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="exp_actualiza.action_window">
+      <field name="name">Log de Actualizaciones</field>
+      <field name="res_model">exp_actualiza_exp</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Log. Actualizacion" id="exp_actualiza.menu_log" parent="gepromi.config"
+             action="exp_actualiza.action_window"/>
+    </data>
+</odoo>

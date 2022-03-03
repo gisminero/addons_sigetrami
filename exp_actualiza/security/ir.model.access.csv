@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_actualiza,exp_actualiza_exp,exp_actualiza.model_exp_actualiza_exp,gepromi.group_gepromi_config,1,1,1,1

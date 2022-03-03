@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+from asyncio import exceptions
 from odoo import models, fields, api
+from odoo import exceptions
 
 class exp_historia_correcc(models.Model):
     _name = 'exp_historia_correcc'
@@ -82,7 +84,7 @@ class pase(models.Model):
                 'res_model': 'expediente.expediente',
                 'type': 'ir.actions.act_window',
                 # 'target': 'new',
-                'domain': [('ultimo_pase_id', '!=', False), ('recibido', '=', True)],
+                'domain': [ ('recibido', '=', True)],#('ultimo_pase_id', '!=', False),
                 'views': [[self.env.ref('exp_envios_admin.expediente_corregir').id, "tree"]],
             # , [self.env.ref('exp_cambio_tramite.expediente_corregir_form').id, "form"]
                 }
@@ -113,7 +115,7 @@ class pase(models.Model):
                 if obj_tarea_borrar == False:
                     obj_tarea_borrar = linea_tareas
                 else:
-                    raise ValidationError(('Hay mas de una tarea solicitada sin iniciar, contáctese con el administrador.'))
+                    raise exceptions.ValidationError(('Hay mas de una tarea solicitada sin iniciar, contáctese con el administrador.'))
             else:
                 if tarea_actual_seleccionada == False:
                     tarea_actual_seleccionada = linea_tareas.tarea
