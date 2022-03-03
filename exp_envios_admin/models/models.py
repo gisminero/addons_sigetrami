@@ -84,7 +84,7 @@ class pase(models.Model):
                 'res_model': 'expediente.expediente',
                 'type': 'ir.actions.act_window',
                 # 'target': 'new',
-                'domain': [('ultimo_pase_id', '!=', False), ('recibido', '=', True)],
+                'domain': [ ('recibido', '=', True)],#('ultimo_pase_id', '!=', False),
                 'views': [[self.env.ref('exp_envios_admin.expediente_corregir').id, "tree"]],
             # , [self.env.ref('exp_cambio_tramite.expediente_corregir_form').id, "form"]
                 }
