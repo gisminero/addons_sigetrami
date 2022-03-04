@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "SIGETRAMI - Administración de Envios y Pases",
+    'name': "SIGETRAMI - Administración de Expedientes Fuera de Flujos",
 
     'summary': """
-        Funcionalidad de Administracion y Correccion de Envios.""",
+        Funcionalidad de Administracion de Expedientes cuando se encuentran fuera de flujo.""",
 
     'description': """
-        Permite realizar la correccion de envios erroneos y tambien la administracion de 
-        envios por parte de usuarios con permisos especiales.
+        Permite relizar la gestión de expedientes enviandolos por oficina, cuando se encuentran fuera de flujo preestablecido.
     """,
 
     'author': "Gis Minero Nacional",
@@ -22,9 +21,9 @@
     # always loaded
     'data': [
         'security/envios_security.xml',
-        'security/ir.model.access.csv',
+        #'security/ir.model.access.csv',
         'views/views.xml',
-        'views/exp_correcc_flujo.xml',
+        #'views/exp_correcc_flujo.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

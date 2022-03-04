@@ -97,6 +97,9 @@ class expediente(models.Model):
     _inherit = 'expediente.expediente'
     _description = "Listado de pases"
 
+
+    
+
     """
     def envio_directo(self):
         # print ("ENVIO DIRECTO ################################: " + str(self.id))
