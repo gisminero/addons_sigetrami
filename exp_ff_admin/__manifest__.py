@@ -20,7 +20,7 @@
     'depends': ['base', 'expediente', 'sh_message', 'pase', 'tarea_flujo_exp'],
     # always loaded
     'data': [
-        #'security/ff_security.xml',
+        'security/ff_security.xml',
         'security/ir.model.access.csv',
         'views/exp_over.xml',
         #'views/exp_correcc_flujo.xml',

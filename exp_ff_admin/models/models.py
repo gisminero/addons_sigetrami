@@ -95,13 +95,9 @@ class pase(models.Model):
 class expediente(models.Model):
     _name = 'expediente.expediente'
     _inherit = 'expediente.expediente'
-    _description = "Listado de pases"
+    _description = "Lamando a Sacar o Ingresar en Flujo"
 
-
-    
-
-    """
-    def envio_directo(self):
+    def exp_flujo_sacar(self):
         # print ("ENVIO DIRECTO ################################: " + str(self.id))
         if not self.tramite_tiene_flujo():
             print ((" EL TRAMITE NO TIENE FLUJO DEFINIDO"))
@@ -119,17 +115,21 @@ class expediente(models.Model):
                 }
         return action
 
-    def tramite_tiene_flujo(self):
-        flujo_obj = self.env['tarea_flujo.flujo'].search([('name', '=', [self.procedimiento_id.id])])
-        if not flujo_obj or self.ubicacion_actual.name.lower() == "Nube".lower():
-            return False
+    def exp_flujo_ingresar(self):
+        # print ("ENVIO DIRECTO ################################: " + str(self.id))
+        if not self.tramite_tiene_flujo():
+            print ((" EL TRAMITE NO TIENE FLUJO DEFINIDO"))
+            action = self.enviar()
         else:
-            return True
+            action = {
+                'name': "Expedientes en el Sistema...",
+                'view_mode': 'form',
+                'res_id': self.id,
+                'res_model': 'expediente.expediente',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                # 'domain': [('ubicacion_actual', '=', self.env['expediente.expediente'].depart_user())],
+                'views': [[self.env.ref('exp_envios_admin.expediente_corregir_form').id, "form"]],
+                }
+        return action
 
-    def oficina_en_flujo(self):
-        flujo_obj = self.env['tarea_flujo.flujo'].search([('name', '=', [proced_id])])
-        # print(("NO HAY FLUJO PARA ... " + expte_obj.procedimiento_id.name))
-        # SI NO HAY FLUJO O EL EXPEDIENTE TIENE UBICACION ACTUAL EN LA NUBE--
-        if not flujo_obj or expte_obj.ubicacion_actual.name.lower() == "Nube".lower():
-            return self.enviar()
-    """
