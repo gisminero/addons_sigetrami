@@ -1,33 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- REEMPLAZANDO EL BOTON ENVIAR ORIGINAL DE LA TREEVIEW -->
-    <record model="ir.ui.view" id="tarea_flujo_exp.expediente_tree_view">
-      <field name="name">Enviar Tarea Tree View</field>
-      <field name="model">expediente.expediente</field>
-      <field name="inherit_id" ref="expediente.mi_oficina_list"/>
-      <field name="arch" type="xml">
-          <xpath expr="//button[@name='enviar']" position="attributes">
-<!--                <attribute name="string">1</attribute>-->
-              <attribute name="attrs">{'invisible': 1}</attribute>
-          </xpath>
-          <xpath expr="//field[@name='ubicacion_actual']" position="after">
-            <field name="en_flujo"  readonly="1" />
-            <button name="proxima_tarea" type="object" string="Enviar..." context="{'id_activo': id, 'vista_padre': 'view', 'default_tarea_proxima': False}"
-                    attrs="{'invisible':[('state', '!=', 'active')]}"/>
-          </xpath>
-      </field>
-    </record>
 
-    <record model="ir.ui.view" id="tarea_flujo_exp.expediente_form_view">
-      <field name="name">Enviar Tarea Form</field>
-      <field name="model">expediente.expediente</field>
-      <field name="inherit_id" ref="expediente.form"/>
-      <field name="arch" type="xml">
-          <xpath expr="//field[@name='recibido']" position="after">
-<!--              <xpath expr="/form/sheet/group/group/field[@name='observaciones']" position="after">-->
-            <field name="en_flujo"  readonly="1" />
-          </xpath>
-      </field>
-    </record>
+
+      <record id="model_expediente_action_ff" model="ir.actions.server">
+            <field name="name">Share</field>
+            <field name="model_id" ref="expediente.model_expediente_expediente"/>
+            <field name="binding_model_id" ref="expediente.model_expediente_expediente"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_share()</field>
+        </record>
+
+
+    <!--
+    <act_window id="YOUR_ACTION_ID"
+            multi="True"
+            key2="client_action_multi" name="DISPLAY IN MORE"
+            res_model="expediente.expediente" src_model="expediente.expediente"
+            view_mode="form" target="new" view_type="form"
+    />
+    -->
+
 
 </odoo>

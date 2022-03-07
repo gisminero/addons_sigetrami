@@ -8,7 +8,7 @@ class exp_ff_admin(models.Model):
     # _order = 'create_date desc'
 
     #tramite_id = fields.Many2one('procedimiento.procedimiento', string="Trámite")
-    #nombre_titular = fields.Char('Nombre Titular', required=False)
+    name = fields.Char('Nombre', required=False)
     #cuit_titular = fields.Char('CUIT del Titular', required=False)
     #exp_id = fields.Many2one('expediente.expediente', string="Expediente al que correponde", readonly=True)
 
