@@ -125,9 +125,11 @@ class seguimiento(models.Model):
                 #Nueva oficina, caso contrario la fecha de comienzo ingresara la misma fecha de finalizaciòn de la tarea
                 #anterior
                 ordenar_por = "id desc"
-                seguimiento_linea_obj = self.env['seguimiento_linea'].search([('tarea_inicio', '=', False)],
-                                                                             order=ordenar_por, limit=1)[0]
-                seguimiento_linea_obj.write({'tarea_inicio': now})
+                seguimiento_linea_obj_count = self.env['seguimiento_linea'].search_count([('tarea_inicio', '=', False)])
+                if seguimiento_linea_obj_count > 0:
+                        seguimiento_linea_obj = self.env['seguimiento_linea'].search([('tarea_inicio', '=', False)],
+                                                        order=ordenar_por, limit=1)[0]
+                        seguimiento_linea_obj.write({'tarea_inicio': now})
                 return True
 
         def obtener_config_cambio(self, tramite_id, estado_legal_id):
@@ -692,6 +694,8 @@ class expediente(models.Model):
                 if flujo_obj:
                         print(("SE ENCONTRO UN FLUJO CORRESPONDIENTE A " + expte_obj.procedimiento_id.name))
                         print(("A PARTIR DEL 2022 SE PERMITE EL PASE DE EXPEDIENTE QUE SE ENCUENTRAN FUERA DE FLUJO "))
+                        return self.enviar()
+                        """
                         if not permiso_de_ingreso and not en_flujo:
                                 #En este punto se encotró se debe dejar claro que si el tramite cuenta con un flujo definido
                                 # el expediente no debe moverse hasta que se ingrese nuevamente en el flujo por alguien que
@@ -713,7 +717,7 @@ class expediente(models.Model):
                                         'target': 'new',
                                         'context': context,
                                 }
-                        
+                        """
                 #CONSULTANDO PASES
                 pase_obj = self.env['pase.pase']
                 user_id = self.env.user.id

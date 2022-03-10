@@ -111,7 +111,7 @@ class expediente(models.Model):
                 'type': 'ir.actions.act_window',
                 'target': 'new',
                 # 'domain': [('ubicacion_actual', '=', self.env['expediente.expediente'].depart_user())],
-                'views': [[self.env.ref('exp_envios_admin.expediente_corregir_form').id, "form"]],
+                'views': [[self.env.ref('exp_ff_admin.expediente_sacar_form').id, "form"]],
                 }
         return action
 
@@ -129,7 +129,7 @@ class expediente(models.Model):
                 'type': 'ir.actions.act_window',
                 'target': 'new',
                 # 'domain': [('ubicacion_actual', '=', self.env['expediente.expediente'].depart_user())],
-                'views': [[self.env.ref('exp_envios_admin.expediente_corregir_form').id, "form"]],
+                'views': [[self.env.ref('exp_ff_admin.expediente_ingreso_form').id, "form"]],
                 }
         return action
 
