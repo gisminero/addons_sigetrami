@@ -63,6 +63,9 @@ class expediente(models.Model):
     #Se cambia el orden a la fecha de ultima modificacion
     _order = "write_date desc"
 
+    def copy(self):
+        raise ValidationError('No es posible duplicar documentos, por favor cree uno nuevo')
+
     def default_user_id(self):
         return self.env.context.get("default_user_id", self.env.user)
 

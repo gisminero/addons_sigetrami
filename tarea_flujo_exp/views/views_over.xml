@@ -1,6 +1,7 @@
 <odoo>
   <data>
       <!-- VOLVIENDO DESDE SUBFLUJO A LA TAREA ANTERIOR A QUE ENTRARA AL MISMO -->
+      <!--
           <record model="ir.ui.view" id="tarea_flujo_exp.exp_pop_prox_tarea">
       <field name="name">Enviar a la Proxima Tarea</field>
       <field name="model">expediente.expediente</field>
@@ -15,13 +16,8 @@
 
                 <field name="name" attrs="{'readonly':[('state','!=', 'draft')]}"/>
                 <field name="en_flujo" invisible="0" string="En Flujo"   />
-                <!-- groups="tarea_flujo_exp.access_group_expte_flujo_si"
-                on_change="onchange_no_sacar(en_flujo)" -->
                 <field name="tarea_actual" attrs="{'readonly':[('en_flujo','!=', False)]}"
                        on_change="onchange_define_pase(tarea_actual)"/>
-                <!--domain="[('id','in', actual_tarea_list)]"
-                domain="['|',('id','in', proxima_tarea_list),('id','=', False)]"
-                -->
                 <field name="tarea_proxima"  on_change="onchange_define_pase(tarea_proxima)"
                  attrs="{'readonly':[('en_flujo','!=', True)]}" />
 
@@ -38,7 +34,6 @@
 
 
 
-<!--          <footer>-->
               <button name="proxima_tarea_enviar" type="object" string="Enviar"
               class="oe_highlight"
                       context="{'tarea_actual_new': tarea_actual,
@@ -50,14 +45,12 @@
                                 'en_flujo_new': en_flujo,
                                 'vista_padre': 'form' } "
               confirm="Por favor controlar la cantidad de folios. Cancele este mensaje para corregir." />
-              <!-- <button string="Enviar" class="btn-default" special="cancel"/> -->
-             <!--  <button string="Cancelar" class="btn-default" special="cancel" context="{ 'vista_padre': 'form' } "/> -->
                <button string="Cancelar" class="btn-default" name="cancel_return_mi_oficina" type="object" states="active"
                    context="{'vista_padre': 'view'}" />
-<!--          </footer>-->
       </form>
       </field>
     </record>
+    -->
             <!--FIN VOLVIENDO DESDE SUBFLUJO A LA TAREA ANTERIOR A QUE ENTRARA AL MISMO -->
     <record model="ir.ui.view" id="tarea_flujo_exp.exp_pop_prox_tarea">
       <field name="name">Enviar a la Proxima Tarea</field>
@@ -75,8 +68,12 @@
                 <!-- groups="tarea_flujo_exp.access_group_expte_flujo_si"
                 on_change="onchange_no_sacar(en_flujo)" -->
 
-                <field name="tarea_actual" attrs="{'readonly':[('en_flujo','!=', False)]}" on_change="onchange_define_pase(tarea_actual)"/>
+                <field name="tarea_actual"  readonly="1"
+                      on_change="onchange_define_pase(tarea_actual)"/>
+                <!--attrs="{'readonly':[('en_flujo','!=', False)]}" -->
                 <!--domain="[('id','in', actual_tarea_list)]" -->
+
+
                 <field name="tarea_proxima"  on_change="onchange_define_pase(tarea_proxima)"
                  attrs="{'readonly':[('en_flujo','!=', True)]}" />
                 <!--  domain="['|',('id','in', proxima_tarea_list),('id','=', False)]"  -->

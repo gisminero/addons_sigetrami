@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+      <record id="model_expediente_action_ff" model="ir.actions.server">
+            <field name="name">Sacar de Flujo</field>
+            <field name="model_id" ref="expediente.model_expediente_expediente"/>
+            <field name="binding_model_id" ref="expediente.model_expediente_expediente"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.exp_flujo_sacar()</field>
+           <field name="groups_id" eval="[(4, ref('exp_ff_admin.group_ff_admin_sacar'))]"/> 
+        </record>
+
+      <record id="model_exp_ingresar_action_ff" model="ir.actions.server">
+            <field name="name">Ingresar en Flujo</field>
+            <field name="model_id" ref="expediente.model_expediente_expediente"/>
+            <field name="binding_model_id" ref="expediente.model_expediente_expediente"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.exp_flujo_ingresar()</field>
+            <field name="groups_id" eval="[(4, ref('exp_ff_admin.group_ff_admin_ingresar'))]"/> 
+        </record>
+
+
+    <!--
+    <act_window id="YOUR_ACTION_ID"
+            multi="True"
+            key2="client_action_multi" name="DISPLAY IN MORE"
+            res_model="expediente.expediente" src_model="expediente.expediente"
+            view_mode="form" target="new" view_type="form"
+    />
+    -->
+
+
+</odoo>

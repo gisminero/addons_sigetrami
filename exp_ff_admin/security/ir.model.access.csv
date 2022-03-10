@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ff_admin,exp_ff_admin.envios,model_exp_ff_admin,expediente.access_group_expte_lectura,1,1,1,1
+access_ff_salida,exp_ff_admin.salida,model_expediente_expediente,exp_ff_admin.group_ff_admin_sacar,1,1,1,1
+access_ff_salida,exp_ff_admin.salida,model_expediente_expediente,exp_ff_admin.group_ff_admin_ingresar,1,1,1,1
