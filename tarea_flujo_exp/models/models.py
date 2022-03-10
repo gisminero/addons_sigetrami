@@ -690,7 +690,8 @@ class expediente(models.Model):
                 if not flujo_obj or expte_obj.ubicacion_actual.name.lower() == "Nube".lower():
                         return self.enviar()
                 if flujo_obj:
-                        # print(("SE ENCONTRO UN FLUJO CORRESPONDIENTE A " + expte_obj.procedimiento_id.name))
+                        print(("SE ENCONTRO UN FLUJO CORRESPONDIENTE A " + expte_obj.procedimiento_id.name))
+                        print(("A PARTIR DEL 2022 SE PERMITE EL PASE DE EXPEDIENTE QUE SE ENCUENTRAN FUERA DE FLUJO "))
                         if not permiso_de_ingreso and not en_flujo:
                                 #En este punto se encotró se debe dejar claro que si el tramite cuenta con un flujo definido
                                 # el expediente no debe moverse hasta que se ingrese nuevamente en el flujo por alguien que
@@ -712,6 +713,7 @@ class expediente(models.Model):
                                         'target': 'new',
                                         'context': context,
                                 }
+                        
                 #CONSULTANDO PASES
                 pase_obj = self.env['pase.pase']
                 user_id = self.env.user.id
