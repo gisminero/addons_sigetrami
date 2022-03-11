@@ -39,7 +39,7 @@
                 <field name="en_flujo" invisible="0" string="En Flujo" />
                 <field name="ubicacion_actual" invisible="0" attrs="{'readonly': True}" />
                 <field name="tarea_actual" attrs="{'readonly':[('en_flujo','!=', False)]}" on_change="onchange_define_pase(tarea_actual)"
-                domain="[('departament_id','=', ubicacion_actual)]" />
+                domain="[('departament_id','=', ubicacion_actual), ('proced_id','=', procedimiento_id)]" />
                 <!--domain="[('id','in', actual_tarea_list)]" -->
                 <field name="oficina_destino"   />
                 <field name="tarea_proxima"
@@ -59,12 +59,12 @@
               <button name="proxima_tarea_enviar" type="object" string="Enviar"
               class="oe_highlight"
                       context="{'tarea_actual_new': tarea_actual,
-                                'tarea_proxima_cont': tarea_proxima,
+                                'tarea_proxima_cont': tarea_actual,
                                 'oficina_destino_new': oficina_destino,
                                 'fojas_new': folios,
-                                'observaciones_new': observ_pase,
+                                'observaciones_new': '(Pase de Ingreso a Flujo)' + observ_pase,
                                 'id_activo': id,
-                                'en_flujo_new': en_flujo,
+                                'en_flujo_new': True,
                                 'vista_padre': 'form' } "
               confirm="Por favor controlar la cantidad de folios. Cancele este mensaje para corregir." />
                 <button string="Cancelar" class="btn-default" special="cancel"/>

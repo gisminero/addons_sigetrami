@@ -133,3 +133,6 @@ class expediente(models.Model):
                 }
         return action
 
+    def ingresar_flujo_tarea(self):
+        
+        return True
