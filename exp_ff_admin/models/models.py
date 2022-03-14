@@ -98,7 +98,53 @@ class expediente(models.Model):
     _description = "Lamando a Sacar o Ingresar en Flujo"
 
     def exp_flujo_sacar(self):
-        # print ("ENVIO DIRECTO ################################: " + str(self.id))
+        print ("CHEQUEANDO OFICINA################################ UBICACION ACTUAL: " + str(self.ubicacion_actual.id))
+        # NO SE PUEDE ENVIAR SI NO ESTA EN MI OFICINA
+        active_id = self.id
+        expte_obj = self.browse([active_id])
+        user_id = self.env.user.id
+        depart_id = self.userdepart(user_id)
+        print ("El departamento del usuario es########: " + str(depart_id))
+        #Validacion OFICINA VACIA#
+        pase_obj = self.env['pase.pase']
+        pase_cerrado = pase_obj.ultima_condicion_recibido(active_id)
+        print (( "ULTIMA CONDICION DE RECIBIDO : " +str(pase_cerrado)))
+        if pase_cerrado == False:
+            if not expte_obj.oficina_destino.name:
+                of_enviado = "-"
+            else:
+                of_enviado = expte_obj.oficina_destino.name
+            return {
+                    'name': "EL DOCUMENTO SE ENCUENTRA ENVIADO A: " + str(of_enviado),
+                    'view_mode': 'form',
+                    'res_id': active_id,
+                    #'view_id': self.env.ref('pase.form_enviar').id,
+                    'res_model': 'expediente.expediente',
+                    'type': 'ir.actions.act_window',
+                    #'domain': [('ubicacion_actual', '=', env['expediente.expediente'].depart_user())],
+                    #'domain': [('recibido', '=', False), ('oficina_destino', '=', self.env['expediente.expediente'].depart_user())],
+                    #'context': {'recibido': True, 'ultimo_pase_id': pase_res.id, 'oficina_destino': depart_id},
+                    'context': {'recibido': True, 'oficina_destino': depart_id},
+                    'views': [[self.env.ref('expediente.form_enviado').id, "form"]],
+                    'target': 'new',
+                    }
+        if depart_id != self.ubicacion_actual.id:
+            view = self.env.ref('sh_message.sh_message_wizard')
+            view_id = view and view.id or False
+            context = dict(self._context or {})
+            context['message'] = 'Para enviar el Expte. a una ubicación fuera de flujo es necesario que se encuentre en su oficina.'
+            return {
+                    'name': 'Informacion',
+                    'type': 'ir.actions.act_window',
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'res_model': 'sh.message.wizard',
+                    'views': [(view.id, 'form')],
+                    'view_id': view.id,
+                    'target': 'new',
+                    'context': context,
+                    }
+                # FIN NO SE PUEDE ENVIAR SI NO ESTA EN MI OFICINA
         if not self.tramite_tiene_flujo():
             print ((" EL TRAMITE NO TIENE FLUJO DEFINIDO"))
             action = self.enviar()
@@ -136,3 +182,38 @@ class expediente(models.Model):
     def ingresar_flujo_tarea(self):
         
         return True
+
+    def proxima_tarea_enviar_sacar(self):
+            print(("¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿ENVIANDO PASE DE TAREA Y OFICINA 2021_¡¡¡¡???????????????????????????"))
+            active_id = self.env.context.get('id_activo')
+            expte_obj = self.browse([active_id])
+            #OBTENIENDO VALORES DESDE CONTEX DEL POP UP
+            proxima_tarea_id = self.env.context.get('tarea_proxima_cont')#PROXIMA TAREA SELECCIONADA POR EL USUARIO
+            fojas_new = self.env.context.get('fojas_new')#NUEVO NUMERO DE FOJAS
+            destino_new = self.env.context.get('oficina_destino_new')#NUEVA OFICINA DESTINO
+            observaciones_new = self.env.context.get('observaciones_new')#oBSERVACIONES DEL PASE
+            #tarea_actual_old = self.env.context.get('tarea_actual')#CANDIDATO A SER BORRADO PORQUE NO TRAE NADA DESDE LA VISTA
+            en_flujo_new = self.env.context.get('en_flujo_new')
+            tipo_vista = self.env.context.get('vista_padre')
+            notifica_obj = self.env['notifica']
+            if destino_new is False and proxima_tarea_id is not False:
+                    view = self.env.ref('sh_message.sh_message_wizard_false')
+                    view_id = view and view.id or False
+                    context = dict(self._context or {})
+                    context['message'] = 'Verifique que el valor de Oficina Destino se muestre en el formulario de envio. Vuelva a intentar el envio.'
+                    return {
+                                'name': 'Informacion',
+                                'type': 'ir.actions.act_window',
+                                'view_type': 'form',
+                                'view_mode': 'form',
+                                'res_model': 'sh.message.wizard',
+                                'views': [(view.id, 'form')],
+                                'view_id': view.id,
+                                'target': 'new',
+                                'context': context,
+                        }
+            if en_flujo_new is False and expte_obj.en_flujo is True:
+                    self.cambia_estado_plazos(expte_obj.id, 'suspendido')
+                    self.write({'en_flujo': False})
+                    self.enviar_conf()
+                    return self.mi_oficina_view()

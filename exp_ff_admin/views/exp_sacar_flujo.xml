@@ -1,79 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
      <data>
-    <!-- explicit list view definition 
 
-    <record model="ir.ui.view" id="exp_envios_admin.expediente_ff">
-      <field name="name">Ingresar en Flujo</field>
-      <field name="model">expediente.expediente</field>
-      <field name="arch" type="xml">
-        <tree create="false" edit="false">
 
-            <field name="id" invisible="1"/>
-            <field name="state" invisible="1"/>
-            <field name="name"/>
-            <field name="procedimiento_id"/>
-            <field name="solicitante"/>
-            <field name="solicitante_cuit"/>
-            <field name="ubicacion_actual"  />
-            <field name="tarea_actual"/>
-            <field name="recibido"/>
-        <button string="Envio Directo"  name="envio_directo" type="object" attrs="{'invisible':[('recibido','=', False)]}" />
-
-        </tree>
-      </field>
-    </record>
--->
-
+<!--   FORMULARIO ENVIAR  -->
     <record model="ir.ui.view" id="exp_ff_admin.expediente_sacar_form">
-      <field name="name">Ingreso en Flujo</field>
+      <field name="name">Envio de Expediente</field>
       <field name="model">expediente.expediente</field>
       <field name="arch" type="xml">
-      <form string="Ingreso en  Flujo" create="false" editable="top">
+      <form string="Envio">
+          <sheet>
         <header>
+            <separator string="Enviando Expediente Fuera de Flujo"/>.
+            <field name="state" widget="statusbar" statusbar_visible="draft,active,archive" invisible="1" />
         </header>
-                <separator string=" Seleccione una tarea de la oficina a la que Ud. pertenece." />     
-            <group>
-                <field name="procedimiento_id" attrs="{'readonly':[('state','!=', 'draft')]}"/>
-                <field name="name" attrs="{'readonly':[('state','!=', 'draft')]}"/>
-                <field name="en_flujo" invisible="0" string="En Flujo" />
-                <field name="ubicacion_actual" invisible="0" attrs="{'readonly': True}" />
-                <field name="tarea_actual" attrs="{'readonly':[('en_flujo','!=', False)]}" on_change="onchange_define_pase(tarea_actual)"/>
-                <!--domain="[('id','in', actual_tarea_list)]" -->
-                <field name="oficina_destino"   />
-                <field name="tarea_proxima"
-                 attrs="{'readonly':[('en_flujo','!=', True)]}" domain="[('departament_id','=', oficina_destino), ('proced_id','=', procedimiento_id)]"/>
+               <group >
+                        <h1>
+                            <field name="name" class="oe_inline" attrs="{'readonly':[('id','>', 0)]}"/>
+                            <field name="id" invisible="1" />
+                        </h1>
+                 </group>
+        <group>
+          <field name="procedimiento_id"  attrs="{'readonly':[('state','!=', 'draft')]}" />
+           <field name="solicitante" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+            <field name="solicitante_cuit" attrs="{'readonly':[('state','!=', 'draft')]}" />
+            <field name="nombre_pedimento" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+            <field name="ubicacion_actual" attrs="{'readonly':[('state','!=', 'draft')]}" />
+            <field name="oficina_destino" />
+            <field name="folios" attrs="{'readonly':[('state','!=', 'draft'),('state','!=', 'active')]}"/>
+            <field name="observ_pase" />
+            <field name="user_creador_id" string="Creador por"/>
+            <field name="momento_inicio" string="Creado el"/>
+            <field name="recibido" string="Recibido" invisible="1" />
+         </group>
+               <footer>
+                   <button string="Cancelar" class="btn-default" name="mi_oficina_view" type="object" states="active"  />
+                   <!--
+                   <button name="enviar_conf" type="object" states="active" string="Confirmar Envio" class="oe_highlight"
+                    confirm="Antes de enviar ajuste el numero de folios del documento."
+                    groups="expediente.access_group_expte_escritura, expediente.access_group_expte_creacion"
+                    context="{'id_activo': id, 'fojas_new' : folios, 'oficina_destino_new' : oficina_destino, 'observaciones_new' : observ_pase}"/>
+                    -->
 
-
-                <!--  domain="['|',('id','in', proxima_tarea_list),('id','=', False)]"
-                  on_change="onchange_define_pase(tarea_proxima_cambio)"-->
-
-
-                <field name="folios" invisible="0"  />
-                <field name="observ_pase" invisible="0"/>
-            </group>
-          <field name="state" invisible="1"/>
-          <field name="id" invisible="1" />
-          <footer>
-              <button name="proxima_tarea_enviar" type="object" string="Enviar"
-              class="oe_highlight"
-                      context="{'tarea_actual_new': tarea_actual,
-                                'tarea_proxima_cont': tarea_proxima,
+                  <button name="proxima_tarea_enviar_sacar" type="object" string="Enviar"
+                      class="oe_highlight"
+                      context="{'tarea_actual_new': False,
+                                'tarea_proxima_cont': False,
                                 'oficina_destino_new': oficina_destino,
                                 'fojas_new': folios,
                                 'observaciones_new': observ_pase,
                                 'id_activo': id,
-                                'en_flujo_new': en_flujo,
+                                'en_flujo_new': False,
                                 'vista_padre': 'form' } "
-
-              confirm="Por favor controlar la cantidad de folios. Cancele este mensaje para corregir." />
-                <button string="Cancelar" class="btn-default" special="cancel"/>
-          </footer>
+                      confirm="Por favor controlar la cantidad de folios. Cancele este mensaje para corregir." />
 
 
+
+
+               </footer>
+          </sheet>
       </form>
       </field>
     </record>
+<!-- fin FORMULARIO ENVIAR -->
+
+
 
  </data>
 </odoo>
