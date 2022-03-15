@@ -41,7 +41,7 @@
                 <field name="tarea_actual" attrs="{'readonly':[('en_flujo','!=', False)]}" on_change="onchange_define_pase(tarea_actual)"
                 domain="[('departament_id','=', ubicacion_actual), ('proced_id','=', procedimiento_id)]" />
                 <!--domain="[('id','in', actual_tarea_list)]" -->
-                <field name="oficina_destino"   />
+                <field name="oficina_destino" readonly="True"  />
                 <field name="tarea_proxima"
                  attrs="{'readonly':[('en_flujo','!=', True)]}" domain="[('departament_id','=', oficina_destino), ('proced_id','=', procedimiento_id)]"/>
 
