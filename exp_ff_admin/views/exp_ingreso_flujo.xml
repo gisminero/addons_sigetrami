@@ -60,7 +60,7 @@
               class="oe_highlight"
                       context="{'tarea_actual_new': tarea_actual,
                                 'tarea_proxima_cont': tarea_actual,
-                                'oficina_destino_new': oficina_destino,
+                                'oficina_destino_new': ubicacion_actual,
                                 'fojas_new': folios,
                                 'observaciones_new': '(Pase de Ingreso a Flujo)' + observ_pase,
                                 'id_activo': id,

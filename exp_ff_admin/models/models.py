@@ -162,7 +162,26 @@ class expediente(models.Model):
         return action
 
     def exp_flujo_ingresar(self):
-        # print ("ENVIO DIRECTO ################################: " + str(self.id))
+        print ("LLAMANDO A INGRESAR EN FLUJO ################################: " + str(self.id))
+        user_id = self.env.user.id
+        depart_id = self.userdepart(user_id)
+        if depart_id != self.ubicacion_actual.id or self.en_flujo == True:
+            view = self.env.ref('sh_message.sh_message_wizard')
+            view_id = view and view.id or False
+            context = dict(self._context or {})
+            context['message'] = 'Para ingresar el Expte. es necesario que se encuentre en su oficina y este fuera de flujo.'
+            return {
+                    'name': 'Informacion',
+                    'type': 'ir.actions.act_window',
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'res_model': 'sh.message.wizard',
+                    'views': [(view.id, 'form')],
+                    'view_id': view.id,
+                    'target': 'new',
+                    'context': context,
+                    }
+                # FIN NO SE PUEDE ENVIAR SI NO ESTA EN MI OFICINA    
         if not self.tramite_tiene_flujo():
             print ((" EL TRAMITE NO TIENE FLUJO DEFINIDO"))
             action = self.enviar()
