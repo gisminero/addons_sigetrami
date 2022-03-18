@@ -32,6 +32,7 @@
           domain="[('iniciado', '=', '1')]" string="Procedimiento Ppal."/>
           <field name="susplazo"/>
           <field name="categoria_mineral"/>
+          <field name="active"/>
          </group>
       </form>
       </field>
