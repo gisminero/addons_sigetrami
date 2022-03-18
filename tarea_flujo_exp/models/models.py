@@ -491,7 +491,7 @@ class expediente(models.Model):
                 tipo_vista = self.env.context.get('vista_padre')
                 notifica_obj = self.env['notifica']
                 #Validacion OFICINA VACIA#
-                if destino_new is False and proxima_tarea_id is not False:
+                if destino_new is False and proxima_tarea_id is not False and expte_obj.en_flujo == True:
                         view = self.env.ref('sh_message.sh_message_wizard_false')
                         view_id = view and view.id or False
                         context = dict(self._context or {})
