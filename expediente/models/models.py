@@ -38,8 +38,9 @@ class exp_depart(models.Model):
 class exp_solicitantes(models.Model):
     _name = 'exp_solicitantes'
     _description = 'Solicitantes'
+    _inherits = {'res.partner': 'partner_id',}
 
-    solicitante = fields.Char('Solicitante', required=True)
+    solicitante = fields.Char('Solicitante', required=False)
     tipo_doc = fields.Selection([
         ('1', 'DNI'),
         ('2', 'DE'),
@@ -47,6 +48,12 @@ class exp_solicitantes(models.Model):
         help="Tipo Documento")
     solicitante_cuit = fields.Char('CUIT/CUIL/DNI', required=False)
     exp_id = fields.Many2one('expediente.expediente', 'Solicitantes', required=1, ondelete='cascade')
+
+    @api.onchange('solicitante_cuit')
+    def busca_nombre(self):
+        print (("BUSCANDO NOMBRE ....   "))
+        #return id
+
 
 class exp_pertenencias(models.Model):
     _name = 'exp_pertenencias'
@@ -713,3 +720,5 @@ class expediente(models.Model):
         @api.depends("emeu_sector_id.emeu_education_ids")
         def _get_education_domain(self):
             return True
+
+    
