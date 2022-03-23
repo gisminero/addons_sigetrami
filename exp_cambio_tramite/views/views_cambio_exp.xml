@@ -7,9 +7,10 @@
       <field name="arch" type="xml">
         <tree>
           <field name="tramite_id"/>
-          <field name="solicitante"/>
-          <field name="solicitante_cuit"/>
-          <field name="solicitantes"/>
+          <!--
+            <field name="doc_tipo"/>
+            <field name="documento"/>
+            -->
           <field name="create_date" string="Comienzo" />
           <field name="create_uid" string="Usuario"/>
         </tree>
@@ -22,12 +23,16 @@
       <field name="arch" type="xml">
         <form>
           <field name="tramite_id" readonly="1" />
+          <!--
           <field name="solicitante" readonly="1"/>
           <field name="solicitante_cuit" readonly="1"/>
+          -->
                 <field name="solicitantes" nolabel="1" colspan="2" readonly="1">
                     <tree string="Solicitantes" editable="bottom">
-                            <field name="solicitante"/>
-                            <field name="solicitante_cuit"/>
+                      <!--
+                            <field name="doc_tipo"/>
+                            <field name="documento"/>
+                      -->
 			        </tree>
 		        </field>
 
@@ -61,8 +66,8 @@
                  <newline/>
                 <field name="solicitantes" nolabel="1" colspan="2" >
 			                    <tree string="Solicitantes" editable="bottom">
-                            <field name="solicitante"/>
-                            <field name="solicitante_cuit"/>
+                           <field name="doc_tipo"/>
+                           <field name="documento" />
 			                     </tree>
 		           </field>
 <!--                <field name="exp_id" invisible="1"/>-->

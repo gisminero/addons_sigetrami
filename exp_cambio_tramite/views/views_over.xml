@@ -11,7 +11,7 @@
                         attrs="{'invisible':[('cambio_de_tramite', '!=', True)]}"/>
             </xpath>
             <xpath expr="//field[@name='ubicacion_actual']" position="after">
-                    <field name="cambio_de_tramite" invisible="1"/>
+                    <field name="cambio_de_tramite" invisible="0" string="Cambio de Trámite Autorizado" />
                <!--     <field name="historia_tramite" />  -->
             </xpath>
 

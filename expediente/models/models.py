@@ -40,19 +40,19 @@ class exp_solicitantes(models.Model):
     _description = 'Solicitantes'
     _inherits = {'res.partner': 'partner_id',}
 
-    solicitante = fields.Char('Solicitante', required=False)
-    tipo_doc = fields.Selection([
+    #solicitante = fields.Char('Solicitante', required=False)
+    doc_tipo = fields.Selection([
         ('1', 'DNI'),
         ('2', 'DE'),
         ('3', 'Pasaporte'), ], required=False,
         help="Tipo Documento")
-    solicitante_cuit = fields.Char('CUIT/CUIL/DNI', required=False)
+    documento = fields.Char('CUIT/CUIL/DNI', required=False)
     exp_id = fields.Many2one('expediente.expediente', 'Solicitantes', required=1, ondelete='cascade')
 
     @api.onchange('solicitante_cuit')
     def busca_nombre(self):
         print (("BUSCANDO NOMBRE ....   "))
-        #return id
+        return {'vals': {'name':  "NOMBRE..."}}
 
 
 class exp_pertenencias(models.Model):
@@ -180,7 +180,7 @@ class expediente(models.Model):
     empleado = fields.Many2one('hr.employee','Empleado Asignado', readonly=False)
     #_sql_constraints =[('name_uniq_exp', 'unique(name)', 'El numero de Expediente debe ser único para cada trámite')]
     estado_plazos = fields.Char('Estado de Plazos', compute="_estadoPlazo", required=False)
-    cant_pertenencias = fields.Integer('Cantidad de Pertenencias', help='', required=True)
+    #cant_pertenencias = fields.Integer('Cantidad de Pertenencias', help='', required=True)
     ###CAMPOS QUE NO PERTENECEN AL MODELO#####
     aux_categoria_mineral = fields.Char('Categoria del Mineral por Defecto', required=False, readonly=True)
 
