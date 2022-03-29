@@ -35,9 +35,10 @@ class exp_depart(models.Model):
     exp_id = fields.Many2one('expediente.expediente', 'Departamentos', required=1, ondelete='cascade')
     state_id_exp = fields.Many2one('res.country.state', string="Provincia", default=default_state, store=True, readonly=True)
 
-class exp_solicitantes(models.Model):
-    _name = 'exp_solicitantes'
-    _description = 'Solicitantes'
+
+class res_partner(models.Model):
+    _name = 'res_partner'
+    _description = 'Agrega DNI'
     _inherits = {'res.partner': 'partner_id',}
 
     #solicitante = fields.Char('Solicitante', required=False)
@@ -47,13 +48,21 @@ class exp_solicitantes(models.Model):
         ('3', 'Pasaporte'), ], required=False,
         help="Tipo Documento")
     documento = fields.Char('CUIT/CUIL/DNI', required=False)
-    exp_id = fields.Many2one('expediente.expediente', 'Solicitantes', required=1, ondelete='cascade')
 
-    @api.onchange('solicitante_cuit')
+
+class exp_solicitantes(models.Model):
+    _name = 'exp_solicitantes'
+    _description = 'Solicitantes'
+
+    partner = fields.Many2one('res.partner', 'Solicitantes', required=1, ondelete='cascade')
+    exp_id = fields.Many2one('expediente.expediente', 'Expediente Relacionado', required=1, ondelete='cascade')
+
+    """
+    @api.onchange('documento')
     def busca_nombre(self):
         print (("BUSCANDO NOMBRE ....   "))
-        return {'vals': {'name':  "NOMBRE..."}}
-
+        return {'partner_id':  73}
+    """
 
 class exp_pertenencias(models.Model):
     _name = 'exp_pertenencias'

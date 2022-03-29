@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+
+    <record id="view_res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">DRS Company Custom Fields</field>
+        <field name="model">res_partner</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="doc_tipo" string="Tipo Doc"/>
+                <field name="documento" string="Documento"/>
+            </field>
+        </field>
+    </record>
+
+ </data>
+</odoo>

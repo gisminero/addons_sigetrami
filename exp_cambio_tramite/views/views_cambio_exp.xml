@@ -66,8 +66,11 @@
                  <newline/>
                 <field name="solicitantes" nolabel="1" colspan="2" >
 			                    <tree string="Solicitantes" editable="bottom">
+                          <field name="partner"/>
+                          <!--
                            <field name="doc_tipo"/>
                            <field name="documento" />
+                           -->
 			                     </tree>
 		           </field>
 <!--                <field name="exp_id" invisible="1"/>-->

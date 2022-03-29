@@ -138,12 +138,8 @@
               <group col="2">
                    <field name="solicitantes" nolabel="1" colspan="2" attrs="{'readonly':[('state','!=', 'draft'), ('state','!=', 'active')]}">
                        <tree string="Solicitantes" editable="bottom">
-                           <field name="partner_id"/>
-                           <field name="doc_tipo"/>
-                           <field name="documento" />
-                           <field name="name"/>
-                           <field name="email" invisible="1"/>
-
+                            <field name="partner"/>
+                          
                        </tree>
 		           </field>
               </group>
