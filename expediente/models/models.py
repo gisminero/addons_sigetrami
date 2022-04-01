@@ -49,6 +49,22 @@ class res_partner(models.Model):
         help="Tipo Documento")
     documento = fields.Char('CUIT/CUIL/DNI', required=False)
 
+    def name_get(self):
+        res = super(res_partner, self).name_get()
+        result = []
+        for record in self:
+            if not record.documento:
+                codigo = "-"
+            else:
+                codigo = record.documento
+            if not record.name:
+                nombre = "-"
+            else:
+                nombre = record.name
+            tipo_label = dict(self._fields['tipo_doc'].selection).get(self.tipo_doc)
+            record_name = nombre + ' (' + str(tipo_label) + ') '+ codigo
+            result.append((record.id, record_name))
+        return record_name
 
 class exp_solicitantes(models.Model):
     _name = 'exp_solicitantes'
