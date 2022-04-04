@@ -2,7 +2,7 @@
   <data>
     <record model="ir.ui.view" id="expediente.solicitante_list">
       <field name="name">Lista de Solicitante</field>
-      <field name="model">exp_solicitantes</field>
+      <field name="model">exp_res_partner</field>
       <field name="arch" type="xml">
         <tree>
               <field name="name" />
@@ -15,7 +15,7 @@
 
     <record model="ir.ui.view" id="expediente.solicitante_form">
       <field name="name">Solicitante</field>
-      <field name="model">exp_solicitantes</field>
+      <field name="model">exp_res_partner</field>
       <field name="arch" type="xml">
       <form string="Solicitante">
         <header>
@@ -32,7 +32,7 @@
 
     <record model="ir.actions.act_window" id="expediente.solicitantes_list">
       <field name="name">Solicitantes</field>
-      <field name="res_model">exp_solicitantes</field>
+      <field name="res_model">exp_res_partner</field>
       <field name="view_mode">tree,form</field>
     </record>
 

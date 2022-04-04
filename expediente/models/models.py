@@ -37,14 +37,14 @@ class exp_depart(models.Model):
 
 
 class res_partner(models.Model):
-    _name = 'res_partner'
+    _name = 'exp_res_partner' #
     _description = 'Agrega DNI'
     _inherits = {'res.partner': 'partner_id',}
 
     #solicitante = fields.Char('Solicitante', required=False)
     doc_tipo = fields.Selection([
         ('1', 'DNI'),
-        ('2', 'DE'),
+        ('2', 'CUIT/CUIL'),
         ('3', 'Pasaporte'), ], required=False,
         help="Tipo Documento")
     documento = fields.Char('CUIT/CUIL/DNI', required=False)
@@ -61,16 +61,18 @@ class res_partner(models.Model):
                 nombre = "-"
             else:
                 nombre = record.name
-            tipo_label = dict(self._fields['tipo_doc'].selection).get(self.tipo_doc)
-            record_name = nombre + ' (' + str(tipo_label) + ') '+ codigo
+            #tipo_label = dict(self._fields['vat'].selection).get(self.tipo_doc)
+            #record_name = nombre + ' (' + str(tipo_label) + ') '+ codigo
+            record_name = nombre + " - CUIT/CUIL/DNI: "+ codigo
+            print (("EL CODIGO TRAIDO ES: " + str(codigo)))
             result.append((record.id, record_name))
-        return record_name
+        return result
 
 class exp_solicitantes(models.Model):
     _name = 'exp_solicitantes'
     _description = 'Solicitantes'
 
-    partner = fields.Many2one('res.partner', 'Solicitantes', required=1, ondelete='cascade')
+    partner = fields.Many2one('exp_res_partner', 'Solicitantes', required=1, ondelete='cascade')
     exp_id = fields.Many2one('expediente.expediente', 'Expediente Relacionado', required=1, ondelete='cascade')
 
     """

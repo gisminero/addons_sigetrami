@@ -31,7 +31,7 @@
         'reports/pases_report.xml',
         'views/popup_mas.xml',
         #Solicitantes
-        #'views/solicitantes_conf.xml',
+        'views/solicitantes_conf.xml',
         #'views/partner_over.xml',
     ],
     # only loaded in demonstration mode
