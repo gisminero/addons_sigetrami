@@ -64,7 +64,6 @@ class res_partner(models.Model):
             #tipo_label = dict(self._fields['vat'].selection).get(self.tipo_doc)
             #record_name = nombre + ' (' + str(tipo_label) + ') '+ codigo
             record_name = nombre + " - CUIT/CUIL/DNI: "+ codigo
-            print (("EL CODIGO TRAIDO ES: " + str(codigo)))
             result.append((record.id, record_name))
         return result
 
@@ -72,15 +71,32 @@ class exp_solicitantes(models.Model):
     _name = 'exp_solicitantes'
     _description = 'Solicitantes'
 
-    partner = fields.Many2one('exp_res_partner', 'Solicitantes', required=1, ondelete='cascade')
-    exp_id = fields.Many2one('expediente.expediente', 'Expediente Relacionado', required=1, ondelete='cascade')
+    partner = fields.Many2one('exp_res_partner', 'Solicitante', required=1, ondelete='cascade')
+    exp_id = fields.Many2one('expediente.expediente', 'Expediente', required=1, ondelete='cascade')
 
-    """
-    @api.onchange('documento')
-    def busca_nombre(self):
-        print (("BUSCANDO NOMBRE ....   "))
-        return {'partner_id':  73}
-    """
+    def otros_exp_relacionados(self):
+        #partner_id = self.partner.id
+        mens = ""
+        exp_solicitantes_list = self.env['exp_solicitantes'].search([('partner', '=', self.partner.id)])
+        for exp in exp_solicitantes_list:
+            print (("Expediente: " + exp.exp_id.name + " ("+  exp.exp_id.procedimiento_id.name + ")"))
+            mens = mens + "Expediente: " + exp.exp_id.name + " ("+  exp.exp_id.procedimiento_id.name + ")"  + '\n'
+        ##ENVIAR MENSAJE##
+        view = self.env.ref('sh_message.sh_message_wizard')
+        view_id = view and view.id or False
+        context = dict(self._context or {})
+        context['message'] = mens
+        return {
+            'name': "Documentos relacionados con el solicitante.",
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'sh.message.wizard',
+            'views': [(view.id, 'form')],
+            'view_id': view.id,
+            'target': 'new',
+            'context': context,
+            }
 
 class exp_pertenencias(models.Model):
     _name = 'exp_pertenencias'

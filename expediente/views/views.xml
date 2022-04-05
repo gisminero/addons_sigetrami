@@ -120,7 +120,7 @@
 <!--                    groups="expediente.access_group_expte_escritura, expediente.access_group_expte_creacion"-->
 <!--                    context="{'id_activo': id}"/>-->
 
-               </group>
+            </group>
               <group col="2">
                    <field name="procedimiento_id"  attrs="{'readonly':[('state','!=', 'draft')]}"
                    domain="[('iniciado', '=', '1')]" />
