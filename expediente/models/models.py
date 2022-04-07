@@ -61,8 +61,6 @@ class res_partner(models.Model):
                 nombre = "-"
             else:
                 nombre = record.name
-            #tipo_label = dict(self._fields['vat'].selection).get(self.tipo_doc)
-            #record_name = nombre + ' (' + str(tipo_label) + ') '+ codigo
             record_name = nombre + " - CUIT/CUIL/DNI: "+ codigo
             result.append((record.id, record_name))
         return result
@@ -79,7 +77,7 @@ class exp_solicitantes(models.Model):
         mens = ""
         exp_solicitantes_list = self.env['exp_solicitantes'].search([('partner', '=', self.partner.id)])
         for exp in exp_solicitantes_list:
-            print (("Expediente: " + exp.exp_id.name + " ("+  exp.exp_id.procedimiento_id.name + ")"))
+            #print (("Expediente: " + exp.exp_id.name + " ("+  exp.exp_id.procedimiento_id.name + ")"))
             mens = mens + "Expediente: " + exp.exp_id.name + " ("+  exp.exp_id.procedimiento_id.name + ")"  + '\n'
         ##ENVIAR MENSAJE##
         view = self.env.ref('sh_message.sh_message_wizard')
@@ -230,18 +228,16 @@ class expediente(models.Model):
     def userdepart(self, user_id):
         num_empl = self.env['hr.employee'].search_count([('user_id', '=', user_id)])
         if num_empl < 1:
-            print (("No se encuentra el empleado asociado al usuario: " + str(user_id)))
+            #print (("No se encuentra el empleado asociado al usuario: " + str(user_id)))
             return False
         elif num_empl > 1:
-            print (("Hay mas de un emplado asociado al usuario: " + str(user_id)))
+            #print (("Hay mas de un emplado asociado al usuario: " + str(user_id)))
             return False
         else:
             empl_obj = self.env['hr.employee'].search([('user_id', '=', user_id)])
             if empl_obj.department_id.id != False:
-                print (("RETORNANDO EL DEPARTAMENTO: " + str(empl_obj.department_id.id)))
                 return empl_obj.department_id.id
             else:
-                print (("EL EMPLEADO NO TIENE OFICINA ASIGNADA"))
                 raise ValidationError(('Configurar Empleado: Debe asociar una oficina o departamento al usuario actual B'))
                 return False
 
@@ -252,9 +248,7 @@ class expediente(models.Model):
         print (("EL CONTEXTO: " + str(self.env.context)))
         # active_id = lista_param['id']
         print(("EL ID ACTIVO SEGUN EL ULTIMO METODO: " + str(active_id)))
-        # print(("LOS IDS ACTIVOS: " + str(active_ids)))
         user_id = self.env.user.id
-        #print ((" CONTEXTO ACTIVANDO ... : " + str(self.env.context)))
         expte_obj = self.browse([active_id])
         depart_id = self.userdepart(user_id)
         if depart_id:
@@ -280,12 +274,12 @@ class expediente(models.Model):
     ######LLAMADOS A VISTAS DE EXPEDIENTES PERSONALIZADAS#########
     ## @api.multi
     def get_exped_mi_draft_prueba(self):
-        print(('LLAMANDO ...'))
+        #print(('LLAMANDO ...'))
         return True
 
     ## @api.multi
     def get_exped_mi_draft(self):
-        print(('LLAMANDO A BORRADORES#########################'))
+        #print(('LLAMANDO A BORRADORES#########################'))
         user_id = self.env.context.get("default_user_id", self.env.user).id
         depart_user_id = self.depart_user()
         if depart_user_id > 0:
@@ -306,7 +300,7 @@ class expediente(models.Model):
 
     ## @api.multi
     def get_exped_mi_active(self):
-        print(('LLAMANDO A ACTIVOS'))
+        #print(('LLAMANDO A ACTIVOS'))
         depart_user_id = self.depart_user()
         if depart_user_id > 0:
             action = {
@@ -368,7 +362,7 @@ class expediente(models.Model):
     #     }
 
     def aviso(self, titulo, mensaje):
-        print(('PROBANDO EL SEGUNDO POP '))
+        #print(('PROBANDO EL SEGUNDO POP '))
         view = self.env.ref('sh_message.sh_message_wizard')
         view_id = view and view.id or False
         context = dict(self._context or {})
@@ -388,7 +382,6 @@ class expediente(models.Model):
     def validacion(self, campo, valor):
         if campo == "folios":
             if valor < 2:
-                print (("VALIDACION DE FOLIOS"))
                 self.aviso("Validacion Folios", "Debe cargar el numero de folios.")
                 return False
         elif campo =="destino":

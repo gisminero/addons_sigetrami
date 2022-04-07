@@ -12,8 +12,8 @@
         		</header>
 				<field name="name"/>
 				<footer>
-				<!-- 	<button string="OK" class="btn-primary" special="cancel" />  -->
-					<button string="Ok" class="btn-default" name="reload_view" type="object"  />
+					<button string="Cerrar" class="btn-default" special="cancel" />  
+				<!-- 	<button string="Ok" class="btn-default" name="reload_view" type="object"  /> -->
 				</footer>
 			</form>
 		</field>	
@@ -28,7 +28,7 @@
         		</header>
 				<field name="name"/>
 				<footer>
-				 	<button string="OK" class="btn-primary" special="cancel" />
+				 	<button string="Ok" class="btn-primary" special="cancel" />
 				<!--	<button string="Ok" class="btn-default" name="reload_view" type="object"  /> -->
 				</footer>
 			</form>
