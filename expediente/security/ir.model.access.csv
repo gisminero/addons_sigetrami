@@ -19,3 +19,6 @@ access_expte_solic_escr,exp_solicitantes,model_exp_solicitantes,access_group_exp
 access_expte_solic_crea,exp_solicitantes,model_exp_solicitantes,access_group_expte_creacion,1,1,1,1
 access_distrito_lect,exp_distrito_lect,departamento.model_exp_distrito,access_group_expte_lectura,1,0,0,0
 access_wizard_lect,expediente.wizard,sh_message.model_sh_message_wizard,access_group_expte_lectura,1,1,0,0
+access_partner_lect,expediente.exp_res_partner_l,expediente.model_exp_res_partner,access_group_partner_lectura,1,0,0,0
+access_partner_crea,expediente.exp_res_partner_c,expediente.model_exp_res_partner,access_group_partner_creacion,1,1,1,0
+access_partner_admin,expediente.exp_res_partner_a,expediente.model_exp_res_partner,access_group_partner_admin,1,1,1,1

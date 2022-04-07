@@ -30,6 +30,10 @@
         'models/secuence.xml',
         'reports/pases_report.xml',
         'views/popup_mas.xml',
+        #Solicitantes
+        'views/exp_res_partner.xml',
+        'views/exp_solicitante.xml',
+        #'views/partner_over.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

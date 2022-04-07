@@ -69,6 +69,15 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="expediente.mi_oficina_list_search">
+      <field name="name">buscar.expediente</field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+        <search string="Filtro">
+          <filter name="inactive" string="Archivados"  domain="[('active', '=', False)]" />
+        </search>
+      </field>
+    </record>
 
 
     <record model="ir.ui.view" id="expediente.list_recibir">
@@ -120,7 +129,7 @@
 <!--                    groups="expediente.access_group_expte_escritura, expediente.access_group_expte_creacion"-->
 <!--                    context="{'id_activo': id}"/>-->
 
-               </group>
+            </group>
               <group col="2">
                    <field name="procedimiento_id"  attrs="{'readonly':[('state','!=', 'draft')]}"
                    domain="[('iniciado', '=', '1')]" />
@@ -138,10 +147,8 @@
               <group col="2">
                    <field name="solicitantes" nolabel="1" colspan="2" attrs="{'readonly':[('state','!=', 'draft'), ('state','!=', 'active')]}">
                        <tree string="Solicitantes" editable="bottom">
-                           <field name="tipo_doc"/>
-                           <field name="solicitante_cuit"/>
-                           <field name="solicitante"/>
-
+                            <field name="partner"/>
+                          
                        </tree>
 		           </field>
               </group>
