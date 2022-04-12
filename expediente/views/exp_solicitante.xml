@@ -29,7 +29,7 @@
             <group col="4">
               <field name="partner"  />
               <button name="otros_exp_relacionados" type="object" string="Otros exp. relacionados"
-              class="oe_highlight"  groups="expediente.access_group_partner_admin"/>
+              class="oe_highlight"  groups="expediente.access_group_partner_relaciones"/>
             </group>
 
             
