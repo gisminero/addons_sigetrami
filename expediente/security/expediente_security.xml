@@ -46,11 +46,24 @@
     <field name="category_id" ref="expediente.module_partner_exp"/>
     </record>
 
-    <record id="access_group_partner_admin" model="res.groups">
-      <field name="name">Administración</field>
+    <record id="access_group_partner_relaciones" model="res.groups">
+      <field name="name">Ver Relaciones</field>
       <field name="implied_ids" eval="[(4, ref('expediente.access_group_partner_creacion'))]"/>
     <field name="category_id" ref="expediente.module_partner_exp"/>
     </record>
+
+    <record id="access_group_partner_admin" model="res.groups">
+      <field name="name">Administración</field>
+      <field name="implied_ids" eval="[(4, ref('expediente.access_group_partner_relaciones'))]"/>
+    <field name="category_id" ref="expediente.module_partner_exp"/>
+    </record>
+
+ <data noupdate="1"> 
+    <record id="base.default_user" model="res.users">
+        <field name="groups_id" eval="[(4,ref('expediente.access_group_partner_lectura'))]"/>
+    </record>   
+ </data>
+
 
 
 </odoo>
