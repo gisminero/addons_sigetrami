@@ -1,0 +1,41 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition 
+
+     <record model="ir.ui.view" id="exp_reportes.list_report">
+      <field name="name">Lista de Expedientes 3 </field>
+      <field name="model">expediente.expediente</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+
+        </tree>
+      </field>
+    </record>
+actions opening views on models -->
+
+
+<record id="view_graph_expediente" model="ir.ui.view"> 
+  <field name="model">expediente.expediente</field> 
+  <field name="arch" type="xml"> 
+    <graph type="bar" name="Prueba"> 
+
+        <field name="procedimiento_id" />
+        <field name="folios" type="measure"/>
+    </graph>   
+    </field> 
+</record> 
+
+
+
+    <record model="ir.actions.act_window" id="exp_reportes.action_window">
+      <field name="name">Administración de Reportes de Expedientes.</field>
+      <field name="res_model">expediente.expediente</field>
+      <field name="view_mode">tree,graph</field>
+    </record>
+
+    <menuitem name="Reportes" id="exp_reportes.menu_graph" parent="gepromi.menu_root_report"
+              action="exp_reportes.action_window"/>
+
+  </data>
+</odoo>
