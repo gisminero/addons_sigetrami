@@ -15,8 +15,9 @@
             <field name="procedimiento_id"/>
             <field name="solicitante"/>
             <field name="solicitante_cuit"/>
-            <field name="ubicacion_actual"  />
+            <field name="ubicacion_actual"/>
             <field name="tarea_actual"/>
+            <field name="en_flujo"/>
             <field name="recibido"/>
         <button string="Envio Directo"  name="envio_directo" type="object" attrs="{'invisible':[('recibido','=', False)]}" />
 <!--            class="btn-default"-->

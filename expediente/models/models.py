@@ -200,7 +200,8 @@ class expediente(models.Model):
     solicitante = fields.Char('Solicitante', required=False, readonly=True)#30/05/21 Este campo se conserva por compatibilidad con los datos de la prov de Neuquén
     solicitante_cuit = fields.Char('CUIT/CUIL/DNI', required=False, readonly=True)#30/05/21 Este campo se conserva por compatibilidad con los datos de la prov de Neuquén
     solicitantes = fields.One2many('exp_solicitantes', 'exp_id', string='Solicitantes', required=False)
-    folios = fields.Integer('Folios', help='', default=1)
+    folios = fields.Integer('Folios', help='', default=0)
+    orden = fields.Char('Orden', required=False)
     estado_legal_actual = fields.Char('Estado Legal Actual', required=False, readonly=True)
     estado_legal_actual_id = fields.Many2one('estado_legal.estado_legal', '*Estado Legal Actual', readonly=True)
     mineral = fields.One2many('exp_mineral', 'exp_id', string='Mineral',required=False)
@@ -221,7 +222,7 @@ class expediente(models.Model):
     empleado = fields.Many2one('hr.employee','Empleado Asignado', readonly=False)
     #_sql_constraints =[('name_uniq_exp', 'unique(name)', 'El numero de Expediente debe ser único para cada trámite')]
     estado_plazos = fields.Char('Estado de Plazos', compute="_estadoPlazo", required=False)
-    #cant_pertenencias = fields.Integer('Cantidad de Pertenencias', help='', required=True)
+    cant_pertenencias = fields.Integer('Cantidad de Pertenencias', help='', required=True)
     ###CAMPOS QUE NO PERTENECEN AL MODELO#####
     aux_categoria_mineral = fields.Char('Categoria del Mineral por Defecto', required=False, readonly=True)
 

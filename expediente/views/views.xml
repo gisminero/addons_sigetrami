@@ -154,6 +154,7 @@
               </group>
               <group col="2">
                     <field name="folios" attrs="{'readonly':[('state','!=', 'draft'),('state','!=', 'active')]}"/>
+                    <field name="orden" attrs="{'readonly':[('state','!=', 'draft'),('state','!=', 'active')]}"/>
              </group>
               <newline/>
               <group col="2">
