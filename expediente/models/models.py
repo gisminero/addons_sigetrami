@@ -45,9 +45,10 @@ class res_partner(models.Model):
     doc_tipo = fields.Selection([
         ('1', 'DNI'),
         ('2', 'CUIT/CUIL'),
-        ('3', 'Pasaporte'), ], required=False,
+        ('3', 'Pasaporte'),
+        ('4', 'Otro Doc.'), ], required=True,
         help="Tipo Documento")
-    documento = fields.Char('CUIT/CUIL/DNI', required=False)
+    documento = fields.Char('CUIT/CUIL/DNI', required=True)
 
     def name_get(self):
         res = super(res_partner, self).name_get()
@@ -95,6 +96,9 @@ class exp_solicitantes(models.Model):
             'target': 'new',
             'context': context,
             }
+    def create_new_solic(self):
+        print(("CREANDO UN NUEVO SOLICITANTE"))
+        return True
 
 class exp_pertenencias(models.Model):
     _name = 'exp_pertenencias'
@@ -748,6 +752,21 @@ class expediente(models.Model):
         res = pase_objs[0].imprimir_pase()
         return res
 
+    def add_solicitante(self):
+        print(("DENTRO DE LA FUNCIÒN"))
+        return {
+            'name': "Información del Documento: " + self.name,
+            'view_mode': 'form',
+            'res_id': self.id, #SOLO PARA FORM
+            'res_model': 'exp_solicitantes',
+            'type': 'ir.actions.act_window',
+            # 'domain': [('seguimiento_id.expediente_id', '=', active_id)],
+            #'context': {'recibido': True, 'ubicacion_actual': depart_id},
+            'views': [[self.env.ref('expediente.solicitante_form').id, "form"]],
+            'target': 'new',
+            'tag': 'reload',
+            }
+        #return True
 
     class estado_legal(models.Model):
         _name = 'estado_legal.estado_legal'

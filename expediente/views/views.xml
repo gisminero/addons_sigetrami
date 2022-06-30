@@ -135,11 +135,14 @@
         <group>
               <group col="2">
                    <field name="solicitantes" nolabel="1" colspan="2" attrs="{'readonly':[('state','!=', 'draft'), ('state','!=', 'active')]}">
-                       <tree string="Solicitantes" editable="bottom">
+                        <!-- <tree string="Solicitantes" editable="bottom"> -->
+                       <tree string="Solicitantes" editable="bottom" create="false" >
                             <field name="partner"/>
                           
                        </tree>
-		           </field>
+                       
+		              </field>
+		              <button name="add_solicitante" type="object" states="active" string="Agregar Solicitante" context="{'id_activo': id}" class="btn-default"/>
               </group>
               <group col="2">
                     <field name="folios" attrs="{'readonly':[('state','!=', 'draft'),('state','!=', 'active')]}"/>

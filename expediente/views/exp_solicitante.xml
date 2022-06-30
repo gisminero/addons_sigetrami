@@ -24,10 +24,15 @@
         </header>
 
             <group>
-              <field name="exp_id" />
+              <field name="exp_id" readonly="1"/>
             </group>
             <group col="4">
-              <field name="partner"  />
+              <field name="partner" create="false" />
+              <button name="create_new_solic" type="object" string="Crear Nuevo Solicitante"
+              class="oe_highlight"  groups="expediente.access_group_partner_relaciones"/>
+            </group>
+            <group col="4">
+            
               <button name="otros_exp_relacionados" type="object" string="Otros exp. relacionados"
               class="oe_highlight"  groups="expediente.access_group_partner_relaciones"/>
             </group>
