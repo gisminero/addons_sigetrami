@@ -2,12 +2,11 @@
 
 from odoo import models, fields, api
 
-class expediente(models.Model):
-    _name = 'expediente.expediente'
-    #_name = 'expediente.expediente'
-    _inherit = 'expediente.expediente'
+class exp_report(models.Model):
+    _name = 'exp_report'
+    #_inherit = 'expediente.expediente'
 
-    #name = fields.Char('Nombre', required=True)
+    name = fields.Char('Nombre', required=True)
     # description = fields.Char('Descripcion', required=False)
     #state_id = fields.Many2one('res.country.state', string="Provincia")
     #distritos = fields.One2many('exp_distrito', 'depart_id', string='Distritos Mineros',required=False)
