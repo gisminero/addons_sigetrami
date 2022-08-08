@@ -6,7 +6,7 @@
         Reportes de Sistema""",
 
     'description': """
-        Reportes básicos del sistema SIGETRAMI - Primera Versión Funcional
+        Reportes básicos del sistema SIGETRAMI
     """,
 
     'author': "Gis Minero Nacional",
@@ -16,14 +16,15 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Uncategorized',
-    'version': '0.2',
+    'version': '0.1',
 
     # any module necessary for this one to work correctly
     'depends': ['base','gepromi', 'expediente'],
 
     # always loaded
     'data': [
-        #'security/ir.model.access.csv',
+        'security/report_security.xml',
+        'security/ir.model.access.csv',
         'views/views_exp_report.xml',
         #'views/templates.xml',
         # 'data/departamentos_arg.xml',
